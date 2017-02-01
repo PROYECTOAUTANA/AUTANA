@@ -1,0 +1,225 @@
+* {
+        margin: 0;
+        padding: 0;
+  }
+body > a,p,h1,h2,h3{font-family:  arial,sans-serif;}
+.menu1{margin-top: 6px;}
+.navbar-inverse {
+    background-color: #03A9F4;
+    border-color: #03A9F4;
+    margin-top: 0px;
+}
+
+.navbar-inverse .navbar-toggle {border-color: #08c;}
+.navbar-inverse .navbar-brand {color: #fff;}
+.navbar-inverse .navbar-brand a:hover{color: #fff;}
+.navbar-inverse .navbar-nav > li > a {color: #fff;}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: #08c;
+    color: #fff;
+}
+.navbar-inverse .navbar-nav > li > a:active {
+    background-color: #08c;
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+    color: #fff;
+    background-color: #08c;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color:  rgba(12, 17, 21, 0.33);
+}
+@media (max-width: 767px){.navbar-inverse .navbar-nav .open .dropdown-menu .divider {background-color: #08c;}}
+@media (max-width: 767px){.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {color: #fff;}}
+.navbar-inverse .navbar-toggle {border-color: #03A9F4;}
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {background-color: #03A9F4}
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {border-color: #03A9F4}
+.navbar-inverse .navbar-toggle {border-color: #03A9F4;}
+
+.container > .jumbotron {padding: 0px;margin-bottom: 0px;}
+.uptaeb{border-radius: 0px;height: 120px;}
+.fecha{float: right;}
+.contenedor, .barra{padding-left: 0px;padding-right: 0px;}
+
+.barra{
+    margin-top: 50px;
+    padding-right: 0px;
+    margin-right: 0px;
+    margin-bottom: 20px;
+}
+
+.operaciones{margin-top: 24px;}
+.col-md-4 > a{text-decoration: none;}
+
+.polaroid {
+    height: 150px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.43), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+}
+
+.polaroid-1{
+    background-color:#009688;
+-webkit-transition:all 1s ease;
+-o-transition:all 1s ease;
+transition:all 1s ease; 
+}
+.polaroid-1:hover{background-color:rgba(0, 150, 136, 0.68);}
+.polaroid-2{
+    background-color:#05589A;
+-webkit-transition:all 1s ease;
+-o-transition:all 1s ease;
+transition:all 1s ease; 
+}
+.polaroid-2:hover{background-color:rgba(5, 88, 154, 0.74);}
+.polaroid-3{
+    background-color:#f44336;
+-webkit-transition:all 1s ease;
+-o-transition:all 1s ease;
+transition:all 1s ease; 
+}
+.polaroid-3:hover{background-color:rgba(244, 67, 54, 0.71);}
+.polaroid-4{
+    background-color:#ff9800;
+-webkit-transition:all 1s ease;
+-o-transition:all 1s ease;
+transition:all 1s ease; 
+}
+.polaroid-4:hover{background-color:rgba(255, 152, 0, 0.72);}
+.polaroid-5{
+    background-color:rgba(190, 41, 202, 0.99);
+-webkit-transition:all 1s ease;
+-o-transition:all 1s ease;
+transition:all 1s ease; 
+}
+.polaroid-5:hover{background-color:rgba(190, 41, 202, 0.73);}
+.polaroid-6{
+    background-color:rgb(113, 112, 112);
+-webkit-transition:all 1s ease;
+-o-transition:all 1s ease;
+transition:all 1s ease; 
+}
+.polaroid-6:hover{background-color:rgba(113, 112, 112, 0.75);}
+
+.polaroid > .icono {
+    text-align: center;
+    padding-top: 15px;
+    color: #fff;
+    font-size: 50px;
+}
+.polaroid > .texto {
+    text-align: center;
+    color: #fff;
+    padding: 0px;
+}
+.alert-default{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+
+.menu > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 16%;
+    background-color: #03A9F4;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.69), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: fixed; /* Make it stick, even on scroll */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scrolling if the sidenav has too much content */    
+}
+.menu > ul > li > a {
+    display: block;
+    color: #fff;
+    text-align: left;
+    padding: 16px 16px;
+    text-decoration: none;
+    font-family: arial;
+-webkit-transition:all 1s ease;
+-o-transition:all 1s ease;
+transition:all 1s ease; 
+
+}
+/* Change the link color on hover */
+.menu > ul > li > a:hover ,.menu > ul > li > a:focus{
+
+    background-color:  #05589A;
+    color: #fff;
+}
+
+/* menu desplegable*/
+.submenu {
+    display:none;
+    position: relative;
+    background-color: #05589A;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* menus desplegables */
+.submenu a {
+    color: #fff;
+    text-align: right;
+    padding: 16px 16px;
+    text-decoration: none;
+    display: block;
+}
+.boton_desplegable:hover .submenu {display: block;}
+.submenu a:hover {background-color: #f5f5f5;color: #000;}
+
+
+
+.panel{margin-top: 45px;}
+.titulo{
+    color: #000;
+-webkit-transition:all 1.5s ease;
+-o-transition:all 1.5s ease;
+transition:all 1.5s ease; 
+}
+.titulo:hover{color: #03A9F4;}
+.login{background-color: #fff;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+
+.imagen {
+    background: #03A9F4;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 30px;
+    padding: 50px 30px;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fff;
+    width: 100%;
+    font-family:  arial,sans-serif;
+}
+
+footer {
+        padding:4px 0px;
+        position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
+        width: 100%;
+        bottom: 0;/*MARGEN HACA ABAJO*/
+        z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
+        left: 0; /* Depende el Ancho de donde se va a colocar */ 
+        background-color:#03A9F4;
+        color:#fff;      
+}
+
+footer a{color:#fff;}
+footer a:hover{color:#f5f5f5;}
+
+@media (max-width: 1024px){
+
+    footer {display: none;}
+    .barra{display: none;}
+}
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+    display: block;
+    max-width: 100%;
+    height: 280px;
+}
