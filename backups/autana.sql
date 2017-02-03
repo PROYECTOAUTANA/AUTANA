@@ -3,20 +3,29 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-01-2017 a las 16:16:40
+-- Tiempo de generación: 01-02-2017 a las 20:38:05
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.5.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-CREATE DATABASE IF NOT EXISTS `AUTANA` DEFAULT CHARACTER SET utf32 COLLATE utf32_spanish2_ci;
-USE `registro`;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `autana`
+--
+CREATE DATABASE IF NOT EXISTS `autana` DEFAULT CHARACTER SET utf32 COLLATE utf32_spanish2_ci;
+USE `autana`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `admin`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -30,21 +39,21 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `admin`
+-- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `admin` (`id`, `nombre`, `cedula`, `correo`, `user`, `pass`, `tipo`) VALUES
-(1, 'juan', '123456', 'juaneliezer13@gmail.com', 'juancho', '81dc9bdb52d04dc20036dbd8313ed055', 1),
-(2, 'luis', '1234', 'luis@luis.com', 'luis', '1234', 2);
+INSERT INTO `usuarios` (`id`, `nombre`, `cedula`, `correo`, `user`, `pass`, `tipo`) VALUES
+(1, 'juan', '123456', 'juaneliezer13@gmail.com', 'juancho', '1234', 1),
+(2, 'luis', '1234', 'luis@luis.com', 'luis', '1111', 2);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `admin`
+-- Indices de la tabla `usuarios`
 --
-ALTER TABLE `admin`
+ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -52,15 +61,7 @@ ALTER TABLE `admin`
 --
 
 --
--- AUTO_INCREMENT de la tabla `admin`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
-ALTER TABLE `admin`
+ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;--
--- Base de datos: `test`
---
-CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `test`;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

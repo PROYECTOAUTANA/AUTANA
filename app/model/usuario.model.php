@@ -24,30 +24,28 @@ class Usuario{
     	elseif ($contador == 0) echo '<script>alert("Usuario o Contraseña Incorrecto")</script>';
 	}
 
-	function getDatos($id){
-
-		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE id = '$id';");
-		$sql->execute();
-		$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-		return $datosDB;
-	}
-
 	function validaCorreo($email){
 
 		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE correo = '$email';");  
         $sql->execute();
         $contador = $sql->rowCount();
     	$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    	if ($contador == 1) return $datosDB;
-    	elseif ($contador == 0) echo '<script>alert("Correo no existe")</script>';
+    	if ($contador == 1) {
+
+    	session_start();
+		$_SESSION['id'] = $datosDB['id'];
+		$_SESSION['nombre'] = $datosDB['nombre'];
+
+		header("location: ?controller=index&action=reestablecer");
+    	}
+
+    	elseif ($contador == 0) header("location: index.php");
 	}
 
 	function cambioClave($pass,$id){
 		
 		$sql = $this->pdo->prepare("UPDATE $this->tabla SET pass='$pass' WHERE id='$id';");
 		$sql->execute();
-
-
 	}
 }
 ?>

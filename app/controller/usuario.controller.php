@@ -20,12 +20,8 @@ private $model;
 
 	function verificaEmail(){
 
-		$datosDB = $this->model->validaCorreo($_POST['email']);
-		session_start();
-		$_SESSION['id'] = $datosDB['id'];
-		$_SESSION['nombre'] = $datosDB['nombre'];
-
-		header("location: ?controller=index&action=reestablecer");
+		$this->model->validaCorreo($_POST['email']);
+		
 	}
 
 	function cambioClave(){
