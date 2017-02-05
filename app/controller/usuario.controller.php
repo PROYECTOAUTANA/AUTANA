@@ -11,11 +11,21 @@ private $model;
 
 	function validarSesion(){
 		session_start();
-		$datosDB = $this->model->validar($_POST['usuario'],$_POST['password']);
+		$pass = $this->model->encriptar($_POST['password']);
+		$datosDB = $this->model->validar($_POST['usuario'],$pass);
 		$_SESSION['id'] = $datosDB['id'];
+		$_SESSION['nombre'] = $datosDB['nombre'];
+		$_SESSION['cedula'] = $datosDB['cedula'];
+		$_SESSION['user'] = $datosDB['user'];
+		$_SESSION['correo'] = $datosDB['correo'];
 
-		if ($datosDB['tipo'] == 1) 	header("location: ?controller=index&action=portalAdmin");
-		elseif ($datosDB['tipo'] == 2)	header("location: ?controller=index&action=Portal");	
+		if ($datosDB['tipo'] == 1){ 	
+			header("location: ?controller=index&action=portalAdmin");
+		}
+		elseif ($datosDB['tipo'] == 2){	
+			
+			header("location: ?controller=index&action=Portal");
+		}	
 	}
 
 	function verificaEmail(){
@@ -26,7 +36,7 @@ private $model;
 
 	function cambioClave(){
 		session_start();
-		$this->model->cambioClave($_POST['pass'],$_GET['id']);
+		echo $this->model->cambioClave($_POST['pass'],$_GET['id']);
 		session_start();
 		session_destroy();
 		header("location: index.php");

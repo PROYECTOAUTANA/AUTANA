@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-02-2017 a las 20:38:05
+-- Tiempo de generación: 05-02-2017 a las 17:10:01
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.5.34
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `autana`
 --
-CREATE DATABASE IF NOT EXISTS `autana` DEFAULT CHARACTER SET utf32 COLLATE utf32_spanish2_ci;
-USE `autana`;
 
 -- --------------------------------------------------------
 
@@ -43,8 +41,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `cedula`, `correo`, `user`, `pass`, `tipo`) VALUES
-(1, 'juan', '123456', 'juaneliezer13@gmail.com', 'juancho', '1234', 1),
-(2, 'luis', '1234', 'luis@luis.com', 'luis', '1111', 2);
+(1, 'juan', '123456', 'juaneliezer13@gmail.com', 'juancho', '14c879f3f5d8ed93a09f6090d77c2cc3', 1),
+(2, 'luis', '123456', 'luis@luis.com', 'luis', '5c0bea43dcee002ba2e770ac0b657ccb', 2);
 
 --
 -- Índices para tablas volcadas
@@ -64,4 +62,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;--
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

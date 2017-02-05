@@ -16,12 +16,21 @@ class Usuario{
 
 	function validar($usuario,$password){
 
-		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE user = '$usuario' AND pass = '$password';");  
+	$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE user = '$usuario' AND pass= '$password';");
         $sql->execute();
         $contador = $sql->rowCount();
     	$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
     	if ($contador == 1) return $datosDB;
-    	elseif ($contador == 0) echo '<script>alert("Usuario o Contraseña Incorrecto")</script>';
+    	elseif ($contador == 0) {
+    		echo '<script>alert("Usuario o Contraseña Incorrecto")</script>';
+    		header("location: index.php");
+    	}
+    		
+	}
+
+	function encriptar($pass){
+		$md5 = md5($pass);
+		return $md5;
 	}
 
 	function validaCorreo($email){
@@ -43,8 +52,8 @@ class Usuario{
 	}
 
 	function cambioClave($pass,$id){
-		
-		$sql = $this->pdo->prepare("UPDATE $this->tabla SET pass='$pass' WHERE id='$id';");
+		$md5 = md5($pass);
+		$sql = $this->pdo->prepare("UPDATE $this->tabla SET pass = '$md5' WHERE id='$id';");
 		$sql->execute();
 	}
 }

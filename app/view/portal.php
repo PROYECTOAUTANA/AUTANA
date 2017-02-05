@@ -30,7 +30,7 @@ if(!$_SESSION){
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown nav-item active">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" >
-                <span class="glyphicon glyphicon-user"/> <?php echo $_SESSION['usuario']; ?></a>
+                <span class="glyphicon glyphicon-user"/> <?php echo $_SESSION['user']; ?></a>
               <ul class="dropdown-menu" role="menu">
                 <li>          
                     <img src="src/img/usu1.png"  width="100%" height="150">
@@ -218,10 +218,10 @@ if(!$_SESSION){
                             <div class="text-center">
                               <img src="src/img/usu1.png" alt="..." class="img-rounded" width="20%">
                             </div>
-                            <h5>Nombre:  <?php echo $datos['nombre']; ?></h5>
-                            <h5>Cedula:  <?php echo $datos['cedula']; ?></h5>
-                            <h5>Correo:  <?php echo $datos['correo']; ?></h5>
-                            <h5>Usuario:  <?php echo $datos['user']; ?></h5>
+                            <h5>Nombre:  <?php echo $_SESSION['nombre']; ?></h5>
+                            <h5>Cedula:  <?php echo $_SESSION['cedula']; ?></h5>
+                            <h5>Correo:  <?php echo $_SESSION['correo']; ?></h5>
+                            <h5>Usuario:  <?php echo $_SESSION['user']; ?></h5>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
