@@ -1,5 +1,4 @@
 <?php
-require "app/model/usuario.model.php";
 Class usuarioController{
 
 private $model;

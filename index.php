@@ -1,4 +1,6 @@
 <?php
+require "app/model/usuario.model.php";
+require "app/database/conexion.php";
 $controller = 'index';
 if(!isset($_GET['controller'])) {
     require_once "app/controller/$controller.controller.php";

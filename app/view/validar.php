@@ -6,86 +6,36 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>:::  SISTEMA DE USUARIOS  :::</title>
   <link rel="stylesheet" href="src/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
    <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
-   <link rel="stylesheet" type="text/css" href="src/css/carrousel.css">
 </head>
 <body>
-<header>
-  <div class="container menu1">
-      <nav class="navbar navbar-inverse" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-fm">
-              <span class="sr-only">Desplegar / Ocultar Menu</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a  href="index.html" class="navbar-brand "><span class="glyphicon glyphicon-education"></span>  A U T A N A</a>
-          </div>
-          <!-- Inicia Menu -->
-          <div class="collapse navbar-collapse" id="navegacion-fm">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Acerca de</a>
-                </li>
-            </ul> 
-          </div>
-        </div>
+<header class="banner">
+    <div class="barra_2">
+      <div class="logo">
+        <a href="index.php"><img src="src/img/lautana.png" alt="..."></a>
+      </div>   
+      <nav>
+        <a href="#">Acerca de</a>
       </nav>
-      <section class="jumbotron">
-          <div class="banner">
-  <!-- Carousel==================== -->
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-              <!-- Indicators -->
-              <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                  <img class="first-slide" src="src/img/nuevo.jpg" width="100%" alt="First slide">
-                </div>
-                <div class="item">
-                  <img class="second-slide" src="src/img/banderas.png" width="100%" alt="Second slide">
-                </div>
-                <div class="item">
-                  <img class="third-slide" src="src/img/autana.jpg" width="100%" alt="Third slide">
-                </div>
-              </div>
-              <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-    <!-- /.carousel -->  
-          </div>
-      </section>
-  </div>
+    </div>
 </header>
-<div class="articulo col-md-10 col-md-offset-1">
-        <div class="page-header">
-            <h3 class="titulo" align="center"><span class="glyphicon glyphicon-education"></span>   A U T A N A</h3>
-        </div>
+
+<div class="home col-md-10 col-md-offset-1">
         <div class="col-md-6 col-md-offset-3"> 
           <div class="well login">
             <div class="imagen">
-                <img src="src/img/birrete.svg" alt="...">
+                <img src="src/img/passw.png" alt="...">
             </div>
             <h3 align="center" class="titulo"> Reestablecer contraseña</h3>
-            <h5 align="center" class="titulo"> Fase 1: Autenticacion</h5>
+            <h4 align="center" class="titulo"> Fase 1: Autenticacion</h4>
              
             <form class="form-group" method="post" action="?controller=usuario&action=verificaEmail">
                   <div class="form-group">
                     <input type="text" name="email" class="form-control" autofocus placeholder="Escriba su correo..." maxlength="25">
                   </div>
                   <div class="form-group">
-                      <button type="submit" class="btn btn-info btn-block">
+                      <button type="submit" class="btn btn-info btn-block boton">
                         <span class="glyphicon glyphicon-ok"></span>   
                         Enviar
                       </button>
@@ -93,12 +43,22 @@
             </form>
           </div>
         </div>
-  </div><!--articulo-->
-<!--**************************************************SOLO VENTANAS MODALES**********************************************************-->
+  </div>
 
-<!--**************************************************SOLO VENTANAS MODALES**********************************************************-->
+  <footer>
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="col-sm-12">
+        <p>Sistema Automatizado de Gestion de Trabajos de Ascenso</p>
+    </div>
+    <div class="col-sm-12">
+        <p>Universidad Politecnica Territorial Andres Eloy Blanco</p>
+    </div>
+     <div class="col-sm-12">
+        <p>&copy Autana 2017</p>
+    </div>
+    </div>
+  </footer>
 <script src="src/js/jquery.js"></script>
-<script src="src/js/ajax.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
 </body>
 </html>

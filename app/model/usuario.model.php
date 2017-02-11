@@ -4,13 +4,7 @@ class Usuario{
 	private $tabla;
 
 	function __construct(){
-
-		try {
-			$this->pdo = new PDO('mysql:host=localhost;dbname=AUTANA', 'root', '');
-		} catch (Exception $e) {
-			echo "PDO error: ".$e->getMessage();
-		}
-
+		$this->pdo = new Conexion();
 		$this->tabla = "usuarios";
 	}
 
@@ -29,10 +23,11 @@ class Usuario{
 	}
 
 	function encriptar($pass){
+
 		$md5 = md5($pass);
 		return $md5;
 	}
-
+	
 	function validaCorreo($email){
 
 		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE correo = '$email';");  

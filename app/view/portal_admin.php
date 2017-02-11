@@ -10,6 +10,7 @@ if(!$_SESSION){
   <meta charset="UTF-8">
   <title>:::  SISTEMA DE USUARIOS  :::</title>
   <link rel="stylesheet" href="src/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
    <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
 </head>
 <body >
@@ -24,14 +25,23 @@ if(!$_SESSION){
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a  href="index.html" class="navbar-brand "><span class="glyphicon glyphicon-education"></span>  A U T A N A</a>
+            <a href="?controller=usuario&action=cerrarSesion" class="navbar-brand ">A U T A N A</a>
         </div>
         <div class="collapse navbar-collapse" id="navegacion-fm">
+          <ul class="nav navbar-nav navbar-left">
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><span class="glyphicon glyphicon-asterisk"></span> Nuevo Trabajo</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><span class="glyphicon glyphicon-globe"></span> WebSite</a>
+                </li>
+          </ul> 
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown nav-item active">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" >
                 <span class="glyphicon glyphicon-user"/> <?php echo $_SESSION['user']; ?></a>
               <ul class="dropdown-menu" role="menu">
+
                 <li>          
                     <img src="src/img/usu1.png"  width="100%" height="150">
                 </li>
@@ -59,174 +69,110 @@ if(!$_SESSION){
     </nav>
   </div>
 </header>
-<section class="principal">
-    <div class="col-md-12 contenedor">
-      <div class="col-md-2 barra">
-        <div class="menu">
-            <ul>
-              <li><img src="src/img/autana02.png" class="img-thumbnail uptaeb" width="100%"></li>
-              <li><a href="#"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Nuevo Trabajo</a></li>
-              <li class="boton_desplegable"><a href="#"><span class="glyphicon glyphicon-eye-open"></span> Consultar Trabajos</a>
-                  <div class="submenu">
-                    <a href="#">Listar Todos</a>
-                    <a href="#">Modificar Trabajo</a>
-                    <a href="#">Estatus de Trabajos</a>
-                  </div>
-              </li>
-              <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Eliminar Trabajo</a></li>
-              <li class="boton_desplegable"><a href="#"><span class="glyphicon glyphicon-list"></span> Generar Reporte</a>
-                <div class="submenu">
-                  <a href="#">Constancia Tutor</a>
-                  <a href="#">Constancia Jurado Simple</a>
-                  <a href="#">Constancia Jurado Coordinador</a>
-                  <a href="#">Constancia Autor</a>
-                </div>
-              </li>
-              <li class="boton_desplegable"><a href="#"><span class="glyphicon glyphicon-check"></span> Consultar Docente</a>
-                <div class="submenu">
-                    <a href="#">Modificar Datos</a>
-                    <a href="#">Listar Todos los Docentes</a>
-                    <a href="#">Categorias Docentes</a>
-                </div>
-              </li>
-              <li><a href="#"><span class="glyphicon glyphicon-education"></span> Autores de trabajos</a></li>
-              <li class="boton_desplegable"><a href="#"><span class="glyphicon glyphicon-plus"></span> Nuevo Usuario</a>
-                <div class="submenu">
-                    <a href="#">Nuevo Administrador</a>
-                    <a href="#">Nuevo Supervisor</a>
-                    <a href="#">Nuevo Usuario Externo</a>
-                </div>
-              </li>
-              <li class="boton_desplegable"><a href="#"><span class="glyphicon glyphicon-user"></span> Consultar Usuario</a>
-                <div class="submenu">
-                    <a href="#">Listar Todos</a>
-                    <a href="#">Modificar datos</a>
-                    <a href="#">Cambiar contraseña de un usuario</a>
-                    <a href="#">Eliminar Cuenta de Usuario</a>
-                </div>
-              </li>
-              <li><a href="#"><span class="glyphicon glyphicon-lock"></span> Habilitar / Deshabilitar Usuario</a></li>
-              <li class="boton_desplegable"><a href="#"><span class="glyphicon glyphicon-wrench"></span> Mantenimiento</a>
-                <div class="submenu">
-                    <a href="#">Recuperar Contraseña de Usuarios</a>
-                    <a href="#">Copias de Seguridad</a>
-                    <a href="#">Restaurar Base de Datos</a>
-                </div>
-              </li>
-               <li><a href="#ventana1" data-toggle="modal"><span class="glyphicon glyphicon-off"></span> Salir</a></li>
+<div id="principal">
+        <!-- Sidebar -->
+        <div id="barra">
+            <ul class="menu">
+                <li class="logotipo">
+                     <img src="src/img/lautana.png"  alt="...">
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>
+                </li>
+                <li class="boton_desplegable">
+                    <a href="#"><span class="glyphicon glyphicon-th-list"></span> Gestionar Trabajos</a>
+                    <div class="submenu">
+                      <a href="#">Listar Todos</a>
+                      <a href="#">Modificar Trabajo</a>
+                      <a href="#">Estatus de Trabajos</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-education"></span> Gestionar Docentes</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-user"></span> Gestionar Usuarios</a>
+                </li>
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-wrench"></span> Mantenimiento</a>
+                </li>
+                <li>
+                    <a href="#ventana1" data-toggle="modal"><span class="glyphicon glyphicon-off"></span> Salir</a>
+                </li>
             </ul>
         </div>
-      </div>
-      <div class="col-md-10 panel">
-        <div class="titulo">
-              <div class="fecha">
-                <p><strong>
-                  <span class="glyphicon glyphicon-calendar"></span>   
-                  <?php echo date("d")." / ".date("m")." / ".date("Y"); ?>
-                </strong></p>
-              </div>
-              <div class="page-header">
-                  <h3 align="rigth"><span class="glyphicon glyphicon-th-large"></span>  Bienvenido Administrador</h3>
-              </div>
-        </div>  
-        <div class="col-md-12 operaciones">
-            <div class="col-md-4">
-                <a href="#">
-                    <div class="polaroid polaroid-1">
-                      <div class="icono">
-                        <span class="glyphicon glyphicon-th-list"></span>
-                      </div>
-                      <div class="texto">
-                        <h4>OPCION</h4>
+        <!-- /#sidebar-wrapper -->
+        <!-- contenido -->
+        <div id="contenido">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="contenido_1 col-sm-12">
+                    <div class="col-sm-12 fecha">
+                          <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
+                        </div>
+                        <h1><span class="glyphicon glyphicon-th-large"></span>  Bienvenido Administrador</h1>
+                        <hr>
+                    </div>
+                    <div class="tabla col-md-12">
+                       <table border="0" class="table table-bordered table-hover" align="center">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;">#</th>
+                                <th style="text-align:center;">Nombre</th>
+                                <th style="text-align:center;">Apellido</th>
+                                <th style="text-align:center;">Email</th>
+                                <th style="text-align:center;" colspan="3">Operaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>juancho</td>
+                                <td>perez</td>
+                                <td>juaneliezer13@gmail.com</td>
+                                <td><a class="btn btn-default btn-lg btn-block" href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a class="btn btn-danger btn-lg btn-block" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
+                            </tr>
+                             <tr>
+                                <td>2</td>
+                                <td>juancho</td>
+                                <td>perez</td>
+                                <td>juaneliezer13@gmail.com</td>
+                                <td><a class="btn btn-default btn-lg btn-block" href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a class="btn btn-danger btn-lg btn-block" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>juancho</td>
+                                <td>perez</td>
+                                <td>juaneliezer13@gmail.com</td>
+                                <td><a class="btn btn-default btn-lg btn-block" href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a class="btn btn-danger btn-lg btn-block" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>juancho</td>
+                                <td>perez</td>
+                                <td>juaneliezer13@gmail.com</td>
+                                <td><a class="btn btn-default btn-lg btn-block" href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a class="btn btn-danger btn-lg btn-block" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                  </div>
+                      <div class="col-sm-12 contenido_2">
+                          <p>Nueva actualizacion de: <code>#AUTANA #AUTANAProject</code>.</p>
+                          <a href="#boton" class="btn btn-default" id="boton">Ocultar Menu</a>
+                        <hr>
                       </div>
                 </div>
-                </a>
             </div>
-            <div class="col-md-4">
-                <a href="#">
-                    <div class="polaroid polaroid-2">
-                      <div class="icono">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                      </div>
-                      <div class="texto">
-                        <h4>OPCION</h4>
-                      </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="#">
-                    <div class="polaroid polaroid-3">
-                      <div class="icono">
-                        <span class="glyphicon glyphicon-trash"></span>
-                      </div>
-                      <div class="texto">
-                        <h4>OPCION</h4>
-                      </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="#">
-                    <div class=" polaroid polaroid-4">
-                      <div class="icono">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                      </div>
-                      <div class="texto">
-                        <h4>OPCION</h4>
-                      </div>
-                </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="#">
-                    <div class=" polaroid polaroid-5">
-                      <div class="icono">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                      </div>
-                      <div class="texto">
-                        <h4>OPCION</h4>
-                      </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <div class=" polaroid polaroid-6">
-                  <div class="icono">
-                        <span class="glyphicon glyphicon-off"></span>
-                    </div>
-                    <div class="texto">
-                      <h4>OPCION</h4>
-                    </div>
-                </div>
-            </div> 
         </div>
-        <div class="col-md-12 usuarios">
-          <div class="page-header">
-            <h3 align="left"> <span class="glyphicon glyphicon-user"></span> En linea </h3>
-          </div>
-          <div class="col-md-12 usuario">
-            <div class="alert alert-default alert-dismissible fade in" role="alert"> 
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button> 
-               <a href="#" style="text-decoration:none;"><img src="src/img/nuevo.jpg" style="width:46px;height:46px; border-radius:46px;">  Juan1234</a>
-            </div>
-          </div>
+        <!-- /contenido -->
 
-          <div class="col-md-12 usuario">
-            <div class="alert alert-default alert-dismissible fade in" role="alert"> 
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button> 
-               <a href="#" style="text-decoration:none;"><img src="src/img/nuevo.jpg" style="width:46px;height:46px; border-radius:46px;">  Juan1234</a>
-            </div>
-          </div>
-
-      </div>    
     </div>
-</section>
+    <!-- /#principal -->
 <!--*****************************************SOLO MODALS*********************************************************-->
 <!--COMENZO EL DIV DONDE ESTARA EL MODAL CERRAR SESION-->
                   <div class="modal fade" id="ventana1">
@@ -280,6 +226,11 @@ if(!$_SESSION){
                   </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
 <script src="src/js/jquery.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
-<script src="src/js/ajax.js"></script>
+<script>
+    $("#boton").click(function(e) {
+        e.preventDefault();
+        $("#principal").toggleClass("cambiado");
+    });
+    </script>
 </body>
 </html> 
