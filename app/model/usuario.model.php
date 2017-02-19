@@ -1,52 +1,83 @@
-<?php 
+<?php require "app/database/conexion.php";
 class Usuario{
+
 	private $pdo;
 	private $tabla;
 
-	function __construct(){
+	public function __construct(){
 		$this->pdo = new Conexion();
 		$this->tabla = "usuarios";
 	}
 
-	function validar($usuario,$password){
+	public function nuevo($nombre,$cedula,$correo,$usuario,$password,$tipo){
 
-	$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE user = '$usuario' AND pass= '$password';");
-        $sql->execute();
-        $contador = $sql->rowCount();
-    	$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    	if ($contador == 1) return $datosDB;
-    	elseif ($contador == 0) {
-    		echo '<script>alert("Usuario o Contraseña Incorrecto")</script>';
-    		header("location: index.php");
-    	}
-    		
+		$sql = $this->pdo->prepare("INSERT INTO $this->tabla ");
+        $sql->execute();		
 	}
 
-	function encriptar($pass){
+	public function modificar($id,$nombre,$cedula,$correo,$usuario,$password,$tipo){
 
+    	$sql = $this->pdo->prepare("UPDATE $this->tabla SET nombre='$nombre', cedula='$cedula' WHERE id='$id'");
+	    $sql->execute(); 
+    }
+
+	public function buscar($filtro){
+		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE nombre LIKE '$filtro%'");
+        $sql->execute();
+        $datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+        return $datosDB;
+	}
+
+	public function obtenerTodos(){
+
+		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla");
+	    $sql->execute(); 
+	    $datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+	    return $datosDB;
+	}
+
+	public function obtenerDatos($id){
+
+		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE id = '$id'");
+	    $sql->execute(); 
+	    $datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+	    return $datosDB;
+	}
+
+	public function eliminar($id){
+
+	    $sql = $this->pdo->prepare("DELETE FROM $this->tabla WHERE id = '$id'");
+	    $sql->execute(); 
+	}
+	
+	public function eliminarTodo(){
+
+	    $sql = $this->pdo->prepare("DELETE FROM $this->tabla");
+	    $sql->execute(); 
+	}
+
+	public function encriptar($pass){
 		$md5 = md5($pass);
 		return $md5;
 	}
+
+	public function validar($usuario,$password){
+
+		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE user = '$usuario' AND pass= '$password';");
+        $sql->execute();
+    	$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+    	return $datosDB;		
+	}
 	
-	function validaCorreo($email){
+	public function validaCorreo($email){
 
 		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE correo = '$email';");  
         $sql->execute();
-        $contador = $sql->rowCount();
     	$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    	if ($contador == 1) {
-
-    	session_start();
-		$_SESSION['id'] = $datosDB['id'];
-		$_SESSION['nombre'] = $datosDB['nombre'];
-
-		header("location: ?controller=index&action=reestablecer");
-    	}
-
-    	elseif ($contador == 0) header("location: index.php");
+    	return $datosDB;
 	}
 
-	function cambioClave($pass,$id){
+	public function cambioClave($pass,$id){
 		$md5 = md5($pass);
 		$sql = $this->pdo->prepare("UPDATE $this->tabla SET pass = '$md5' WHERE id='$id';");
 		$sql->execute();

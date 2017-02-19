@@ -2,7 +2,9 @@
 session_start();
 if(!$_SESSION){
     header("location: index.php");
-} ?>
+}elseif ($_SESSION['tipo'] != 2) {
+  header("location: index.php");
+}else{ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,18 +83,25 @@ if(!$_SESSION){
                 <li class="boton_desplegable">
                     <a href="#"><span class="glyphicon glyphicon-th-list"></span> Gestionar Trabajos</a>
                     <div class="submenu">
+                      <a href="#">Nuevo Trabajo</a>
                       <a href="#">Listar Todos</a>
-                      <a href="#">Modificar Trabajo</a>
-                      <a href="#">Estatus de Trabajos</a>
                     </div>
                 </li>
-                <li>
+                <li class="boton_desplegable">
                     <a href="#"><span class="glyphicon glyphicon-education"></span> Gestionar Docentes</a>
+                    <div class="submenu">
+                      <a href="#">Listar Todos</a>
+                      <a href="#">Ver por Categoria</a>
+                    </div>
                 </li>
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-wrench"></span> Mantenimiento</a>
+                <li class="boton_desplegable">
+                    <a href="#"><span class="glyphicon glyphicon-list"></span> Reportes</a>
+                    <div class="submenu">
+                      <a href="#">Reporte por correo</a>
+                      <a href="#">Constancias</a>
+                    </div>
                 </li>
-                <li>
+                <li class="boton_salir">
                     <a href="#ventana1" data-toggle="modal"><span class="glyphicon glyphicon-off"></span> Salir</a>
                 </li>
             </ul>
@@ -155,11 +164,23 @@ if(!$_SESSION){
                     </table>
                     <hr>
                   </div>
-                      <div class="col-sm-12 contenido_2">
-                          <p>Nueva actualizacion de: <code>#AUTANA #AUTANAProject</code>.</p>
-                          <a href="#boton" class="btn btn-default" id="boton">Ocultar Menu</a>
-                        <hr>
-                      </div>
+
+                </div>
+                <div class="contenido_2">
+                  <ul id="minimenu">
+                    <li>
+                      <a href="#boton" class="ocultar" id="boton"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+                    </li>
+                    <li>
+                      <a href="#" class="trabajos"><span class="glyphicon glyphicon-list-alt"></span></a>
+                    </li>
+                    <li>
+                      <a href="#" class="docentes"><span class="glyphicon glyphicon-user"></span></a>
+                    </li>
+                    <li>
+                      <a href="#" class="reportes"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </li>
+                  </ul> 
                 </div>
             </div>
         </div>
@@ -222,9 +243,12 @@ if(!$_SESSION){
 <script src="src/js/bootstrap.min.js"></script>
 <script>
     $("#boton").click(function(e) {
-        e.preventDefault();
         $("#principal").toggleClass("cambiado");
     });
     </script>
 </body>
 </html> 
+
+<?php 
+}
+?>

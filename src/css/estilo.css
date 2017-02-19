@@ -19,7 +19,6 @@ html, body {
 
 /* dashboard */
 #principal {
-
     margin-top: 48px;
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -27,11 +26,9 @@ html, body {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-
 #principal.cambiado {
     padding-left: 250px;
 }
-
 #barra {
     z-index: 1000;
     position: fixed;
@@ -46,7 +43,6 @@ html, body {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-
 #principal.cambiado #barra {
     width: 250px;
 }
@@ -57,11 +53,49 @@ html, body {
 }
 #principal.cambiado #contenido {
     position: absolute;
-    margin-right: -250px;
+    margin-right: 250px;
 }
 
-/* Sidebar Styles */
+/*ESTILOS DE BOTONES DINAMICOS*/
 
+.contenido_2{
+    position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
+    bottom: 15px;/*MARGEN HACA ABAJO*/
+    z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
+    left: 10px; /* Depende el Ancho de donde se va a colocar */
+}
+#minimenu{
+    list-style: none;
+}
+#minimenu li {
+
+    margin-bottom: 20px;
+}
+#minimenu a{
+
+    border-radius: 100%;
+    padding:10px 13px;
+    box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
+    font-size: 15px;
+}
+.contenido_2 .ocultar{
+    background-color: #0275D8;
+    color: #fef6f6;
+}
+.contenido_2 .trabajos{
+    background-color: #0275D8;
+    color: #fef6f6;
+}
+.contenido_2 .docentes{
+    background-color: #0275D8;
+    color: #fef6f6;
+}
+.contenido_2 .reportes{
+    background-color: #0275D8;
+    color: #fef6f6;
+}
+/**/
+/* Sidebar Styles */
 .menu {
     position: absolute;
     top: 0;
@@ -96,7 +130,11 @@ html, body {
 .menu li a:focus {
     text-decoration: none;
 }
+li.boton_salir a{
 
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
 /* menu desplegable*/
 .submenu {
     display:none;
@@ -118,7 +156,7 @@ html, body {
 .boton_desplegable:hover .submenu {display: block;}
 .submenu a:hover {}
 
-@media(min-width:768px) {
+@media(min-width:968px) {
     #principal {
         padding-left: 250px;
     }
@@ -198,11 +236,11 @@ html, body {
     transition:all 500ms ease;
 }
 .banner .logo img{
-    width: 200px;
+    width: 150px;
 }
 .banner nav {
     float:right;
-    line-height:180px;
+    line-height:130px;
 }
 .banner nav a {
     display:inline-block;
@@ -210,7 +248,7 @@ html, body {
     text-decoration:none;
     padding:10px 20px;
     line-height:normal;
-    font-size:20px;
+    font-size:15px;
     -webkit-transition:all 500ms ease;
     -o-transition:all 500ms ease;
     transition:all 500ms ease;
@@ -225,11 +263,14 @@ html, body {
     display: none;
 }
 }
-
+@media(max-height:690px) {
+footer {
+    display: none;
+}
+}
 /*header home*/
 footer {
-        padding:16px 0px;
-        margin-top: 480px;
+        padding:10px 0px;
         box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
         position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
         width: 100%;
@@ -247,6 +288,8 @@ footer {
 
  border-color: #222;
 }
+
+
 
 
 

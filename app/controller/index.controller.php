@@ -1,22 +1,22 @@
 <?php
 class IndexController{
-    function Index(){
+    public function Home(){
     	require_once 'app/view/home.html';
     }
 
-    function portalAdmin(){
+    public function portalAdmin(){
     	require_once 'app/view/portal_admin.php';
     }
 
-    function Portal(){
+    public function Portal(){
     	require_once 'app/view/portal.php';
     }
 
-    function resetClave(){
+    public function resetClave(){
     	require_once 'app/view/validar.php';
     }
 
-    function reestablecer(){
+    public function reestablecer(){
     	require_once 'app/view/reestablecer.php';
     }
 }

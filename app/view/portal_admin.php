@@ -1,8 +1,10 @@
 <?php 
 session_start();
 if(!$_SESSION){
-    header("location: index.php");
-} ?>
+    header("location: ?controller=index&action=Home");
+}elseif ($_SESSION['tipo'] != 1) {
+  header("location: ?controller=index&action=Home");
+}else{ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,19 +84,43 @@ if(!$_SESSION){
                 <li class="boton_desplegable">
                     <a href="#"><span class="glyphicon glyphicon-th-list"></span> Gestionar Trabajos</a>
                     <div class="submenu">
+                      <a href="#">Nuevo Trabajo</a>
                       <a href="#">Listar Todos</a>
                       <a href="#">Modificar Trabajo</a>
-                      <a href="#">Estatus de Trabajos</a>
                     </div>
                 </li>
-                <li>
+                <li class="boton_desplegable">
                     <a href="#"><span class="glyphicon glyphicon-education"></span> Gestionar Docentes</a>
+                    <div class="submenu">
+                      <a href="#">Listar Todos</a>
+                      <a href="#">Modificar Datos</a>
+                      <a href="#">Ver por Categoria</a>
+                    </div>
                 </li>
-                <li>
+                <li class="boton_desplegable">
+                    <a href="#"><span class="glyphicon glyphicon-list"></span> Reportes</a>
+                    <div class="submenu">
+                      <a href="#">Reporte por correo</a>
+                      <a href="#">Constancias</a>
+                    </div>
+                </li>
+                <li class="boton_desplegable">
                     <a href="#"><span class="glyphicon glyphicon-user"></span> Gestionar Usuarios</a>
+                    <div class="submenu">
+                      <a href="#">Nuevo Usuario</a>
+                      <a href="#">Ver Todos</a>
+                      <a href="#">Eliminar</a>
+                      <a href="#">Bloquear/Desbloquear</a>
+                      <a href="#">Mi Perfil</a>
+                    </div>
                 </li>
-                <li>
+                <li class="boton_desplegable">
                     <a href="#"><span class="glyphicon glyphicon-wrench"></span> Mantenimiento</a>
+                    <div class="submenu">
+                      <a href="#">Reestablecer Contraseñas</a>
+                      <a href="#">Copia de Seguridad</a>
+                      <a href="#">Restaurar Sistema</a>
+                    </div>
                 </li>
                 <li>
                     <a href="#ventana1" data-toggle="modal"><span class="glyphicon glyphicon-off"></span> Salir</a>
@@ -113,6 +139,7 @@ if(!$_SESSION){
                         <h1><span class="glyphicon glyphicon-th-large"></span>  Bienvenido Administrador</h1>
                         <hr>
                     </div>
+
                     <div class="tabla col-md-12">
                        <table border="0" class="table table-bordered table-hover" align="center">
                         <thead>
@@ -161,14 +188,27 @@ if(!$_SESSION){
                     </table>
                     <hr>
                   </div>
-                      <div class="col-sm-12 contenido_2">
-                          <p>Nueva actualizacion de: <code>#AUTANA #AUTANAProject</code>.</p>
-                          <a href="#boton" class="btn btn-default" id="boton">Ocultar Menu</a>
-                        <hr>
-                      </div>
                 </div>
+
+
+                <div class="contenido_2">
+                  <ul id="minimenu">
+                    <li>
+                      <a href="#boton" class="ocultar" id="boton"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+                    </li>
+                    <li>
+                      <a href="#" class="trabajos"><span class="glyphicon glyphicon-list-alt"></span></a>
+                    </li>
+                    <li>
+                      <a href="#" class="docentes"><span class="glyphicon glyphicon-user"></span></a>
+                    </li>
+                    <li>
+                      <a href="#" class="reportes"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </li>
+                  </ul> 
+                </div>
+              </div>
             </div>
-        </div>
         <!-- /contenido -->
 
     </div>
@@ -234,3 +274,6 @@ if(!$_SESSION){
     </script>
 </body>
 </html> 
+<?php
+}
+?>
