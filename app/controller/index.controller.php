@@ -1,11 +1,7 @@
 <?php
 class IndexController{
     public function Home(){
-    	require_once 'app/view/home.html';
-    }
-
-    public function portalAdmin(){
-    	require_once 'app/view/portal_admin.php';
+    	require_once 'app/view/home.php';
     }
 
     public function Portal(){
@@ -18,6 +14,18 @@ class IndexController{
 
     public function reestablecer(){
     	require_once 'app/view/reestablecer.php';
+    }
+
+    public function nuevoTrabajo(){
+        require_once 'app/view/nuevo.trabajo.php';
+    }
+
+    public function listarTrabajos(){
+        require_once 'app/view/listar.trabajos.php';
+    }
+
+    public function editarTrabajo(){
+        require_once 'app/view/editar.trabajo.php';
     }
 }
 ?>

@@ -1,10 +1,15 @@
 <?php 
 session_start();
 if(!$_SESSION){
-    header("location: index.php");
-}elseif ($_SESSION['tipo'] != 2) {
-  header("location: index.php");
-}else{ ?>
+    header("location: ?controller=index&action=Home");
+}elseif($_SESSION['tipo'] == 1){ 
+$barra = "barra_admin";
+$titulo = "Administrador";
+}elseif ($_SESSION['tipo'] == 2) {
+$barra = "barra_usuario";
+$titulo = "Supervisor";
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,176 +21,26 @@ if(!$_SESSION){
    <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
 </head>
 <body >
-<header>
-  <div class="container">
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-fm">
-              <span class="sr-only">Desplegar / Ocultar Menu</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="?controller=usuario&action=cerrarSesion" class="navbar-brand ">A U T A N A</a>
-        </div>
-        <div class="collapse navbar-collapse" id="navegacion-fm">
-          <ul class="nav navbar-nav navbar-left">
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><span class="glyphicon glyphicon-asterisk"></span> Nuevo Trabajo</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><span class="glyphicon glyphicon-globe"></span> WebSite</a>
-                </li>
-          </ul> 
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown nav-item active">
-                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" >
-                <span class="glyphicon glyphicon-user"/> <?php echo $_SESSION['user']; ?></a>
-              <ul class="dropdown-menu" role="menu">
-                <li>          
-                    <img src="src/img/usu1.png"  width="100%" height="150">
-                </li>
-                <li >
-                    <a href="#ventana2" data-toggle="modal">Ver Mis datos</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">Modificar Datos</a>
-                </li>
-                <li>
-                    <a href="#">Cambiar contraseña</a>
-                </li>
-                <li>
-                    <a href="#">Cambiar Foto de Perfil</a>
-                </li>
-                <li>
-                    <a href="#ventana1" data-toggle="modal">Cerrar</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
-</header>
-<div id="principal">
-        <!-- Sidebar -->
-        <div id="barra">
-            <ul class="menu">
-                <li class="logotipo">
-                     <img src="src/img/lautana.png"  alt="...">
-                </li>
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>
-                </li>
-                <li class="boton_desplegable">
-                    <a href="#"><span class="glyphicon glyphicon-th-list"></span> Gestionar Trabajos</a>
-                    <div class="submenu">
-                      <a href="#">Nuevo Trabajo</a>
-                      <a href="#">Listar Todos</a>
-                    </div>
-                </li>
-                <li class="boton_desplegable">
-                    <a href="#"><span class="glyphicon glyphicon-education"></span> Gestionar Docentes</a>
-                    <div class="submenu">
-                      <a href="#">Listar Todos</a>
-                      <a href="#">Ver por Categoria</a>
-                    </div>
-                </li>
-                <li class="boton_desplegable">
-                    <a href="#"><span class="glyphicon glyphicon-list"></span> Reportes</a>
-                    <div class="submenu">
-                      <a href="#">Reporte por correo</a>
-                      <a href="#">Constancias</a>
-                    </div>
-                </li>
-                <li class="boton_salir">
-                    <a href="#ventana1" data-toggle="modal"><span class="glyphicon glyphicon-off"></span> Salir</a>
-                </li>
-            </ul>
-        </div>
+<?php include("sections/navbar.php"); ?>
+<?php include("sections/$barra.php"); ?>
         <!-- /#sidebar-wrapper -->
-
         <!-- contenido -->
         <div id="contenido">
             <div class="container-fluid">
                 <div class="row">
                     <div class="contenido_1 col-sm-12">
-                        <h1><span class="glyphicon glyphicon-th-large"></span>  Bienvenido Supervisor</h1>
+                      <div class="col-sm-12 fecha">
+                          <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
+                      </div>
+                        <h1><span class="glyphicon glyphicon-th-large"></span>  Bienvenido <?php echo $titulo; ?></h1>
                         <hr>
+                        <p>Sin Notificaciones...</p>
                     </div>
-                    <div class="tabla col-md-12">
-                       <table border="0" class="table table-bordered table-hover" align="center">
-                        <thead>
-                            <tr>
-                                <th style="text-align:center;">#</th>
-                                <th style="text-align:center;">Nombre</th>
-                                <th style="text-align:center;">Apellido</th>
-                                <th style="text-align:center;">Email</th>
-                                <th style="text-align:center;" colspan="3">Operaciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>juancho</td>
-                                <td>perez</td>
-                                <td>juaneliezer13@gmail.com</td>
-                                <td><a class="btn btn-default btn-lg btn-block" href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td><a class="btn btn-danger btn-lg btn-block" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-                            </tr>
-                             <tr>
-                                <td>2</td>
-                                <td>juancho</td>
-                                <td>perez</td>
-                                <td>juaneliezer13@gmail.com</td>
-                                <td><a class="btn btn-default btn-lg btn-block" href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td><a class="btn btn-danger btn-lg btn-block" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>juancho</td>
-                                <td>perez</td>
-                                <td>juaneliezer13@gmail.com</td>
-                                <td><a class="btn btn-default btn-lg btn-block" href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td><a class="btn btn-danger btn-lg btn-block" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>juancho</td>
-                                <td>perez</td>
-                                <td>juaneliezer13@gmail.com</td>
-                                <td><a class="btn btn-default btn-lg btn-block" href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td><a class="btn btn-danger btn-lg btn-block" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <hr>
-                  </div>
-
                 </div>
-                <div class="contenido_2">
-                  <ul id="minimenu">
-                    <li>
-                      <a href="#boton" class="ocultar" id="boton"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
-                    </li>
-                    <li>
-                      <a href="#" class="trabajos"><span class="glyphicon glyphicon-list-alt"></span></a>
-                    </li>
-                    <li>
-                      <a href="#" class="docentes"><span class="glyphicon glyphicon-user"></span></a>
-                    </li>
-                    <li>
-                      <a href="#" class="reportes"><span class="glyphicon glyphicon-envelope"></span></a>
-                    </li>
-                  </ul> 
-                </div>
+                <?php include("sections/minimenu.php"); ?>
+              </div>
             </div>
-        </div>
         <!-- /contenido -->
-
     </div>
     <!-- /#principal -->
 <!--*****************************************SOLO MODALS*********************************************************-->
@@ -243,12 +98,9 @@ if(!$_SESSION){
 <script src="src/js/bootstrap.min.js"></script>
 <script>
     $("#boton").click(function(e) {
+        e.preventDefault();
         $("#principal").toggleClass("cambiado");
     });
     </script>
 </body>
 </html> 
-
-<?php 
-}
-?>

@@ -6,54 +6,105 @@ class Usuario{
 
 	public function __construct(){
 		$this->pdo = new Conexion();
-		$this->tabla = "usuarios";
+		$this->tabla = "usuario";
 	}
 
 	public function nuevo($nombre,$cedula,$correo,$usuario,$password,$tipo){
 
-		$sql = $this->pdo->prepare("INSERT INTO $this->tabla ");
-        $sql->execute();		
+		try
+			{	
+				$sql = $this->pdo->prepare("INSERT INTO $this->tabla ");
+        		$sql->execute();
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			}catch(Exception $e){
+				
+				echo 'ERROR : '.$e->getMessage();
+			}		
 	}
 
 	public function modificar($id,$nombre,$cedula,$correo,$usuario,$password,$tipo){
 
-    	$sql = $this->pdo->prepare("UPDATE $this->tabla SET nombre='$nombre', cedula='$cedula' WHERE id='$id'");
-	    $sql->execute(); 
+		try
+			{	
+				$sql = $this->pdo->prepare("UPDATE $this->tabla SET nombre='$nombre', cedula='$cedula' WHERE id='$id'");
+	    		$sql->execute(); 
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			}catch(Exception $e){
+				
+				echo 'ERROR : '.$e->getMessage();
+			}
     }
 
 	public function buscar($filtro){
-		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE nombre LIKE '$filtro%'");
-        $sql->execute();
-        $datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-        return $datosDB;
+		
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE nombre LIKE '$filtro%'");
+        		$sql->execute();
+        		$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+        		return $datosDB;
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			}catch(Exception $e){
+				echo 'ERROR : '.$e->getMessage();
+			}
 	}
 
 	public function obtenerTodos(){
-
-		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla");
-	    $sql->execute(); 
-	    $datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-	    return $datosDB;
+		
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM $this->tabla");
+	    		$sql->execute(); 
+	    		$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+	    		return $datosDB;		
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			}catch(Exception $e){
+				echo 'ERROR : '.$e->getMessage();
+			}
 	}
 
 	public function obtenerDatos($id){
 
-		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE id = '$id'");
-	    $sql->execute(); 
-	    $datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-	    return $datosDB;
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE id = '$id'");
+	    		$sql->execute(); 
+	    		$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+	    		return $datosDB;		
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			
+			}catch(Exception $e){
+				
+				echo 'ERROR : '.$e->getMessage();
+			}
+		
 	}
 
 	public function eliminar($id){
 
-	    $sql = $this->pdo->prepare("DELETE FROM $this->tabla WHERE id = '$id'");
-	    $sql->execute(); 
+		try
+			{	
+				$sql = $this->pdo->prepare("DELETE FROM $this->tabla WHERE id = '$id'");
+	    		$sql->execute();		
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			
+			}catch(Exception $e){
+				
+				echo 'ERROR : '.$e->getMessage();
+			}
 	}
 	
 	public function eliminarTodo(){
-
-	    $sql = $this->pdo->prepare("DELETE FROM $this->tabla");
-	    $sql->execute(); 
+		try
+			{	
+				$sql = $this->pdo->prepare("DELETE FROM $this->tabla");
+	    		$sql->execute();		
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			
+			}catch(Exception $e){
+				
+				echo 'ERROR : '.$e->getMessage();
+			}
 	}
 
 	public function encriptar($pass){
@@ -62,19 +113,31 @@ class Usuario{
 	}
 
 	public function validar($usuario,$password){
-
-		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE user = '$usuario' AND pass= '$password';");
-        $sql->execute();
-    	$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    	return $datosDB;		
+		try
+			{	
+				
+				$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE usuario = '$usuario' AND pass= '$password';");
+        		$sql->execute();
+    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+    			return $datosDB;	
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			
+			}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+			}		
 	}
 	
 	public function validaCorreo($email){
-
-		$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE correo = '$email';");  
-        $sql->execute();
-    	$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    	return $datosDB;
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM $this->tabla WHERE correo = '$email';");  
+        		$sql->execute();
+    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+    			return $datosDB;		
+				parent::setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			}catch(Exception $e){
+				echo 'ERROR : '.$e->getMessage();
+			}
 	}
 
 	public function cambioClave($pass,$id){

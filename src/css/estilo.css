@@ -58,13 +58,14 @@ html, body {
 
 /*ESTILOS DE BOTONES DINAMICOS*/
 
-.contenido_2{
+.contenido_2{width: 50%;
     position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
     bottom: 15px;/*MARGEN HACA ABAJO*/
     z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
     left: 10px; /* Depende el Ancho de donde se va a colocar */
 }
 #minimenu{
+    width: 40%;
     list-style: none;
 }
 #minimenu li {
@@ -76,22 +77,7 @@ html, body {
     border-radius: 100%;
     padding:10px 13px;
     box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
-    font-size: 15px;
-}
-.contenido_2 .ocultar{
-    background-color: #0275D8;
-    color: #fef6f6;
-}
-.contenido_2 .trabajos{
-    background-color: #0275D8;
-    color: #fef6f6;
-}
-.contenido_2 .docentes{
-    background-color: #0275D8;
-    color: #fef6f6;
-}
-.contenido_2 .reportes{
-    background-color: #0275D8;
+    font-size: 15px;background-color: #0275D8;
     color: #fef6f6;
 }
 /**/
@@ -154,7 +140,6 @@ li.boton_salir a{
     display: block;
 }
 .boton_desplegable:hover .submenu {display: block;}
-.submenu a:hover {}
 
 @media(min-width:968px) {
     #principal {
@@ -244,7 +229,9 @@ li.boton_salir a{
 }
 .banner nav a {
     display:inline-block;
-    color:#fff;
+    background-color: #137bd4;
+    border-radius:50px;
+    color: #fff;
     text-decoration:none;
     padding:10px 20px;
     line-height:normal;
@@ -255,7 +242,7 @@ li.boton_salir a{
 }
  
 .banner nav a:hover {
-    background-color: #137bd4;
+    background-color: rgba(19, 123, 212, 0.73);
     border-radius:50px;
 }
 @media(max-width:768px) {

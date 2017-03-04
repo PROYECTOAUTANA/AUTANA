@@ -69,17 +69,9 @@ private $model;
 			if ($datosDB) {
 				session_start();
 				$_SESSION['id']     = $datosDB['id'];
-				$_SESSION['nombre'] = $datosDB['nombre'];
-				$_SESSION['cedula'] = $datosDB['cedula'];
-				$_SESSION['user']   = $datosDB['user'];
-				$_SESSION['correo'] = $datosDB['correo'];
+				$_SESSION['user']   = $datosDB['usuario'];
 				$_SESSION['tipo']   = $datosDB['tipo'];
-
-				if ($datosDB['tipo'] == 1){ 	
-					header("location: ?controller=index&action=portalAdmin");
-				}elseif ($datosDB['tipo'] == 2){		
-					header("location: ?controller=index&action=Portal");
-				}
+				header("location: ?controller=index&action=Portal");
 
 			}else{
 				header("location: ?controller=index&action=Home");

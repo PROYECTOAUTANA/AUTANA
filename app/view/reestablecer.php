@@ -19,16 +19,7 @@ if(!$_SESSION){
    <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
 </head>
 <body>
-<header class="banner">
-    <div class="barra_2">
-      <div class="logo">
-        <a href="?controller=usuario&action=cerrarSesion"><img src="src/img/lautana.png" alt="..."></a>
-      </div>   
-      <nav>
-        <a href="#">Acerca de</a>
-      </nav>
-    </div>
-</header>
+<?php include("sections/header.php"); ?>
 
 <div class="home col-md-10 col-md-offset-1">
         <div class="col-md-6 col-md-offset-3"> 
@@ -55,19 +46,7 @@ if(!$_SESSION){
           </div>
         </div>
   </div><!--articulo-->
-  <footer>
-    <div class="col-sm-10 col-sm-offset-1">
-        <div class="col-sm-12">
-        <p>Sistema Automatizado de Gestion de Trabajos de Ascenso</p>
-    </div>
-    <div class="col-sm-12">
-        <p>Universidad Politecnica Territorial Andres Eloy Blanco</p>
-    </div>
-     <div class="col-sm-12">
-        <p>&copy Autana 2017</p>
-    </div>
-    </div>
-  </footer>
+  <?php include("sections/footer.php"); ?>
 <script src="src/js/jquery.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
 </body>
