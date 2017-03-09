@@ -1,0 +1,5 @@
+INSERT INTO usuario(
+            id, nombre, apellido, cedula, telefono, correo, usuario, pass, 
+            estado, tipo)
+    VALUES (5, 'juan', 'perez', '456546', '7567567', 'juan@juan.com', 'juanito', md5('juanito'), 
+            'activo', 1);

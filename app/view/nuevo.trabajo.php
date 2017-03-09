@@ -30,55 +30,105 @@ $barra = "barra_usuario";
                           <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
                       </div>
                         <h1><span class="glyphicon glyphicon-th-large"></span>  Nuevo Trabajo</h1>
-                        <hr> 
+                        <hr>
+                        <h3>Fase 1: Datos Personales</h3> 
                     </div>
-
                     <div class="formulario1 col-sm-12">
                       <form class="form-group">
-                        <div class="form-group col-sm-4">
-                          <p>Titulo:</p>
-                          <input class="form-control" type="" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <p>Numero de consejo:</p>
-                          <input class="form-control" type="" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <p>Mension:</p>
-                          <input class="form-control" type="" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <p>Titulo:</p>
-                          <input class="form-control" type="" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <p>Numero de consejo:</p>
-                          <input class="form-control" type="" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <p>Mension:</p>
-                          <input class="form-control" type="" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <p>Titulo:</p>
-                          <input class="form-control" type="" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <p>Numero de consejo:</p>
-                          <input class="form-control" type="" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <p>Mension:</p>
-                          <input  type="file" name="" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-12">
-                          <p>Descripcion:</p>
-                          <textarea>
-                            
-                          </textarea>
+                         <div class="form-group col-sm-1">
+                          <label for="">Nacionalidad:</label>
+                          <select class="form-control">
+                            <option>V</option>
+                            <option>E</option>
+                          </select>
                         </div>
                         <div class="form-group col-sm-3">
-                          <input type="submit" class="btn btn-primary" name="">
+                          <label for="">Cedula:</label>
+                          <input  id="" class="form-control" type="text" name="" placeholder="Escriba..." autofocus>
+                        </div>
+                        <div class="form-group col-sm-4">
+                          <label for="nombre">Nombre:</label>
+                          <input  id="nombre" class="form-control" type="text" name="" placeholder="Escriba...">
+                        </div>
+                        <div class="form-group col-sm-4">
+                          <label for="">Apellido:</label>
+                          <input  id="" class="form-control" type="text" name="" placeholder="Escriba...">
+                        </div>
+                          <div class="form-group col-sm-1">
+                          <label for="">Edad:</label>
+                          <input  id="" class="form-control" type="number" name="" >
+                        </div>
+                         <div class="form-group col-sm-2">
+                          <label for="">Sexo:</label>
+                          <select class="form-control">
+                            <option>FEMENINO</option>
+                            <option>MASCULINO</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                          <label for="">Telefono de Habitacion:</label>
+                          <input  id=""  class="form-control" type="text" name="" placeholder="Escriba...">
+                        </div>
+                         <div class="form-group col-sm-3">
+                          <label for="">Celular:</label>
+                          <input  id=""  class="form-control" type="text" name="" placeholder="Escriba...">
+                        </div>
+                         <div class="form-group col-sm-3">
+                          <label for="">Correo:</label>
+                          <input  id=""  class="form-control" type="mail" name="" placeholder="Escriba...">
+                        </div>
+                         <div class="form-group col-sm-4">
+                          <label for="">Estado::</label>
+                          <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                          </select>
+                        </div>
+                         <div class="form-group col-sm-4">
+                          <label for="">Municipio:</label>
+                          <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-4">
+                          <label for="">Parroquia:</label>
+                          <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <label for="">Direccion:</label>
+                          <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="form-group col-sm-4">
+                          <label for="">Departamento:</label>
+                          <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-4">
+                          <label for="">Categoria Actual:</label>
+                          <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                          </select>
+                        </div>
+                         <div class="form-group col-sm-4">
+                          <label for="">Categoria de Ascenso:</label>
+                          <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <label for="">Observacion:</label>
+                          <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="form-group col-sm-3">
+                          <button type="submit" class="btn btn-primary" name="">Enviar</button>
                         </div>
                       </form>
                     </div>
@@ -88,56 +138,8 @@ $barra = "barra_usuario";
         <!-- /contenido -->
         </div>
 <!--*****************************************SOLO MODALS*********************************************************-->
-<!--COMENZO EL DIV DONDE ESTARA EL MODAL CERRAR SESION-->
-                  <div class="modal fade" id="ventana1">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                      <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
-                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3><i>¿Seguro que desea cerrar sesion?</i></h3>
-                        </div><!--TERMINA EL BODY DE LA VENTANA-->
-                        <div class="modal-footer"><!--FOOTER DE LA VENTANA-->
-                            <div class="btn-group" role="group" aria-label="...">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                              <a href="?controller=usuario&action=cerrarSesion" class="btn btn-info">Si</a>
-                            </div>
-                          </form>
-                        </div><!--TERMINA EL FOOTER-->
-                      </div>
-                    </div>
-                  </div> 
-                  <!--TERMINO EL DIV DEL MODAL CERRAR SESION-->
-                  <!--COMENZO EL DIV DONDE ESTARA EL MODAL MIS DATOS-->
-                  <div class="modal fade" id="ventana2">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                         <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
-                        <div class="modal-header">
-                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3 class="modal-title"><i>Mis Datos</i></h3> 
-                        </div>
-                      <!--TERMINA EL HEADER-->
-                      <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
-                            <div class="text-center">
-                              <img src="src/img/usu1.png" alt="..." class="img-rounded" width="20%">
-                            </div>
-                            <h5>Nombre:  <?php echo $_SESSION['nombre']; ?></h5>
-                            <h5>Cedula:  <?php echo $_SESSION['cedula']; ?></h5>
-                            <h5>Correo:  <?php echo $_SESSION['correo']; ?></h5>
-                            <h5>Usuario:  <?php echo $_SESSION['user']; ?></h5>
-                        </div>
-                      <!--TERMINA EL BODY DE LA VENTANA-->
-                        <!--FOOTER DE LA VENTANA-->
-                        <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
-                                <a href="#" class="btn btn-success">Modificar</a>
-                          </form>
-                        </div><!--TERMINA EL FOOTER-->
-                      </div>
-                    </div>
-                  </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
+<?php include("sections/cerrar.sesion.php"); ?>
+<?php include("sections/misdatos.php"); ?>
 <script src="src/js/jquery.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
 <script>
@@ -145,6 +147,6 @@ $barra = "barra_usuario";
         e.preventDefault();
         $("#principal").toggleClass("cambiado");
     });
-    </script>
+</script>
 </body>
 </html> 

@@ -28,13 +28,18 @@ $titulo = "Supervisor";
         <div id="contenido">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="contenido_1 col-sm-12">
-                      <div class="col-sm-12 fecha">
-                          <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
-                      </div>
+                    <div class="noticias col-sm-12">
+                        <div class="col-sm-12 fecha">
+                            <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
+                        </div>
                         <h1><span class="glyphicon glyphicon-th-large"></span>  Bienvenido <?php echo $titulo; ?></h1>
                         <hr>
-                        <p>Sin Notificaciones...</p>
+                      </div>
+                    <div class="noticias col-sm-8">
+                        <p>Sin Noticias ni Publicaciones...</p>
+                    </div>
+                    <div class="notificaciones col-sm-4">
+                      <p>Sin Notificaciones...</p>
                     </div>
                 </div>
                 <?php include("sections/minimenu.php"); ?>
@@ -44,56 +49,8 @@ $titulo = "Supervisor";
     </div>
     <!-- /#principal -->
 <!--*****************************************SOLO MODALS*********************************************************-->
-<!--COMENZO EL DIV DONDE ESTARA EL MODAL CERRAR SESION-->
-                  <div class="modal fade" id="ventana1">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                      <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
-                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3><i>¿Seguro que desea cerrar sesion?</i></h3>
-                        </div><!--TERMINA EL BODY DE LA VENTANA-->
-                        <div class="modal-footer"><!--FOOTER DE LA VENTANA-->
-                            <div class="btn-group" role="group" aria-label="...">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                              <a href="?controller=usuario&action=cerrarSesion" class="btn btn-info">Si</a>
-                            </div>
-                          </form>
-                        </div><!--TERMINA EL FOOTER-->
-                      </div>
-                    </div>
-                  </div> 
-                  <!--TERMINO EL DIV DEL MODAL CERRAR SESION-->
-                  <!--COMENZO EL DIV DONDE ESTARA EL MODAL MIS DATOS-->
-                  <div class="modal fade" id="ventana2">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                         <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
-                        <div class="modal-header">
-                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3 class="modal-title"><i>Mis Datos</i></h3> 
-                        </div>
-                      <!--TERMINA EL HEADER-->
-                      <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
-                            <div class="text-center">
-                              <img src="src/img/usu1.png" alt="..." class="img-rounded" width="20%">
-                            </div>
-                            <h5>Nombre:  <?php echo $_SESSION['nombre']; ?></h5>
-                            <h5>Cedula:  <?php echo $_SESSION['cedula']; ?></h5>
-                            <h5>Correo:  <?php echo $_SESSION['correo']; ?></h5>
-                            <h5>Usuario:  <?php echo $_SESSION['user']; ?></h5>
-                        </div>
-                      <!--TERMINA EL BODY DE LA VENTANA-->
-                        <!--FOOTER DE LA VENTANA-->
-                        <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
-                                <a href="#" class="btn btn-success">Modificar</a>
-                          </form>
-                        </div><!--TERMINA EL FOOTER-->
-                      </div>
-                    </div>
-                  </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
+<?php include("sections/cerrar.sesion.php"); ?>
+<?php include("sections/misdatos.php"); ?>
 <script src="src/js/jquery.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
 <script>

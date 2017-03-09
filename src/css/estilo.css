@@ -59,10 +59,10 @@ html, body {
 /*ESTILOS DE BOTONES DINAMICOS*/
 
 .contenido_2{width: 50%;
-    position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
+    position: fixed;
     bottom: 15px;/*MARGEN HACA ABAJO*/
     z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
-    left: 10px; /* Depende el Ancho de donde se va a colocar */
+    left: 15px; /* Depende el Ancho de donde se va a colocar */
 }
 #minimenu{
     width: 40%;
@@ -75,7 +75,7 @@ html, body {
 #minimenu a{
 
     border-radius: 100%;
-    padding:10px 13px;
+    padding:18px 25px 18px 23px;
     box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
     font-size: 15px;background-color: #0275D8;
     color: #fef6f6;
@@ -275,6 +275,7 @@ footer {
 
  border-color: #222;
 }
+
 
 
 
