@@ -58,7 +58,7 @@ html, body {
 
 /*ESTILOS DE BOTONES DINAMICOS*/
 
-.contenido_2{width: 50%;
+.contenido_2{width: 20%;
     position: fixed;
     bottom: 15px;/*MARGEN HACA ABAJO*/
     z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */

@@ -1,12 +1,12 @@
 <?php require "app/database/conexion.php";
-class Usuario{
+class Docente{
 
 	private $pdo;
 	private $tabla;
 
 	public function __construct(){
 		$this->pdo = new Conexion();
-		$this->tabla = "trabajo";
+		$this->tabla = "docente";
 	}
 
 	public function nuevo($nombre,$cedula,$correo,$usuario,$password,$tipo){

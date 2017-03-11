@@ -31,104 +31,54 @@ $barra = "barra_usuario";
                       </div>
                         <h1><span class="glyphicon glyphicon-th-large"></span>  Nuevo Trabajo</h1>
                         <hr>
-                        <h3>Fase 1: Datos Personales</h3> 
+                        <h3>Fase 1: Datos del Trabajo</h3> 
                     </div>
                     <div class="formulario1 col-sm-12">
                       <form class="form-group">
-                         <div class="form-group col-sm-1">
-                          <label for="">Nacionalidad:</label>
-                          <select class="form-control">
-                            <option>V</option>
-                            <option>E</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-sm-3">
-                          <label for="">Cedula:</label>
-                          <input  id="" class="form-control" type="text" name="" placeholder="Escriba..." autofocus>
-                        </div>
                         <div class="form-group col-sm-4">
-                          <label for="nombre">Nombre:</label>
+                          <label for="nombre">Titulo:</label>
                           <input  id="nombre" class="form-control" type="text" name="" placeholder="Escriba...">
                         </div>
                         <div class="form-group col-sm-4">
-                          <label for="">Apellido:</label>
+                          <label for="">Linea de Investigacion:</label>
                           <input  id="" class="form-control" type="text" name="" placeholder="Escriba...">
                         </div>
-                          <div class="form-group col-sm-1">
-                          <label for="">Edad:</label>
+                          <div class="form-group col-sm-4">
+                          <label for="">Numero de Consejo:</label>
                           <input  id="" class="form-control" type="number" name="" >
                         </div>
-                         <div class="form-group col-sm-2">
-                          <label for="">Sexo:</label>
+                         <div class="form-group col-sm-3">
+                          <label for="">Proceso:</label>
                           <select class="form-control">
-                            <option>FEMENINO</option>
-                            <option>MASCULINO</option>
+                            <option>Regular</option>
+                            <option>Extraordinario</option>
                           </select>
                         </div>
                         <div class="form-group col-sm-3">
-                          <label for="">Telefono de Habitacion:</label>
+                          <label for="">Fecha de Presentacion Publica:</label>
                           <input  id=""  class="form-control" type="text" name="" placeholder="Escriba...">
                         </div>
                          <div class="form-group col-sm-3">
-                          <label for="">Celular:</label>
+                          <label for="">Categoria de Ascenso:</label>
                           <input  id=""  class="form-control" type="text" name="" placeholder="Escriba...">
                         </div>
-                         <div class="form-group col-sm-3">
-                          <label for="">Correo:</label>
-                          <input  id=""  class="form-control" type="mail" name="" placeholder="Escriba...">
-                        </div>
-                         <div class="form-group col-sm-4">
-                          <label for="">Estado::</label>
+                        <div class="form-group col-sm-3">
+                          <label for="">Fase:</label>
                           <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                          </select>
-                        </div>
-                         <div class="form-group col-sm-4">
-                          <label for="">Municipio:</label>
-                          <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <label for="">Parroquia:</label>
-                          <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
+                            <option>Recepcion</option>
+                            <option>Seguimiento</option>
+                            <option>Aprobacion</option>
                           </select>
                         </div>
                         <div class="form-group col-sm-12">
-                          <label for="">Direccion:</label>
-                          <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <label for="">Departamento:</label>
-                          <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <label for="">Categoria Actual:</label>
-                          <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                          </select>
-                        </div>
-                         <div class="form-group col-sm-4">
-                          <label for="">Categoria de Ascenso:</label>
-                          <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                          </select>
+                          <a href="#ventana4" data-toggle="modal" class="btn btn-primary btn-block" name=""><span class="glyphicon glyphicon-plus"></span> Agregar Autor</a>
                         </div>
                         <div class="form-group col-sm-12">
                           <label for="">Observacion:</label>
                           <textarea class="form-control" rows="3"></textarea>
                         </div>
-                        <div class="form-group col-sm-3">
-                          <button type="submit" class="btn btn-primary" name="">Enviar</button>
+                        <div class="form-group col-sm-12">
+                          <button type="submit" class="btn btn-primary btn-block" name="">Registrar Trabajo</button>
                         </div>
                       </form>
                     </div>
@@ -140,6 +90,7 @@ $barra = "barra_usuario";
 <!--*****************************************SOLO MODALS*********************************************************-->
 <?php include("sections/cerrar.sesion.php"); ?>
 <?php include("sections/misdatos.php"); ?>
+<?php include("sections/docentes.php"); ?>
 <script src="src/js/jquery.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
 <script>

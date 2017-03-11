@@ -19,9 +19,10 @@
                 <li class="boton_desplegable">
                     <a href="#"><span class="glyphicon glyphicon-education"></span> Gestion de Docentes</a>
                     <div class="submenu">
+                      <a href="?controller=index&action=nuevoDocente">Nuevo Docente</a>
                       <a href="#">Listar Todos</a>
                       <a href="#">Modificar Datos</a>
-                      <a href="#">Ver por Categoria</a>
+                      <a href="#">Categorias</a>
                     </div>
                 </li>
                 <li class="boton_desplegable">

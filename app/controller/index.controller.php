@@ -20,6 +20,10 @@ class IndexController{
         require_once 'app/view/nuevo.trabajo.php';
     }
 
+    public function nuevoDocente(){
+        require_once 'app/view/nuevo.docente.php';
+    }
+
     public function listarTrabajos(){
         require_once 'app/view/listar.trabajos.php';
     }
