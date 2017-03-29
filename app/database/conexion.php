@@ -6,7 +6,7 @@ Class Conexion extends PDO{
 	private $port = 5432;
 	private $host = 'localhost';
 
-	public function __construct(){
+	function __construct(){
 
 		try
 			{	
@@ -19,7 +19,8 @@ Class Conexion extends PDO{
 			}
 
 	}
-	public function cerrarConexion() {
+	
+	function cerrarConexion() {
 	 
 	     $this->dbh = null; 
 	}

@@ -5,7 +5,7 @@
                 <img src="src/img/u.png" alt="...">
             </div>
             <h4 class="titulo" align="center">INICIAR SESION</h4> 
-            <form class="form-group" method="post" action="index.php?controller=usuario&action=validarSesion">
+            <form class="form-group" method="post" action="login">
                   <div class="form-group">
                     <input type="text" name="usuario" class="form-control" autofocus placeholder="Escriba su usuario..." maxlength="25">
                   </div>
@@ -13,7 +13,7 @@
                     <input type="password"  name="password" class="form-control" placeholder="Escriba su contraseña..." minlength="4" maxlength="10">
                   </div>
                   <div class="form-group">
-                    <a href="?controller=index&action=resetClave">¿Olvido su Contraseña?</a>
+                    <a href="#validar" data-toggle="modal">¿Olvido su Contraseña?</a>
                   </div>
                   <div class="form-group">
                       <button type="submit" class="btn btn-info btn-block boton">

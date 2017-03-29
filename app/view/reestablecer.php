@@ -1,10 +1,9 @@
-
 <?php 
-session_start();
-$id = $_SESSION['id'];
+//session_start();
+//$id = $_SESSION['id'];
 //$nombre = $_SESSION['nombre'];
 if(!$_SESSION){
-    header("location: index.php");
+    header("location: ?controller=home&action=index");
 } ?>
 
 <!DOCTYPE html>
@@ -19,7 +18,10 @@ if(!$_SESSION){
    <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
 </head>
 <body>
-<?php include("sections/header.php"); ?>
+<?php 
+include("sections/cargando.php"); 
+include("sections/header.php"); 
+?>
 
 <div class="home col-md-10 col-md-offset-1">
         <div class="col-md-6 col-md-offset-3"> 
@@ -29,7 +31,7 @@ if(!$_SESSION){
             </div>
             <h3 align="center" class="titulo"> Reestablecer contraseña</h3>
             <h4 align="center" class="titulo"> Fase 2: Cambio de Contraseña</h4>
-            <form class="form-group" method="post" action="?controller=usuario&action=cambioClave&id=<?php echo $id; ?>">
+            <form class="form-group" method="post" action="cambio_clave/<?php echo $id; ?>">
                   <div class="form-group">
                     <input type="text" name="pass" class="form-control" autofocus placeholder="Escriba su nueva Contraseña..." maxlength="25">
                   </div>
@@ -46,8 +48,10 @@ if(!$_SESSION){
           </div>
         </div>
   </div><!--articulo-->
-  <?php include("sections/footer.php"); ?>
+<?php include("sections/footer.php"); ?>
 <script src="src/js/jquery.js"></script>
+<script src="src/js/cargando.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
+<script src="src/js/boton.js"></script>
 </body>
 </html>

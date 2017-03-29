@@ -1,0 +1,19 @@
+# Activamos mod_rewrite
+RewriteEngine on
+# Definimos la ruta base, por facilidad, una única vez
+SetEnvIf RUTA_BASE ^(.*)$ RUTA_BASE=/autana/
+# Aquí nos evitamos comprobar que sea un archivo (agrego comprobación
+# para detectar también directorio) en cada conjunto de reglas
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(.*)$ $1 [QSA,L]
+# Obtenemos todo lo que vaya tras "src/"
+RewriteCond %{REQUEST_URI} src/(.+)$
+# Y éstos coinciden con un archivo existente..
+RewriteCond %{DOCUMENT_ROOT}%{ENV:RUTA_BASE}src/%1 -f
+# Entonces (si se cumplen todas las condiciones) redirigimos (R)
+# y dejamos de evaluar el resto de reglas (L)
+RewriteRule ^(.*)$ %{ENV:RUTA_BASE}src/%1 [L,R]
+# Tu/s regla/s
+RewriteRule ^(.*)$ index.php?controller=$1 [L,NC,QSA]
+ErrorDocument 404 /autana/404

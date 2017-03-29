@@ -6,17 +6,17 @@
                      <img src="src/img/lautana.png"  alt="...">
                 </li>
                 <li>
-                    <a href="?controller=index&action=Portal"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>
+                    <a href="?controller=perfil"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>
                 </li>
                 <li class="boton_desplegable">
-                    <a href="#"><span class="glyphicon glyphicon-th-list"></span> Gestion de Trabajos</a>
+                    <a href="?controller=gestionar_trabajos"><span class="glyphicon glyphicon-th-list"></span> Gestion de Trabajos</a>
                     <div class="submenu">
                       <a href="?controller=index&action=nuevoTrabajo">Nuevo Trabajo</a>
                       <a href="?controller=index&action=listarTrabajos">Listar Todos</a>
                     </div>
                 </li>
                 <li class="boton_desplegable">
-                    <a href="#"><span class="glyphicon glyphicon-education"></span> Gestion de Docentes</a>
+                    <a href="?controller=gestionar_docente"><span class="glyphicon glyphicon-education"></span> Gestion de Docentes</a>
                     <div class="submenu">
                       <a href="#">Listar Todos</a>
                       <a href="#">Ver por Categoria</a>
