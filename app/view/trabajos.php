@@ -1,12 +1,17 @@
 <?php 
 session_start();
 if(!$_SESSION){
-    header("location: home");
-}elseif($_SESSION['rol'] == 'admin'){ 
-$barra = "barra_admin";
-}elseif ($_SESSION['rol'] == 'supervisor') {
-$barra = "barra_usuario";
+   header("location: ?controller=front&action=home");
 }
+
+if($_SESSION['rol'] == 'administrador'){ 
+    $barra = "barra_admin";
+    $titulo = "Administrador";
+}elseif ($_SESSION['rol'] == 'supervisor') {
+    $barra = "barra_usuario";
+    $titulo = "Supervisor";
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,60 +44,30 @@ include("sections/$barra.php");
                     <div class="col-md-12 contenido_4">
                        <div class="col-sm-12 btn-group btn-group-justified" >
                           <div class="btn-group">
-                            <a href="#nuevo_trabajo" data-toggle="modal" class="btn btn-info"><i class="glyphicon glyphicon-refresh"></i>  Nuevo Trabajo</a>
+                            <a href="#nuevo_trabajo" data-toggle="modal" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>  Nuevo Trabajo</a>
                           </div>
                           <div class="btn-group">
-                            <a href="#consultar_trabajo" data-toggle="modal" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i>  Consultar Trabajo</a>
+                            <a href="gestionar-trabajos" class="btn btn-info"><i class="glyphicon glyphicon-list"></i>  Todos los Trabajos</a>
                           </div>
                           <div class="btn-group">
-                            <a href="#eliminar_trabajo" data-toggle="modal" class="btn btn-info"><i class="glyphicon glyphicon-trash"></i>  Eliminar Trabajo</a>
+                            <a href="#eliminar_trabajo" data-toggle="modal" class="btn btn-info"><i class="glyphicon glyphicon-search"></i>  Consultas Filtradas</a>
                           </div>
                         </div> <br><br><br> 
                     </div>
                      <div class="contenido_5 col-sm-12">
                       <div class="tabla col-sm-12">
-                      <form class="form-group" action="buscar" method="post">
+                       <form class="form-group">
                               <div class="input-group">
-                                    <input type="text" name="filtro" autofocus required placeholder="Escribe algo.." class="form-control">
+                                    <input type="text" name="filtro" id= "bus" autofocus onkeyup="buscar2();" autocomplete="off" required placeholder="Escribe algo.." class="form-control">
                                   <span class="input-group-btn">
-                                    <button class="btn btn-default" name="buscarTrabajo" type="submit"><i class="glyphicon glyphicon-search"></i>  Buscar</button>
+                                    <button class="btn btn-default" onclick="buscar2();" name="buscarUsuario" type="button"><i class="glyphicon glyphicon-search"></i> </button>
                                     </span>
                                 </div>
                     </form><br>
-                    <?php 
-                          if (!$db) {
-                            if ($controller == "buscar") {
-                                  echo "no se encontraron registros para: <strong>".$filtro."</strong>";
-                              }else{
-                                echo "no se encontraron registros.... :(";
-                              }
-                          }else{
-                          ?>
-                            <table border="0" class="table table-bordered table-hover" align="center" >
-                              <thead>
-                                  <tr style="text-align:center;">
-                                      <th>Titulo</th>
-                                      <th colspan="3">Operaciones</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                <?php 
-                                  foreach ($db as $dato):
-                                  $id = $dato["id_trabajo"];
-                                  $titulo = $dato["trabajo_titulo"]; 
-                                ?>
-                                  <tr>
-                                    <td align="center"><?php echo $titulo;?></td>
-                                    <td align="center"><a class="btn btn-danger" href="eliminar-trabajo?=<?php echo $id; ?>"> Eliminar</a></td>
-                                    <td align="center"><a class="btn btn-info" href="modificar-trabajo?=<?php echo $id; ?>"> Modificar</a></td>
-                                    <td align="center"><a class="btn btn-default" href="ver-trabajo?id=<?php echo $id; ?>"> Ver</a></td>
-                                  </tr>
-                                <?php 
-                                endforeach;
-                              }
-                                ?>
-                                 </tbody>
-                            </table>
+                      <div id="resultado"></div>
+                        <div id="tabla">
+                          <?php require_once "sections/tabla-trabajos.php"; ?>
+                        </div>     
                     </div> 
                     </div>
                 <?php include("sections/minimenu.php"); ?>
@@ -102,13 +77,10 @@ include("sections/$barra.php");
         </div>
 <!--*****************************************SOLO MODALS*********************************************************-->
 <?php 
-include("sections/modal.salir.php"); 
-include("sections/modal.datos.php");
-include("sections/modal.nuevo.trabajo.php"); 
-include("sections/modal.consultar.trabajo.php");
-include("sections/modal.eliminar.trabajo.php"); 
+include("sections/modal.php"); 
 ?>
 <script src="src/js/jquery.js"></script>
+<script src="src/js/ajax.js"></script>
 <script src="src/js/cargando.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
 <script src="src/js/boton.js"></script>

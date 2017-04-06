@@ -6,16 +6,16 @@
                      <img src="src/img/lautana.png"  alt="...">
                 </li>
                 <li>
-                    <a href="perfil"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>
+                    <a href="?controller=front&action=perfil"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>
                 </li>
                 <li class="boton_desplegable">
-                    <a href="gestionar-trabajos"><span class="glyphicon glyphicon-th-list"></span> Gestion de Trabajos</a>
+                    <a href="?controller=front&action=trabajos"><span class="glyphicon glyphicon-th-list"></span> Gestionar Trabajos</a>
                 </li>
                 <li class="boton_desplegable">
-                    <a href="gestionar-reportes"><span class="glyphicon glyphicon-list"></span> Gestion de Reportes</a>
+                    <a href="?controller=front&action=reportes"><span class="glyphicon glyphicon-list"></span> Gestionar Reportes</a>
                 </li>
                 <li class="boton_desplegable">
-                    <a href="gestionar-usuarios"><span class="glyphicon glyphicon-user"></span> Gestion de Usuarios</a>
+                    <a href="?controller=front&action=usuarios"><span class="glyphicon glyphicon-user"></span> Gestionar Usuarios</a>
                 </li>
                 <li class="boton_desplegable">
                     <a href="#"><span class="glyphicon glyphicon-wrench"></span> Mantenimiento y Configuracion</a>

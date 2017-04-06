@@ -20,11 +20,11 @@ class Usuario_Departamento{
 		}		
 	}
 
-	public function eliminar_usuario_departamento($id_usuario){
+	public function eliminar_usuario_departamento($id_usuario,$id_departamento){
 
 		try
 			{	
-				$sql = $this->pdo->prepare("DELETE FROM usuario_departamento WHERE usuario_departamento.fk_usuario = '$id_usuario'");
+				$sql = $this->pdo->prepare("DELETE FROM usuario_departamento WHERE fk_usuario = '$id_usuario' AND fk_departamento = '$id_departamento'");
 				$result = $sql->execute();
 				return $result;
 			

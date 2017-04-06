@@ -9,7 +9,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="home" class="navbar-brand ">A U T A N A</a>
+            <a href="?controller=front&action=home" class="navbar-brand ">A U T A N A</a>
         </div>
         <div class="collapse navbar-collapse" id="navegacion-fm">
           <ul class="nav navbar-nav navbar-left">

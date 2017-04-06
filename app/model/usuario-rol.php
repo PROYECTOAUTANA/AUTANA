@@ -24,7 +24,7 @@ class Usuario_Rol{
 
 		try
 			{	
-				$sql = $this->pdo->prepare("DELETE FROM usuario_rol WHERE usuario_departamento.fk_usuario = '$id_usuario' AND usuario_rol.fk_rol = '$id_rol'");
+				$sql = $this->pdo->prepare("DELETE FROM usuario_rol WHERE fk_usuario = '$id_usuario' AND fk_rol = '$id_rol'");
 				$result = $sql->execute();
 				return $result;
 			

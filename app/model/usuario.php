@@ -63,7 +63,7 @@ class Usuario{
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_rol , rol WHERE usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario AND usuario.usuario_usuario = '$usuario' AND usuario.clave = '$password'");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_rol , rol WHERE usuario.usuario_usuario = '$usuario' AND usuario.clave = '$password'");
         		$sql->execute(); 
     			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
     			return $datosDB;
@@ -77,7 +77,7 @@ class Usuario{
 	public function validaCorreo($email){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario WHERE correo = '$email'");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario WHERE usuario_correo = '$email'");
         		$sql->execute(); 
     			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
     			return $datosDB;
@@ -88,10 +88,54 @@ class Usuario{
 		}			
 	}
 
+	public function cambio_clave($id_usuario,$new_pass){
+		try
+			{	
+				$sql = $this->pdo->prepare("UPDATE usuario SET clave = '$new_pass' WHERE id_usuario='$id_usuario'");
+        		$sql->execute(); 
+    			$datosDB = $sql->fetchAll();
+    			return $datosDB;
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
+
+
+	public function consultar_id($id_usuario){
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario  AND usuario.id_usuario = '$id_usuario'");
+        		$sql->execute(); 
+    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+    			return $datosDB;
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
+
+	public function consultar_cedula($usuario_cedula){
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario  AND usuario.usuario_cedula = '$usuario_cedula'");
+        		$sql->execute(); 
+    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+    			return $datosDB;
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
+
+
 	public function buscar($filtro){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario AND usuario.usuario_nombre LIKE '%$filtro'");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario AND usuario.usuario_nombre LIKE '$filtro%'");
         		$sql->execute(); 
     			$datosDB = $sql->fetchAll();
     			return $datosDB;
@@ -105,7 +149,7 @@ class Usuario{
 	public function listar(){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
         		$sql->execute(); 
     			$datosDB = $sql->fetchAll();
     			return $datosDB;
@@ -115,5 +159,6 @@ class Usuario{
 				echo 'ERROR : '.$e->getMessage();
 		}			
 	}
+
 }
 ?>

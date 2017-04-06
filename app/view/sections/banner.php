@@ -1,7 +1,7 @@
 <header class="banner">
     <div class="barra_2">
       <div class="logo">
-        <a href="home"><img src="src/img/lautana.png" alt="..."></a>
+        <a href="?controller=front&action=home"><img src="src/img/lautana.png" alt="..."></a>
       </div>   
       <nav>
         <a href="#">Acerca de</a>

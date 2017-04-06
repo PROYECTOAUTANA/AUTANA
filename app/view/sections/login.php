@@ -5,23 +5,24 @@
                 <img src="src/img/u.png" alt="...">
             </div>
             <h4 class="titulo" align="center">INICIAR SESION</h4> 
-            <form class="form-group" method="post" action="login">
+            <form class="form-group" method="post">
                   <div class="form-group">
-                    <input type="text" name="usuario" class="form-control" autofocus placeholder="Escriba su usuario..." maxlength="25">
+                    <input type="text" id="user"  class="form-control" placeholder="Escriba su usuario..." maxlength="25">
                   </div>
                   <div class="form-group">
-                    <input type="password"  name="password" class="form-control" placeholder="Escriba su contraseña..." minlength="4" maxlength="10">
+                    <input type="password"  id="password" class="form-control" placeholder="Escriba su contraseña..." minlength="4" maxlength="10">
                   </div>
                   <div class="form-group">
                     <a href="#validar" data-toggle="modal">¿Olvido su Contraseña?</a>
                   </div>
                   <div class="form-group">
-                      <button type="submit" class="btn btn-info btn-block boton">
-                        <span class="glyphicon glyphicon-ok"></span>   
+                      <button type="button" class="btn btn-info btn-block boton" onclick="log()">
+                        <span class="glyphicon glyphicon-ok" ></span>   
                         ENTRAR
                       </button>
                   </div>  
             </form>
           </div>
         </div>
+        <div class="col-sm-12" id="resultados"></div>
   </div>

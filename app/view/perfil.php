@@ -1,14 +1,17 @@
 <?php 
 session_start();
 if(!$_SESSION){
-    header("location: home");
-}elseif($_SESSION['rol'] == 'admin'){ 
-$barra = "barra_admin";
-$titulo = "Administrador";
-}elseif ($_SESSION['rol'] == 'supervisor') {
-$barra = "barra_usuario";
-$titulo = "Supervisor";
+    header("location: ?controller=front&action=home");
 }
+
+if($_SESSION['rol'] == 'administrador'){ 
+    $barra = "barra_admin";
+    $titulo = "Administrador";
+}elseif ($_SESSION['rol'] == 'supervisor') {
+    $barra = "barra_usuario";
+    $titulo = "Supervisor";
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,11 +42,20 @@ include("sections/$barra.php");
                         <h1><span class="glyphicon glyphicon-th-large"></span>  Bienvenido <?php echo $titulo; ?></h1>
                         <hr>
                       </div>
-                    <div class="noticias col-sm-8">
-                        <p>Sin Noticias ni Publicaciones...</p>
-                    </div>
-                    <div class="notificaciones col-sm-4">
-                      <p>Sin Notificaciones...</p>
+                    <div class="col-md-12 contenido_4">
+                       <div class="col-sm-12 btn-group btn-group-justified" >
+                          <div class="btn-group">
+                            <a href="#" class="btn btn-info"><i class="glyphicon glyphicon-user"></i>  Mis Datos</a>
+                          </div>
+                          <div class="btn-group">
+                            <a href="#" class="btn btn-info"><i class="glyphicon glyphicon-list"></i>  Usuarios</a>
+                          </div>
+                          <div class="btn-group">
+                            <a href="#"  class="btn btn-info"><i class="glyphicon glyphicon-list"></i>  Trabajos</a>
+                          </div>
+                        </div> 
+                        <div class="col-sm-12"><br><br>
+                    <?php include("sections/carrusell.php"); ?>
                     </div>
                 </div>
                 <?php include("sections/minimenu.php"); ?>
@@ -54,8 +66,7 @@ include("sections/$barra.php");
     <!-- /#principal -->
 <!--*****************************************SOLO MODALS*********************************************************-->
 <?php 
-include("sections/modal.salir.php"); 
-include("sections/modal.datos.php"); 
+include("sections/modal.php"); 
 ?>
 <script src="src/js/jquery.js"></script>
 <script src="src/js/cargando.js"></script>
