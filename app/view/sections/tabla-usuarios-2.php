@@ -2,7 +2,8 @@
   <?php echo "No se encontraron registros..."; ?>
 <?php endif ?>
 <?php if ($db): ?>
-<table border="0" class="table table-bordered table-hover" align="center" >
+<div class="col-sm-12">
+  <table border="0" class="table table-bordered table-hover" align="center" >
                               <thead>
                                   <tr style="text-align:center;">
                                       <th align="center" >seleccionar</th>
@@ -32,7 +33,7 @@
                                   $id_rol = $dato['id_rol'];
                                 ?>
                                   <tr>
-                                    <td align="center"><input id="<?php echo $dato["usuario_nombre"]; ?>" type="radio" name="seleccion" value="<?php echo $dato["id_usuario"]; ?>" /></td>
+                                    <td align="center"><input id="radio" type="radio" name="seleccion" value="<?php echo $dato["id_usuario"]; ?>" /></td>
                                     <td align="center"><?php echo $cedula;?></td>
                                     <td align="center"><?php echo $nombre;?></td>
                                     <td align="center"><?php echo $apellido;?></td>
@@ -45,15 +46,16 @@
                                 ?>
                                  </tbody>
                             </table>
-                    <div class="col-sm-12 form-group">
-                      <select id="vinculo" name="vinculo" class="form-control">
+</div>
+<div class="col-sm-12 form-group">
+                      <select id="vinculo" name="vinculo" class="form-control" onchange="$('#botonincluirdocente').removeAttr('disabled');">
                         <option value="autor">AUTOR</option>
                         <option value="tutor">TUTOR</option>
                         <option value="jurado">JURADO</option>
                       </select>
                     </div>
                     <div class="col-sm-12 form-group">
-                      <button type="button" class="btn btn-info btn-block" onclick="incluirdocente()">listo...</button>
+                      <button type="button" class="btn btn-info btn-block" id="botonincluirdocente" disabled="disabled" onclick="incluirdocente()">listo...</button>
                     </div>
 <?php endif ?>
 

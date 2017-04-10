@@ -137,7 +137,6 @@ class C_Usuario{
 
 			$cedula = $_POST['c'];
 			echo $cedula;
-			/*
 $db = $this->obj_usuario->consultar_cedula($cedula);
 			if(!$db){
 				echo 'No hay sugerencias para: <b>'.$cedula."</b>...";
@@ -145,7 +144,6 @@ $db = $this->obj_usuario->consultar_cedula($cedula);
 				
 			echo "encontrado";	
 			}
-			*/  
 	}
 
 	public function eliminar(){

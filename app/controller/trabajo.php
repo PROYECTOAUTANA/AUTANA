@@ -32,22 +32,12 @@ class C_Trabajo{
 	}
 
 	public function registrar_trabajo(){
-		$id_docente = $_POST['docente'];
-	/*
-			if (!$consulta_autor) {
-				echo 'este usuario no existe ';
-			}else{
-					
-					$id_autor = $consulta_autor['id_usuario'];
-					//$id_tutor = $consulta_tutor['id_usuario'];
-					//$id_jurado = $consulta_jurado['id_usuario'];
 
 					$id_trabajo = rand();
 					$id_linea = rand();
 					$id_fase = rand();
 					$id_trabajo_fase = rand();
 					$id_trabajo_linea = rand();
-					$id_usuario_trabajo = rand();
 					$titulo = $_POST['titulo'];
 					$linea = $_POST['linea'];
 					$proceso = $_POST['proceso'];
@@ -55,31 +45,66 @@ class C_Trabajo{
 					$categoria_ascenso = $_POST['categoria_ascenso'];
 					$fase = $_POST['fase'];
 
-					$result1 = $this->obj_trabajo->nuevo($id_trabajo,$titulo,$fecha_pp,$proceso,$categoria_ascenso);
+					$this->obj_trabajo->nuevo($id_trabajo,$titulo,$fecha_pp,$proceso,$categoria_ascenso);
 
-					$result2 = $this->obj_fase->registrar_fase($id_fase,$fase);
+					$this->obj_fase->registrar_fase($id_fase,$fase);
 					
-					$result3 = $this->obj_linea->registrar_linea($id_linea,$linea);
+					$this->obj_linea->registrar_linea($id_linea,$linea);
 
-					$result4 = $this->obj_trabajo_linea->registrar_trabajo_linea($id_trabajo_linea,$id_trabajo,$id_linea);
+					$this->obj_trabajo_linea->registrar_trabajo_linea($id_trabajo_linea,$id_trabajo,$id_linea);
 
-					$result5 = $this->obj_trabajo_fase->registrar_trabajo_fase($id_trabajo_fase,$id_trabajo,$id_fase);
+					$this->obj_trabajo_fase->registrar_trabajo_fase($id_trabajo_fase,$id_trabajo,$id_fase);
+					
 
-					$result6 = $this->obj_usuario_trabajo->registrar_usuario_trabajo($id_usuario_trabajo,$id_autor,$id_trabajo,"autor");
+					$estado = true;
+					$id = $id_trabajo;	
+					$mensaje = "Listo!";
+					//Seteamos el header de "content-type" como "JSON" para que jQuery lo reconozca como tal
+					header('Content-Type: application/json');
+					//Guardamos los datos en un array
+					$datos = array(
+					'estado' => $estado,
+					'id' => $id,
+					'mensaje' => $mensaje
+					);
+					//Devolvemos el array pasado a JSON como objeto
+					echo json_encode($datos, JSON_FORCE_OBJECT);
+	}
 
-					//$result7 = $this->obj_usuario_trabajo->registrar_usuario_trabajo($id_usuario_trabajo,$id_tutor,$id_trabajo,"tutor");
-
-					//$result8 = $this->obj_usuario_trabajo->registrar_usuario_trabajo($id_usuario_trabajo,$id_jurado,$id_trabajo,"jurado");
+	public function vincular_usuario(){
 
 
-					if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6) {
-						echo "listo!!";
+
+					$id_usuario_trabajo = rand();
+					$id_trabajo = $_POST['id_trabajo'];
+					$id_usuario = $_POST['id_docente'];
+					$vinculo = $_POST['vinculo'];
+
+					$operacion = $this->obj_usuario_trabajo->registrar_usuario_trabajo($id_usuario_trabajo,$id_usuario,$id_trabajo,$vinculo);
+
+					if ($operacion) {
+						$estado = true;
+						$mensajeboton = "Listo!";
+						$mensajeoperacion = '<div class="alert alert-default alert-dismissible col-sm-12" role="alert">
+			  <strong>Listo!</strong> Se agrego un <strong>'.ucwords($vinculo).'</strong> con exito al trabajo...   <a href="#" class="btn btn-default" data-dismiss="alert" aria-label="Close" > Ok!</a></div>';
+						
 					}else{
-						echo "ERORR!";
-					}	
 
-			}
-	*/}
+						$estado = false;
+						$mensajeoperacion = "hubo un error...!!";
+					}
+
+					//Seteamos el header de "content-type" como "JSON" para que jQuery lo reconozca como tal
+					header('Content-Type: application/json');
+					//Guardamos los datos en un array
+					$datos = array(
+					'estado' => $estado,
+					'mensajeboton' => $mensajeboton,
+					'mensajeoperacion' => $mensajeoperacion
+					);
+					//Devolvemos el array pasado a JSON como objeto
+					echo json_encode($datos, JSON_FORCE_OBJECT);
+	}
 
 	public function buscar(){
 			$filtro = $_POST['filtro'];

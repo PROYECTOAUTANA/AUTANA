@@ -198,21 +198,6 @@
                       <!--CUERPO O BODY DE LA VENTANA-->
                       <div class="modal-body col-sm-12">
                         <form method="post" class="form-group">
-<!--**********en esta parte estara el formulario de los docentes************************************-->
-                            <div class="col-sm-12" id="personas">  
-
-<!--********aqui en este div estan los botones y los inputs necesarios para incluir un docente-->     
-                                  <div class="col-sm-12 form-group" id="ponmeloaqui"></div>
-                                <div class="col-sm-12 form-group">
-                                  <button type="button" class="btn btn-info btn-block" onclick="mostrarincluirdocente()">Incluir Docente</button>
-                                </div>
-<!--********************************************************************************************************-->
-                            </div>
-
-<!--*************************************************************************************************************-->
-                            
-<!--****************** aqui es donde estara el formulario de los datos del trabajo ************************-->
-                           <div class="col-sm-12" id="datos_trabajo">
                               <div class="form-group col-sm-4">
                               <label for="titulo">Titulo:</label>
                               <input class="form-control" type="text" id="titulo" placeholder="Escriba..." >
@@ -258,10 +243,8 @@
                             </div>
 
                             <div class="form-group col-sm-12">
-                              <button type="button" class="btn btn-info btn-block" onclick="registrartrabajo()"><i class="glyphicon glyphicon-ok"></i>  Registrar</button>
+                              <input type="button" class="btn btn-info btn-block" value="Registrar" id="botonregistrartrabajo" onclick="registrartrabajo()">
                             </div>
-                           </div>
-<!--*********************************************************************************************************-->
                           </form>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
@@ -444,26 +427,36 @@
 
 <!--*****************   asignar docentes  *********************-->
 
- <div class="modal fade" id="incluirdocente">
+ <div class="modal fade" id="incluirdocente"  data-keyboard="false" data-backdrop="static">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                          <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
                         <div class="modal-header">
-                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           <h3 align="center" class="titulo"> incluir docente </h3> 
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
                             <form method="post" class="form-group">
-                        <label for="">Autor del Trabajo:</label>
-                              <input type="search" id="docentet" onkeyup='consultardocente()' class="form-control" placeholder="Escribe un nombre de autor...">
+                            <div class="col-sm-12 form-group" id="inputoculto"></div>
+                        
+                              <div class="col-sm-12 form-group">
+                              <label for="">Autor del Trabajo:</label>
+                                <input type="search" id="docentet" onkeyup='consultardocente()' class="form-control" placeholder="Escribe un nombre de autor...">
+                              </div>
+                              
                                 <div id="docentelist"></div>
+                                
                       </form>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
                         <div class="modal-footer">
+                        <div class="col-sm-12 form-group" id="respuestadocentes"></div>
+                        <div class="col-sm-12 form-group">
+                          <button type="button" onclick="cancelarRegistro()" class="btn btn-danger">Cancelar y Salir</button>
+                          <a href="?controller=front&action=trabajos" class="btn btn-info">Guardar y Salir</a>
+                        </div>
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>

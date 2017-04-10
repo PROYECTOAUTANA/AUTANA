@@ -1,3 +1,7 @@
+//VARIABLES GLOBALES
+
+var idTrabajoTmp;
+
 //BUSCAR UN USUARIO
 function buscar1(){
 
@@ -120,53 +124,70 @@ $.ajax({
 
  function incluirdocente(){
 
-    $("#incluirdocente").modal("hide"); 
-    $("#nuevo_trabajo").modal("show"); 
+	var id_trabajo=$("#id_trabajo").val();
+ 	var id_docente=document.getElementById("radio").value
+ 	var vinculo=document.getElementById("vinculo").value
+    var url  = "?controller=trabajo&action=vincular_usuario"; 
 
-    var radio=$("input:radio").val();
-    var vinculo=$("#vinculo").val();
-
-
-    var MaxInputs       = 6; //Número Maximo de Campos si pongo uno me lee 2 porque empieza en 0
-    var contenedor       = $("#ponmeloaqui"); //ID del contenedor
-//var x = número de campos existentes en el contenedor
-    var x = $("#ponmeloaqui div").length+1;
-    var Count = x-1; //para el seguimiento de los campos
-
-        if(x <= MaxInputs) //max input box allowed
-        {
-            Count++;
-            //agregar campo
-            $(contenedor).append('<div class="form-group"><label for="">'+vinculo+' :</label><input type="text" readonly class="form-control" name="docente[]" id="docente'+ Count +'" value="'+radio+' - '+vinculo+'" /></div>');
-            x++; //text box increment
-        }else if (x >= MaxInputs) {
-
-        	alert("la cantidad maxima de docentes a registrar es de 2 por trabajo");
-        }
-
-}
-
- function registrartrabajo(){
-    var url  = "?controller=trabajo&action=registrar_trabajo"; 
+    var datos = {"id_trabajo":id_trabajo,"id_docente":id_docente,"vinculo":vinculo};
 
             $.ajax({
             type: "post",
             url: url,
-            data : {docente:docente}, 
-              success: function(result) {
+            data : datos, 
+            beforeSend: function () {
+                $("#botonincluirdocente").val("Procesando, espere por favor...");
+            }  
+          }).done(function(result){
+			
+			if (result.estado === true) {
 
-                $("#respuesta").html(result);
-              
-            }   
-          })
-    
+				$("#botonincluirdocente").val(result.mensajeboton);
+				$("#respuestadocentes").html(result.mensajeoperacion);
+			}else if (result.estado === false) {
+				$("#respuestadocentes").html(result.mensajeoperacion);
+			}
+	});
+       
+
 }
 
-function mostrarincluirdocente(){
+ function registrartrabajo(){
+ 	var titulo=$("#titulo").val();
+ 	var proceso=$("#proceso").val();
+ 	var fecha_pp=$("#fecha_pp").val();
+ 	var linea=$("#linea").val();
+ 	var categoria_ascenso=$("#categoria_ascenso").val();
+ 	var fase=$("#fase").val();
+ 	var observacion=$("#observacion").val();
 
-	$("#incluirdocente").modal("show");
-	$("#nuevo_trabajo").modal("hide");
+    var url  = "?controller=trabajo&action=registrar_trabajo"; 
+    var datos = {"titulo":titulo,"proceso":proceso,"fecha_pp":fecha_pp,"linea":linea,"categoria_ascenso":categoria_ascenso,"fase":fase,"observacion":observacion};
+            $.ajax({
+            type: "post",
+            url: url,
+            data : datos, 
+            beforeSend: function () {
+                 $("#botonregistrartrabajo").val("Procesando, espere por favor...");
+            }  
+          }).done(function(result){
 
+	          	if (result.estado === true) {
 
+	          		idTrabajoTmp = result.id
+	          		$("#titulo").val("")
+					$("#proceso").val("")
+					$("#fecha_pp").val("")
+					$("#linea").val("")
+					$("#categoria_ascenso").val("")
+					$("#fase").val("")
+					$("#observacion").val("")
+					$("#botonregistrartrabajo").val("Listo...");
+	            	$("#incluirdocente").modal("show")
+	            	$("#inputoculto").append('<input type="hidden" class="form-control" name="id_trabajo" id="id_trabajo" value="'+idTrabajoTmp+'" /></div>')
+	            	$("#nuevo_trabajo").modal("hide")
+	          	}
+          	})
+    
 }
 
