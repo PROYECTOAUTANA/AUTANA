@@ -9,7 +9,7 @@
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
+                        <div class="modal-body col-sm-12">
                             <form action="?controller=usuario&action=registrar_usuario" method="post" class="form-group">
                         <div class="form-group col-sm-4">
                           <label for="cedula">Cedula:</label>
@@ -54,7 +54,6 @@
                             <option value="1">Usuario Administrador</option>
                             <option value="2">Usuario Supervisor</option>
                             <option value="3">Usuario Docente</option>
-                            <option value="4">Usuario Jurado</option>
                           </select>
                         </div>
                         <div class="form-group col-sm-4">
@@ -98,20 +97,17 @@
                           <input  id="rclave"  class="form-control" type="password" name="rclave" placeholder="Escriba...">
                         </div>
                         <div class="form-group col-sm-12">
-                          <button type="submit" class="btn btn-info btn-block" name="registrar_usuario">Enviar</button>
+                          <button type="submit" class="btn btn-info btn-block" name="registrar_usuario"><i class="glyphicon glyphicon-ok"></i>  Enviar</button>
                         </div>
                       </form>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
                         <div class="modal-footer">
-                            <div class="col-sm-12">
-                              <a href="#" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Salir</a> 
-                            </div>
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
-                  </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
+                  </div> <!--TERMINO EL DIV DEL MODAL nuevo usuario-->
                   
 <!--******************************************************************-->
 
@@ -124,7 +120,7 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                       <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
+                        <div class="modal-body col-sm-12">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           <h4><i>¿Seguro que desea cerrar sesion?</i></h4>
                         </div><!--TERMINA EL BODY DE LA VENTANA-->
@@ -157,7 +153,7 @@
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
+                        <div class="modal-body col-sm-12">
                             <div class="imagen">
                 <img src="src/img/passw.png" alt="...">
             </div>
@@ -183,10 +179,12 @@
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
-                  </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
+                  </div> <!--TERMINO EL DIV DEL MODAL validar correo-->
 
 <!--******************************************************************-->
 <!--***********************  nuevo trabajo  **********************-->
+
+
 
 <div class="modal fade" id="nuevo_trabajo">
                     <div class="modal-dialog modal-lg">
@@ -194,90 +192,86 @@
                          <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
                         <div class="modal-header">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3 align="center" class="titulo"> Nuevo Trabajo </h3> 
+                          <h3 align="center"> Nuevo Trabajo </h3> 
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
-                            <form action="?controller=trabajo&action=registrar_trabajo" method="post" class="form-group">
-                        <div class="form-group col-sm-12">
-                          <label for="cedula">Cedulas de los autores:</label>
-                        
-                          <input  id="cedula" class="form-control" type="text" autofocus onkeyup="consultacedula();" autocomplete="off" required name="cedula" placeholder="Escriba..." autofocus>
-                        
-                        </div>
-                        <div class="form-group col-sm-12">
+                      <div class="modal-body col-sm-12">
+                        <form method="post" class="form-group">
+<!--**********en esta parte estara el formulario de los docentes************************************-->
+                            <div class="col-sm-12" id="personas">  
 
-                          <input  id="cedula2" style="display:none;" autofocus onkeyup="consultacedula();" autocomplete="off" required class="form-control" type="text" name="cedula" placeholder="Escriba..." autofocus>
-                        
-                        </div>
-                        <div class="form-group col-sm-12">
-                          <button type="button" class="btn btn-info btn-block" id="agregar" onclick='agregardocente()'>Agregar otro docente...</button>
-                        </div>
-                        <div class="form-group col-sm-3">
-                          <label for="titulo">Titulo:</label>
-                          <input  id="titulo" class="form-control" type="text" name="titulo" placeholder="Escriba..." >
-                        </div>
-                        <div class="form-group col-sm-3">
-                          <label for="">Linea de Investigacion:</label>
-                          <select name="linea" size="1" class="form-control" >
-                          <option>Seleccione</option>
-                            <option value="linea1">linea 1</option>
-                            <option value="linea1">linea 2</option>
-                            <option value="linea1">linea 3</option>
-                          </select>
-                        </div>
+<!--********aqui en este div estan los botones y los inputs necesarios para incluir un docente-->     
+                                  <div class="col-sm-12 form-group" id="ponmeloaqui"></div>
+                                <div class="col-sm-12 form-group">
+                                  <button type="button" class="btn btn-info btn-block" onclick="mostrarincluirdocente()">Incluir Docente</button>
+                                </div>
+<!--********************************************************************************************************-->
+                            </div>
 
-                         <div class="form-group col-sm-4">
-                          <label for="proceso">Proceso:</label>
-                          <select id="proceso" name="proceso" size="1" class="form-control">
-                            <option>Seleccione</option>
-                            <option value="regular">Regular</option>
-                            <option value="extraordinario">Extraordinario</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <label for="fecha_pp">Fecha de Presentacion Publica:</label>
-                          <input id="fecha_pp" type="text" name="fecha_pp" class="form-control" placeholder="DD/MM/AAAA" />
-                        </div>
-                         <div class="form-group col-sm-4">
-                         <label for="categoria_ascenso">Categoria de Ascenso</label>
-                           <select onchange="habilitar(this.value);" size="1" name="categoria_ascenso" id="categoria_ascenso" class="form-control">
-                          <option>seleccione</option>
-                            <option value="titular">Titular</option>
-                            <option value="agregado">Agregado</option>
-                            <option value="asociado">Asociado</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-sm-12">
-                          <label for="">Fase:</label>
-                          <select name="fase" size="1" class="form-control">
-                            <option>Seleccione</option>
-                            <option value="recepcion">Recepcion</option>
-                            <option value="seguimiento">Seguimiento</option>
-                            <option value="aprobacion">Aprobacion</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-sm-12">
-                          <label for="">Observacion:</label>
-                          <textarea name="observacion" class="form-control" rows="3"></textarea>
-                        </div>
-                        <div class="form-group col-sm-12">
-                          <button type="submit" class="btn btn-info btn-block">Registrar</button>
-                        </div>
-                      </form>
+<!--*************************************************************************************************************-->
+                            
+<!--****************** aqui es donde estara el formulario de los datos del trabajo ************************-->
+                           <div class="col-sm-12" id="datos_trabajo">
+                              <div class="form-group col-sm-4">
+                              <label for="titulo">Titulo:</label>
+                              <input class="form-control" type="text" id="titulo" placeholder="Escriba..." >
+                            </div>
+                            <div class="form-group col-sm-4">
+                              <label for="proceso">Proceso:</label>
+                              <select id="proceso" size="1" class="form-control">
+                                <option>Seleccione</option>
+                                <option value="regular">Regular</option>
+                                <option value="extraordinario">Extraordinario</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                              <label for="fecha_pp">Fecha de Presentacion Publica:</label>
+                              <input type="text" id="fecha_pp" class="form-control" placeholder="DD/MM/AAAA" />
+                            </div>
+                            <div class="form-group col-sm-12">
+                              <label for="">Linea de Investigacion:</label>
+
+                             <textarea id="linea" class="form-control" rows="3"></textarea>
+                            </div>
+                             <div class="form-group col-sm-6">
+                             <label for="categoria_ascenso">Categoria de Ascenso</label>
+                               <select onchange="habilitar(this.value);" size="1" id="categoria_ascenso" class="form-control">
+                              <option>seleccione</option>
+                                <option value="titular">Titular</option>
+                                <option value="agregado">Agregado</option>
+                                <option value="asociado">Asociado</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                              <label for="">Fase:</label>
+                              <select id="fase" size="1" class="form-control">
+                                <option>Seleccione</option>
+                                <option value="recepcion">Recepcion</option>
+                                <option value="seguimiento">Seguimiento</option>
+                                <option value="aprobacion">Aprobacion</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-sm-12">
+                              <label for="">Observacion:</label>
+                              <textarea id="observacion" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group col-sm-12">
+                              <button type="button" class="btn btn-info btn-block" onclick="registrartrabajo()"><i class="glyphicon glyphicon-ok"></i>  Registrar</button>
+                            </div>
+                           </div>
+<!--*********************************************************************************************************-->
+                          </form>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
                         <div class="modal-footer">
-                              <div class="col-md-12" id="resultado_cedula">
-                              </div>
-                              <div class="col-md-12" id="resultado">
-                              </div>
+                              <div id="respuesta"></div>
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
-                  </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
+                  </div> <!--TERMINO EL DIV DEL MODAL nuevo trabajo-->
 
 <!--******************************************************************-->
 
@@ -299,7 +293,7 @@
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
+                        <div class="modal-body col-sm-12">
                             
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
@@ -309,7 +303,7 @@
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
-                  </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
+                  </div> <!--TERMINO EL DIV DEL MODAL eliminar-->
 
 <!--******************************************************************-->
 
@@ -326,7 +320,7 @@
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
+                        <div class="modal-body col-sm-12">
                             <div class="text-center">
                               <img src="src/img/usu1.png" alt="..." class="img-rounded" width="20%">
                             </div>
@@ -362,12 +356,12 @@
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
+                        <div class="modal-body col-sm-12">
                            <form class="form-group" action="consultar-usuario" method="post">
                               <div class="input-group">
-                                    <input type="text" name="consulta" autofocus required placeholder="Ingrese un numero de cedula..." class="form-control">
+                                    <input type="text" id="consulta" autofocus required placeholder="Ingrese un numero de cedula..." class="form-control">
                                   <span class="input-group-btn">
-                                    <button class="btn btn-info" name="consultarDocente" type="submit"><i class="glyphicon glyphicon-search"></i>  Consultar</button>
+                                    <button class="btn btn-info" id="consultarDocente" type="submit"><i class="glyphicon glyphicon-search"></i>  Consultar</button>
                                     </span>
                                 </div>
                           </form>
@@ -381,7 +375,7 @@
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
-                  </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
+                  </div> <!--TERMINO EL DIV DEL MODAL consultar-->
 
 
 <!--******************************************************************-->
@@ -402,7 +396,7 @@
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
-                        <div class="modal-body">
+                        <div class="modal-body col-sm-12">
                             
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
@@ -412,12 +406,67 @@
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
-                  </div> <!--TERMINO EL DIV DEL MODAL MIS DATOS-->
+                  </div> <!--TERMINO EL DIV DEL MODAL consultar-->
 
 
 
 <!--******************************************************************-->
 
+<!--**********************  consultar trabajo  ***********************-->
 
+
+
+
+
+                  <div class="modal fade" id="correo_p">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                         <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
+                        <div class="modal-header">
+                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h3 align="center" class="titulo"> modal </h3> 
+                        </div>
+                      <!--TERMINA EL HEADER-->
+                      <!--CUERPO O BODY DE LA VENTANA-->
+                        <div class="modal-body col-sm-12">
+                            
+                        </div>
+                      <!--TERMINA EL BODY DE LA VENTANA-->
+                        <!--FOOTER DE LA VENTANA-->
+                        <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Salir</button> 
+                        </div><!--TERMINA EL FOOTER-->
+                      </div>
+                    </div>
+                  </div> <!--TERMINO EL DIV DEL MODAL de envio de correo-->
+
+
+
+<!--*****************   asignar docentes  *********************-->
+
+ <div class="modal fade" id="incluirdocente">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                         <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
+                        <div class="modal-header">
+                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h3 align="center" class="titulo"> incluir docente </h3> 
+                        </div>
+                      <!--TERMINA EL HEADER-->
+                      <!--CUERPO O BODY DE LA VENTANA-->
+                        <div class="modal-body col-sm-12">
+                            <form method="post" class="form-group">
+                        <label for="">Autor del Trabajo:</label>
+                              <input type="search" id="docentet" onkeyup='consultardocente()' class="form-control" placeholder="Escribe un nombre de autor...">
+                                <div id="docentelist"></div>
+                      </form>
+                        </div>
+                      <!--TERMINA EL BODY DE LA VENTANA-->
+                        <!--FOOTER DE LA VENTANA-->
+                        <div class="modal-footer">
+                        </div><!--TERMINA EL FOOTER-->
+                      </div>
+                    </div>
+                  </div> <!--TERMINO EL DIV DEL MODAL de incluir docente-->
 
 

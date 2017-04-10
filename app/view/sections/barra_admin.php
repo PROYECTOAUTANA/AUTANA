@@ -3,7 +3,7 @@
         <div id="barra">
             <ul class="menu">
                 <li class="logotipo">
-                     <img src="src/img/lautana.png"  alt="...">
+                     <img src="src/img/lautana.jpg"  alt="...">
                 </li>
                 <li>
                     <a href="?controller=front&action=perfil"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>

@@ -8,7 +8,7 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img width="100%" height="100px" class="first-slide" src="src/img/banderas.png" alt="First slide">
+          <img width="100%" height="100px" class="first-slide" src="src/img/BANNER.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
 
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="item">
-        <img width="100%" height="100px" class="first-slide" src="src/img/carru3.png" alt="Third slide">
+        <img width="100%" height="100px" class="first-slide" src="src/img/papu.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
 

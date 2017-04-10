@@ -105,8 +105,9 @@ html, body {
     line-height: 50px;
 }
 .logotipo img{
-    width:150px;
-    margin-left: 35px;
+    width:95px;
+    margin-left: 58px;
+    padding-top: 20px;
     text-align: center;
 }
 .menu li a {
@@ -200,7 +201,7 @@ li.boton_salir a{
 /*header home*/
 .banner {
     width:100%; /* Establecemos que el header abarque el 100% del documento */
-    padding: 0px 0px;
+    padding: 17px 0px 5px 0px;
     overflow:hidden; /* Eliminamos errores de float */
     background:#222;
     margin-bottom:0px;
@@ -230,7 +231,7 @@ li.boton_salir a{
     transition:all 500ms ease;
 }
 .banner .logo img{
-    width: 150px;
+    width: 160px;
 }
 .banner nav {
     float:right;

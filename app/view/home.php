@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="shortcut icon" type="image/x-icon" href="src/img/autana_ico.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="src/img/iautana.ico" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>:::  SISTEMA AUTANA  :::</title>

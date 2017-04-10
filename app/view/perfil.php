@@ -10,13 +10,19 @@ if($_SESSION['rol'] == 'administrador'){
 }elseif ($_SESSION['rol'] == 'supervisor') {
     $barra = "barra_usuario";
     $titulo = "Supervisor";
+}elseif ($_SESSION['rol'] == 'docente') {
+    $barra = "barra_docente";
+    $titulo = $_SESSION['usuario_nombre'];
+}else{
+
+    header("location: ?controller=front&action=home");
 }
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
- <link rel="shortcut icon" type="image/x-icon" href="src/img/autana_ico.ico" />
+ <link rel="shortcut icon" type="image/x-icon" href="src/img/iautana.ico" />
   <meta charset="UTF-8">
   <title>:::  SISTEMA DE USUARIOS  :::</title>
   <link rel="stylesheet" href="src/css/bootstrap.min.css">
@@ -42,19 +48,7 @@ include("sections/$barra.php");
                         <h1><span class="glyphicon glyphicon-th-large"></span>  Bienvenido <?php echo $titulo; ?></h1>
                         <hr>
                       </div>
-                    <div class="col-md-12 contenido_4">
-                       <div class="col-sm-12 btn-group btn-group-justified" >
-                          <div class="btn-group">
-                            <a href="#" class="btn btn-info"><i class="glyphicon glyphicon-user"></i>  Mis Datos</a>
-                          </div>
-                          <div class="btn-group">
-                            <a href="#" class="btn btn-info"><i class="glyphicon glyphicon-list"></i>  Usuarios</a>
-                          </div>
-                          <div class="btn-group">
-                            <a href="#"  class="btn btn-info"><i class="glyphicon glyphicon-list"></i>  Trabajos</a>
-                          </div>
-                        </div> 
-                        <div class="col-sm-12"><br><br>
+                        <div class="col-sm-12">
                     <?php include("sections/carrusell.php"); ?>
                     </div>
                 </div>

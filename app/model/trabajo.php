@@ -7,10 +7,10 @@ class Trabajo{
 		$this->pdo = new Conexion();
 	}
 
-	public function nuevo($id_trabajo,$titulo,$n_consejo,$observacion,$fecha_pp,$proceso,$categoria_ascenso){
+	public function nuevo($id_trabajo,$titulo,$fecha_pp,$proceso,$categoria_ascenso){
 	try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO trabajo(id_trabajo,trabajo_titulo,numero_consejo,trabajo_observacion,fecha_presentacion,proceso,categoria_de_ascenso) VALUES('$id_trabajo','$titulo','$n_consejo','$observacion','$fecha_pp','$proceso','$categoria_ascenso')");
+				$sql = $this->pdo->prepare("INSERT INTO trabajo(id_trabajo,trabajo_titulo,fecha_presentacion,proceso,categoria_de_ascenso) VALUES('$id_trabajo','$titulo','$fecha_pp','$proceso','$categoria_ascenso')");
         		$sql->execute();
         		//Con fetchAll() puedo hacer los crud PERO no puedo iniciar sesion
         		//Con fetch(PDO::FETCH_ASSOC)  puedo iniciar sesion  PERO no puedo gestionar los crud  

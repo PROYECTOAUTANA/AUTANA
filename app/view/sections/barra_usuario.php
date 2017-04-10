@@ -3,31 +3,19 @@
         <div id="barra">
             <ul class="menu">
                 <li class="logotipo">
-                     <img src="src/img/lautana.png"  alt="...">
+                     <img src="src/img/lautana.jpg"  alt="...">
                 </li>
                 <li>
                     <a href="?controller=perfil"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>
                 </li>
                 <li class="boton_desplegable">
-                    <a href="?controller=gestionar_trabajos"><span class="glyphicon glyphicon-th-list"></span> Gestion de Trabajos</a>
-                    <div class="submenu">
-                      <a href="?controller=index&action=nuevoTrabajo">Nuevo Trabajo</a>
-                      <a href="?controller=index&action=listarTrabajos">Listar Todos</a>
-                    </div>
+                    <a href="?controller=gestionar_trabajos"><span class="glyphicon glyphicon-th-list"></span> Gestionar de Trabajos</a>
                 </li>
                 <li class="boton_desplegable">
-                    <a href="?controller=gestionar_docente"><span class="glyphicon glyphicon-education"></span> Gestion de Docentes</a>
-                    <div class="submenu">
-                      <a href="#">Listar Todos</a>
-                      <a href="#">Ver por Categoria</a>
-                    </div>
+                    <a href="?controller=gestionar_docente"><span class="glyphicon glyphicon-education"></span> Gestionar de Docentes</a>
                 </li>
                 <li class="boton_desplegable">
-                    <a href="#"><span class="glyphicon glyphicon-list"></span> Reportes</a>
-                    <div class="submenu">
-                      <a href="#">Reporte por correo</a>
-                      <a href="#">Constancias</a>
-                    </div>
+                    <a href="#"><span class="glyphicon glyphicon-list"></span>  Gestionar Reportes</a>
                 </li>
                 <li class="boton_salir">
                     <a href="#ventana1" data-toggle="modal"><span class="glyphicon glyphicon-off"></span> Salir</a>

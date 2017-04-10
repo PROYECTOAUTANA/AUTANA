@@ -27,9 +27,9 @@
                                     <td align="center"><?php echo $autor;?></td>
                                     <td align="center"><?php echo $fecha_pp;?></td>
                                     <td align="center"><?php echo $fase;?></td>
-                                    <td align="center"><a class="btn btn-default" href="?controller=front&action=detalles_trabajo&id_trabajo=<?php echo $id; ?>"> Detalles</a></td>
-                                    <td align="center"><a class="btn btn-danger" href="eliminar-trabajo?=<?php echo $id; ?>"> Eliminar</a></td>
-                                    <td align="center"><a class="btn btn-info" href="modificar-trabajo?=<?php echo $id; ?>"> Modificar</a></td>
+                                    <td align="center"><a class="btn btn-info" href="?controller=front&action=detalles_trabajo&id_trabajo=<?php echo $id; ?>"> <i class="glyphicon glyphicon-cog"></i></a></td>
+                                    <td align="center"><a class="btn btn-danger" href="eliminar-trabajo?=<?php echo $id; ?>"><i class="glyphicon glyphicon-trash"></i> </a></td>
+                                    <td align="center"><a class="btn btn-default" href="modificar-trabajo?=<?php echo $id; ?>"> <i class="glyphicon glyphicon-stats"></i></a></td>
                                     
                                   </tr>
                                 <?php 

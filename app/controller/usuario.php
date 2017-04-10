@@ -56,17 +56,14 @@ class C_Usuario{
 				$rol = "supervisor";
 			}elseif ($tipo == 3) {
 				$rol = "docente";
-			}elseif ($tipo == 4) {
-				$rol = "jurado";
 			}
-
 			if ($tipo == 1 OR $tipo == 2) {
 
 				$usuario = $_POST['usuario'];
 				$clave = md5($_POST['clave']);
 				$categoria = "ninguna";
 				$result0 = $this->obj_usuario->registrar_categoria($id_categoria,$categoria);
-				$result1 = $this->obj_usuario->registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$edad,$telefono,$correo,$direccion,$usuario,$clave,$tipo,$id_categoria);
+				$result1 = $this->obj_usuario->registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$id_categoria);
 				
 				
 				$departamento = "sin departamento";
@@ -84,13 +81,13 @@ class C_Usuario{
 					echo "ERORR!";
 				}
 
-			}elseif ($tipo == 3 OR $tipo == 4) {
+			}elseif ($tipo == 3) {
 				
 				$usuario = $cedula;
 				$clave = md5($cedula);
 				$categoria = $_POST['categoria_actual'];
 				$result2 = $this->obj_usuario->registrar_categoria($id_categoria,$categoria);
-				$result3 = $this->obj_usuario->registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$edad,$telefono,$correo,$direccion,$usuario,$clave,$tipo,$id_categoria);
+				$result3 = $this->obj_usuario->registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$id_categoria);
 				$departamento = $_POST['departamento'];
 				$result4 = $this->obj_departamento->registrar_departamento($id_departamento,$departamento);
 				$result5 = $this->obj_usuario_departamento->registrar_usuario_departamento($id_usu_dep,$id_usuario,$id_departamento);
@@ -117,6 +114,22 @@ class C_Usuario{
 			}else{
 				echo '<b>Sugerencias:</b><br />';
 				require_once "app/view/sections/tabla-usuarios.php";
+			}  
+	}
+
+	public function buscar_docente(){
+
+			$filtro = $_POST['docente'];
+			$db = $this->obj_usuario->buscar($filtro);
+			if(!$db){
+				echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
+			}else{
+				
+				echo '<b>Sugerencias:</b><br />';
+				foreach ($db as $dato) {
+					require_once "app/view/sections/tabla-usuarios-2.php";
+				}
+				
 			}  
 	}
 
@@ -173,6 +186,7 @@ $db = $this->obj_usuario->consultar_cedula($cedula);
 				session_start();
 				$_SESSION['id']     = $arreglo_datos['id_usuario'];
 				$_SESSION['user']   = $arreglo_datos['usuario_usuario'];
+				$_SESSION['usuario_nombre']   = $arreglo_datos['usuario_nombre'];
 				$_SESSION['rol']   = $arreglo_datos['rol'];
 				echo "<script>window.location.href = '?controller=front&action=perfil';</script>";
 			}

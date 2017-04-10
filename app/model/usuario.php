@@ -8,11 +8,11 @@ class Usuario{
 		$this->pdo = new Conexion();
 	}
 
-	public function registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$edad,$telefono,$correo,$direccion,$usuario,$clave,$tipo,$categoria){
+	public function registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$categoria){
 
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO usuario VALUES('$id_usuario','$cedula','$nombre','$apellido','$sexo','$edad','$telefono','$correo','$direccion',null,'$usuario','$clave','$tipo','$categoria')");
+				$sql = $this->pdo->prepare("INSERT INTO usuario VALUES('$id_usuario','$cedula','$nombre','$apellido','$sexo','$telefono','$correo','$direccion',null,'$usuario','$clave','$categoria')");
 				$result = $sql->execute();
 				return $result;
 			
@@ -63,7 +63,7 @@ class Usuario{
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_rol , rol WHERE usuario.usuario_usuario = '$usuario' AND usuario.clave = '$password'");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_rol , rol WHERE usuario.usuario_usuario = '$usuario' AND usuario.clave = '$password' AND usuario_rol.fk_rol=rol.id_rol AND usuario_rol.fk_usuario=usuario.id_usuario");
         		$sql->execute(); 
     			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
     			return $datosDB;

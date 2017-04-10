@@ -1,1 +1,0 @@
-INSERT INTO md5 (user,pass) VALUES ('$user', md5('$pass'));

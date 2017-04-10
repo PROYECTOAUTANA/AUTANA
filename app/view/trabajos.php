@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if(!$_SESSION){
-   header("location: ?controller=front&action=home");
+    header("location: ?controller=front&action=home");
 }
 
 if($_SESSION['rol'] == 'administrador'){ 
@@ -10,6 +10,9 @@ if($_SESSION['rol'] == 'administrador'){
 }elseif ($_SESSION['rol'] == 'supervisor') {
     $barra = "barra_usuario";
     $titulo = "Supervisor";
+}else{
+
+    header("location: ?controller=front&action=home");
 }
 
 ?>
@@ -17,7 +20,7 @@ if($_SESSION['rol'] == 'administrador'){
 <html>
 <head>
 
- <link rel="shortcut icon" type="image/x-icon" href="src/img/autana_ico.ico" />
+ <link rel="shortcut icon" type="image/x-icon" href="src/img/iautana.ico" />
   <meta charset="UTF-8">
   <title>:::  SISTEMA DE USUARIOS  :::</title>
   <link rel="stylesheet" href="src/css/bootstrap.min.css">

@@ -32,14 +32,15 @@ class C_Trabajo{
 	}
 
 	public function registrar_trabajo(){
-
-		$consulta = $this->obj_usuario->consultar_cedula($_POST['cedula']);
-	
-			if (!$consulta) {
-				echo "error: no se encontro ese usuario...";
+		$id_docente = $_POST['docente'];
+	/*
+			if (!$consulta_autor) {
+				echo 'este usuario no existe ';
 			}else{
 					
-					$id_usuario = $consulta['id_usuario'];
+					$id_autor = $consulta_autor['id_usuario'];
+					//$id_tutor = $consulta_tutor['id_usuario'];
+					//$id_jurado = $consulta_jurado['id_usuario'];
 
 					$id_trabajo = rand();
 					$id_linea = rand();
@@ -49,14 +50,12 @@ class C_Trabajo{
 					$id_usuario_trabajo = rand();
 					$titulo = $_POST['titulo'];
 					$linea = $_POST['linea'];
-					$n_consejo = $_POST['n_consejo'];
 					$proceso = $_POST['proceso'];
 					$fecha_pp = $_POST['fecha_pp'];
 					$categoria_ascenso = $_POST['categoria_ascenso'];
 					$fase = $_POST['fase'];
-					$observacion = $_POST['observacion'];
 
-					$result1 = $this->obj_trabajo->nuevo($id_trabajo,$titulo,$n_consejo,$observacion,$fecha_pp,$proceso,$categoria_ascenso);
+					$result1 = $this->obj_trabajo->nuevo($id_trabajo,$titulo,$fecha_pp,$proceso,$categoria_ascenso);
 
 					$result2 = $this->obj_fase->registrar_fase($id_fase,$fase);
 					
@@ -66,16 +65,21 @@ class C_Trabajo{
 
 					$result5 = $this->obj_trabajo_fase->registrar_trabajo_fase($id_trabajo_fase,$id_trabajo,$id_fase);
 
-					$result6 = $this->obj_usuario_trabajo->registrar_usuario_trabajo($id_usuario_trabajo,$id_usuario,$id_trabajo);
+					$result6 = $this->obj_usuario_trabajo->registrar_usuario_trabajo($id_usuario_trabajo,$id_autor,$id_trabajo,"autor");
+
+					//$result7 = $this->obj_usuario_trabajo->registrar_usuario_trabajo($id_usuario_trabajo,$id_tutor,$id_trabajo,"tutor");
+
+					//$result8 = $this->obj_usuario_trabajo->registrar_usuario_trabajo($id_usuario_trabajo,$id_jurado,$id_trabajo,"jurado");
+
 
 					if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6) {
-						header("location: ?controller=front&action=trabajos");
+						echo "listo!!";
 					}else{
 						echo "ERORR!";
 					}	
 
 			}
-	}
+	*/}
 
 	public function buscar(){
 			$filtro = $_POST['filtro'];

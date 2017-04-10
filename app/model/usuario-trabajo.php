@@ -7,11 +7,11 @@ class Usuario_Trabajo{
 		$this->pdo = new Conexion();
 	}
 
-	public function registrar_usuario_trabajo($id_usuario_trabajo,$id_usuario,$id_trabajo){
+	public function registrar_usuario_trabajo($id_usuario_trabajo,$id_usuario,$id_trabajo,$vinculo){
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO usuario_trabajo VALUES('$id_usuario_trabajo','$id_usuario','$id_trabajo')");
+				$sql = $this->pdo->prepare("INSERT INTO usuario_trabajo VALUES('$id_usuario_trabajo','$id_usuario','$id_trabajo','$vinculo')");
     			$result = $sql->execute();
     			return $result;
 			

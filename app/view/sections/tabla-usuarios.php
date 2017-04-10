@@ -39,14 +39,13 @@
                                     <td align="center"><?php echo $departamento;?></td>
                                     <td align="center"><?php echo $rol;?></td>
                                     <td align="center">
-                                      <a class="btn btn-default" href="?controller=front&action=detalles_usuario&id_usuario=<?php echo $id_usuario; ?>">Detalles</a>
+                                      <a class="btn btn-default" href="?controller=front&action=detalles_usuario&id_usuario=<?php echo $id_usuario; ?>"><i class="glyphicon glyphicon-cog"></i></a>
                                     </td>
                                     <td align="center">
-                                      <a class="btn btn-info" href="modificar-usuario&id=<?php echo $id; ?>">Modificar</a>
+                                      <a class="btn btn-info" href="#"><i class="glyphicon glyphicon-lock"></i></a>
                                     </td>
                                     <td align="center">
-                                      <a class="btn btn-danger" href='eliminar-usuario?id_usuario=<?php echo $id_usuario; ?>&id_categoria=<?php echo $id_categoria; ?>&id_departamento=<?php echo $id_departamento; ?>&id_rol=<?php echo $id_rol; ?>'>Eliminar
-                                      </a>
+                                      <a class="btn btn-danger" href="#correo_p" data-toggle="modal"><i class="glyphicon glyphicon-envelope"></i> </a>
                                     </td>
                                   </tr>
                                 <?php 

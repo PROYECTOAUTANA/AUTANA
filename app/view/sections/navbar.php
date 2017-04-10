@@ -17,7 +17,7 @@
                     <a href="gestionar-trabajos" class="nav-link"><span class="glyphicon glyphicon-asterisk"></span> Trabajos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="gestionar-usuarios" class="nav-link"><span class="glyphicon glyphicon-education"></span> Usuarios</a>
+                    <a href="gestionar-usuarios" class="nav-link"><span class="glyphicon glyphicon-user"></span> Usuarios</a>
                 </li>
                 <li class="nav-item">
                     <a target="_blank" href="http://www.uptaeb.edu.ve/site/" class="nav-link"><span class="glyphicon glyphicon-globe"></span> WebSite</a>
