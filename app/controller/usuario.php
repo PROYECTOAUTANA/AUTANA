@@ -7,8 +7,8 @@ require_once "app/model/usuario-departamento.php";
 require_once "app/model/rol.php";
 require_once "app/model/usuario-rol.php";
 require_once "app/model/usuario.php";
-require_once "libs/class.phpmailer.php";
-require_once "libs/class.smtp.php";
+require_once "libs/phpmailer/class.phpmailer.php";
+require_once "libs/phpmailer/class.smtp.php";
 require_once "app/model/usuario.php";
 
 class C_Usuario{
@@ -107,20 +107,24 @@ class C_Usuario{
 
 	public function buscar(){
 
-			$filtro = $_POST['n'];
-			$db = $this->obj_usuario->buscar($filtro);
-			if(!$db){
-				echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
-			}else{
-				echo '<b>Sugerencias:</b><br />';
-				require_once "app/view/sections/tabla-usuarios.php";
-			}  
+		$filtro = $_POST['n'];
+		$array_db = $this->obj_usuario->buscar($filtro);
+		$db = $array_db['datos'];
+		$dbc = $array_db['cantidad'];
+		if(!$db){
+			echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
+		}else{
+			echo '<b>Sugerencias:</b><br />';
+			require_once "app/view/sections/tabla-usuarios.php";
+		}  
 	}
 
 	public function buscar_docente(){
 
 			$filtro = $_POST['docente'];
-			$db = $this->obj_usuario->buscar($filtro);
+			$array_db = $this->obj_usuario->buscar($filtro);
+			$db = $array_db['datos'];
+			$dbc = $array_db['cantidad'];
 			if(!$db){
 				echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
 			}else{
@@ -131,19 +135,6 @@ class C_Usuario{
 				}
 				
 			}  
-	}
-
-	public function consultar_cedula(){
-
-			$cedula = $_POST['c'];
-			echo $cedula;
-$db = $this->obj_usuario->consultar_cedula($cedula);
-			if(!$db){
-				echo 'No hay sugerencias para: <b>'.$cedula."</b>...";
-			}else{
-				
-			echo "encontrado";	
-			}
 	}
 
 	public function eliminar(){
@@ -171,23 +162,22 @@ $db = $this->obj_usuario->consultar_cedula($cedula);
 
 			if (!$arreglo_datos) {
 				
-			  
-			  echo'<div class="alert alert-danger alert-dismissible" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Error!</strong> Usuario o clave incorrecta</div>';
+			  $estado = false;
 			}else{
-
-				echo'<div class="alert alert-success alert-dismissible" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Operacion Exitosa!</strong> Te logueaste</div>';
-
+				$estado = true;
 				session_start();
 				$_SESSION['id']     = $arreglo_datos['id_usuario'];
 				$_SESSION['user']   = $arreglo_datos['usuario_usuario'];
-				$_SESSION['usuario_nombre']   = $arreglo_datos['usuario_nombre'];
+				$_SESSION['nombre']   = $arreglo_datos['usuario_nombre'];
+				$_SESSION['apellido']   = $arreglo_datos['usuario_apellido'];
 				$_SESSION['rol']   = $arreglo_datos['rol'];
-				echo "<script>window.location.href = '?controller=front&action=perfil';</script>";
 			}
+
+		header('Content-Type: application/json');
+		//Guardamos los datos en un array
+		$datos = array('estado' => $estado);
+		//Devolvemos el array pasado a JSON como objeto
+		echo json_encode($datos, JSON_FORCE_OBJECT);
 	}
 
 	public function cerrar_sesion(){

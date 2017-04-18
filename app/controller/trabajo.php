@@ -72,9 +72,7 @@ class C_Trabajo{
 	}
 
 	public function vincular_usuario(){
-
-
-
+		
 					$id_usuario_trabajo = rand();
 					$id_trabajo = $_POST['id_trabajo'];
 					$id_usuario = $_POST['id_docente'];
@@ -108,12 +106,14 @@ class C_Trabajo{
 
 	public function buscar(){
 			$filtro = $_POST['filtro'];
-			$db = $this->obj_trabajo->buscar($filtro);
+			$array_db = $this->obj_trabajo->buscar($filtro);
+			$db = $array_db['datos'];
+			$dbc = $array_db['cantidad'];
 			if(!$db){
 				echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
 			}else{
 				echo '<b>Sugerencias:</b><br />';
-				require_once "app/view/sections/tabla-trabajos.php";
+				require_once "app/view/sections/tabla-trabajos2.php";
 			} 
 	}
 	

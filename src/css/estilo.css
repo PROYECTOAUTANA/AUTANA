@@ -3,29 +3,109 @@
         margin: 0;
         padding: 0;
   }
-@font-face {
-      font-family: 'Roboto', sans-serif;
-    }
 a h1 h2 h3 h4 h5 h6 p{
 
-    font-family: "Roboto";
+    font-family: arial,sans-serif;
+    font-size: small;
+    font-weight: italic;
 }
 
 html, body {
     height: 100%;
     margin: 0;   
 }
-/*generales*/
+
+.form-control{
+
+    border-radius: 2px;
+}
+
+
+.btn {
+    border-radius: 2px;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.btn-danger {
+    color: #fff;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+
+.btn-danger:hover {
+    color: #FFF;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+
+.btn-danger.active, .btn-danger:active, .open > .dropdown-toggle.btn-danger {
+    color: #FFF;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+.btn-danger.focus, .btn-danger:focus {
+    color: #FFF;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+
+.btn-danger.active.focus, .btn-danger.active:focus, .btn-danger.active:hover, .btn-danger.focus:active, .btn-danger:active:focus, .btn-danger:active:hover, .open > .dropdown-toggle.btn-danger.focus, .open > .dropdown-toggle.btn-danger:focus, .open > .dropdown-toggle.btn-danger:hover {
+   color: #FFF;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+
+
+
 .btn-info {
-    color: #fff;
-    background-color: #0275d8;
-    border-color: #0275d8;
+    color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
 }
+
 .btn-info:hover {
-    color: #fff;
-    background-color: #1088ef;
-    border-color: #1088ef;
+    color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
 }
+
+.btn-info.active, .btn-info:active, .open > .dropdown-toggle.btn-info {
+    color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
+}
+.btn-info.focus, .btn-info:focus {
+    color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
+}
+
+.btn-info.active.focus, .btn-info.active:focus, .btn-info.active:hover, .btn-info.focus:active, .btn-info:active:focus, .btn-info:active:hover, .open > .dropdown-toggle.btn-info.focus, .open > .dropdown-toggle.btn-info:focus, .open > .dropdown-toggle.btn-info:hover {
+   color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
+}
+
+
+.navbar-inverse {
+    background-color: #222;
+    border-color: #222;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #222;
+}
+
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #222;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: #222;
+}
+/*generales*/
 /* dashboard */
 #principal {
     margin-top: 48px;
@@ -71,7 +151,7 @@ html, body {
     position: fixed;
     bottom: 15px;/*MARGEN HACA ABAJO*/
     z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
-    left: 15px; /* Depende el Ancho de donde se va a colocar */
+    left: 10px; /* Depende el Ancho de donde se va a colocar */
 }
 #minimenu{
     width: 50%;
@@ -81,13 +161,13 @@ html, body {
 
     margin-bottom: 20px;
 }
-#minimenu a{
-
+#minimenu a {
     border-radius: 100%;
-    padding:18px 22px 18px 22px;
-    box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
-    font-size: 15px;background-color: #0275D8;
-    color: #fef6f6;
+    padding: 18px 22px 18px 22px;
+    box-shadow: 0px 0px 30px 0 rgba(14, 12, 12, 0.91);
+    font-size: 15px;
+    background-color: RGB(1, 97, 246);
+    color: #FFF;
 }
 /**/
 /* Sidebar Styles */
@@ -151,33 +231,7 @@ li.boton_salir a{
 }
 .boton_desplegable:hover .submenu {display: block;}
 
-@media(min-width:968px) {
-    #principal {
-        padding-left: 250px;
-    }
 
-    #principal.cambiado {
-        padding-left: 0;
-    }
-
-    #barra {
-        width: 250px;
-    }
-
-    #principal.cambiado #barra {
-        width: 0;
-    }
-
-    #contenido {
-        padding: 20px;
-        position: relative;
-    }
-
-    #principal.cambiado #contenido {
-        position: relative;
-        margin-right: 0;
-    }
-}
 
 /* dashboard */
 
@@ -207,14 +261,6 @@ li.boton_salir a{
     margin-bottom:0px;
     box-shadow:0px 0px 30px 0 rgb(14, 12, 12);
 }
-.boton{
-    background-color: #137bd4;
-    border-color: #137bd4;
-}
-.boton:hover{
-    background-color: #137bd4;
-}
-
 .barra_2 {
 
     width:60%; /* Establecemos que el ancho sera del 90% */
@@ -240,7 +286,7 @@ li.boton_salir a{
 .banner nav a {
     display:inline-block;
     background-color: #137bd4;
-    border-radius:50px;
+    border-radius:4px;
     color: #fff;
     text-decoration:none;
     padding:10px 20px;
@@ -253,17 +299,7 @@ li.boton_salir a{
  
 .banner nav a:hover {
     background-color: rgba(19, 123, 212, 0.73);
-    border-radius:50px;
-}
-@media(max-width:768px) {
-.banner nav {
-    display: none;
-}
-}
-@media(max-height:690px) {
-footer {
-    display: none;
-}
+    border-radius:0px;
 }
 /*header home*/
 footer {
@@ -294,4 +330,124 @@ footer {
 }
 .oculto{
     display: none;
+}
+
+
+.grupobotones {
+    margin-top: 28px;
+}
+
+.contenido_1{
+
+margin-bottom: 15px;
+}
+
+.contenido_5{
+
+top: 20px;
+}
+.tablas{
+
+top: 20px;
+}
+.contenido{
+
+    bottom: 900px;
+}
+
+#boton2{
+    display: none;
+}
+#guardarysalir{
+
+    display: none;
+}
+    
+    .footer2 {
+        display: none;
+        box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
+        position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
+        width: 100%;
+        bottom: 0;/*MARGEN HACA ABAJO*/
+        z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
+        left: 0; /* Depende el Ancho de donde se va a colocar */ 
+        background-color:#222;
+        color:#fff;      
+}
+.footer2 .item {
+
+    text-align: center;
+}
+.footer2 .item a{
+
+    margin: 0px;
+    padding: 19px 0px;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+/**media queries**/
+@media(max-width:1024px){
+.banner nav {
+    width: 100%;
+    text-align: center;
+}
+.banner .logo {
+    width: 100%;
+    text-align: center;
+}
+.banner .logo img{
+    width: 160px;
+}
+h1{
+        font-size: 20px;
+    }
+#item_nav{
+    display: none;
+}
+#minimenu{
+    display: none;
+}
+}
+
+@media(min-width:1280px) {
+    #principal {
+        padding-left: 250px;
+    }
+
+    #principal.cambiado {
+        padding-left: 0;
+    }
+
+    #barra {
+        width: 250px;
+    }
+
+    #principal.cambiado #barra {
+        width: 0;
+    }
+
+    #contenido {
+        padding: 20px;
+        position: relative;
+    }
+    #principal.cambiado #contenido {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+@media(max-height:650px) {
+footer {
+    display: none;
+}
+}
+
+@media(max-width:1024px){
+
+.footer2{
+    display: block;
+}
+
 }

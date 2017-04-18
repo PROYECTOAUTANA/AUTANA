@@ -26,8 +26,9 @@ if($_SESSION['rol'] == 'administrador'){
   <link rel="stylesheet" href="src/css/bootstrap.min.css">
   <!--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">-->
    <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
+   <script src="src/js/fecha_y_hora.js"></script>
 </head>
-<body >
+<body onload="javascript:hora()">
 <?php 
 include("sections/cargando.php"); 
 include("sections/navbar.php"); 
@@ -37,50 +38,44 @@ include("sections/$barra.php");
         <div id="contenido">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="contenido_1 col-sm-12">
-                      <div class="col-sm-12 fecha">
-                          <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
-                      </div>
+                    <div class="contenido_1 col-md-12">
+                      <div class="col-md-6 trabajos">
                         <h1><span class="glyphicon glyphicon-th-large"></span>  Gestion de  Trabajos</h1>
-                        <hr>
-                    </div>
-                    <div class="col-md-12 contenido_4">
-                       <div class="col-sm-12 btn-group btn-group-justified" >
-                          <div class="btn-group">
-                            <a href="#nuevo_trabajo" data-toggle="modal" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>  Nuevo Trabajo</a>
-                          </div>
-                          <div class="btn-group">
-                            <a href="gestionar-trabajos" class="btn btn-info"><i class="glyphicon glyphicon-list"></i>  Todos los Trabajos</a>
-                          </div>
-                          <div class="btn-group">
-                            <a href="#eliminar_trabajo" data-toggle="modal" class="btn btn-info"><i class="glyphicon glyphicon-search"></i>  Consultas Filtradas</a>
-                          </div>
-                        </div> <br><br><br> 
-                    </div>
-                     <div class="contenido_5 col-sm-12">
-                      <div class="tabla col-sm-12">
-                       <form class="form-group">
-                              <div class="input-group">
-                                    <input type="text" name="filtro" id= "bus" autofocus onkeyup="buscar2();" autocomplete="off" required placeholder="Escribe algo.." class="form-control">
-                                  <span class="input-group-btn">
-                                    <button class="btn btn-default" onclick="buscar2();" name="buscarUsuario" type="button"><i class="glyphicon glyphicon-search"></i> </button>
-                                    </span>
+                      </div>
+                       <div class="col-md-6 col-xs-12 btn-group btn-group grupobotones">
+                        <div class="col-xs-3">
+                            <a href="#nuevo_trabajo" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i></a>
+                        </div>
+                        <div class="col-xs-3">
+                            <a href="?controller=front&action=trabajos" class="btn btn-info btn-block"><i class="glyphicon glyphicon-refresh"></i></a>
+                        </div>
+                        <div class="col-xs-3">
+                            <a href="?controller=reportes&action=trabajos_pdf"  class="btn btn-danger btn-block"><i class="glyphicon glyphicon-print"></i> PDF</a>
+                        </div>
+                        <div class="col-xs-3">
+                            <a href="?controller=reportes&action=trabajos_excel"  class="btn btn-success btn-block"><i class="glyphicon glyphicon-print"></i> Excel</a>
+                        </div>
+                      </div>
+                    </div><br><br><br>
+                     <div class="contenido_5 col-md-12">
+                        <form>
+                                <div class="form-group">
+                                      <input type="text" name="filtro" id= "bus" autofocus onkeyup="buscar2();" autocomplete="off" required placeholder="Escribe algo.." class="form-control">
                                 </div>
-                    </form><br>
-                      <div id="resultado"></div>
-                        <div id="tabla">
-                          <?php require_once "sections/tabla-trabajos.php"; ?>
-                        </div>     
-                    </div> 
+                          </form>
+                        </div>
+                      <div class="col-sm-12 tablas">
+                        <div class="trabajos_paginados"></div>    
+                      </div> 
                     </div>
-                <?php include("sections/minimenu.php"); ?>
                 </div>
             </div>
         <!-- /contenido -->
-        </div>
 <!--*****************************************SOLO MODALS*********************************************************-->
 <?php 
+include("sections/minimenu.php");
 include("sections/modal.php"); 
+include("sections/footer2.php");
 ?>
 <script src="src/js/jquery.js"></script>
 <script src="src/js/ajax.js"></script>
@@ -89,3 +84,20 @@ include("sections/modal.php");
 <script src="src/js/boton.js"></script>
 </body>
 </html> 
+
+ <script>
+  $(document).ready(function(){
+    load(1);
+  });
+
+  function load(page){
+    var parametros = {"accion":"ajax","page":page};
+    $.ajax({
+      url:'?controller=paginador&action=paginar_trabajos',
+      data: parametros,
+      success:function(data){
+        $(".trabajos_paginados").html(data).fadeIn('slow');
+      }
+    })
+  }
+</script>

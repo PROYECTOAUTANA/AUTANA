@@ -59,6 +59,7 @@ class Usuario{
 		}		
 	}
 
+
 	public function login($usuario,$password){
    		
 		try
@@ -138,7 +139,9 @@ class Usuario{
 				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario AND usuario.usuario_nombre LIKE '$filtro%'");
         		$sql->execute(); 
     			$datosDB = $sql->fetchAll();
-    			return $datosDB;
+    			$cant = $sql->rowCount();
+    			$result = array('datos' => $datosDB, 'cantidad' => $cant);
+    			return $result;
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -152,7 +155,9 @@ class Usuario{
 				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
         		$sql->execute(); 
     			$datosDB = $sql->fetchAll();
-    			return $datosDB;
+    			$cant = $sql->rowCount();
+    			$result = array('datos' => $datosDB, 'cantidad' => $cant);
+    			return $result;
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -160,5 +165,52 @@ class Usuario{
 		}			
 	}
 
+	public function listar_usuarios($offset,$per_page){
+	
+		try
+			{	
+				$query = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario ORDER BY id_usuario LIMIT :per_page OFFSET :offset");
+				$query->execute(array(':offset' => $offset, ':per_page' => $per_page));
+				$resultado = $query->fetchAll();
+				return $resultado;
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}	
+	}
+
+	function todos_los_usuarios(){
+
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
+        		$sql->execute();
+    			$datosDB = $sql->fetchAll();
+    			$cant = $sql->rowCount();
+    			$result = array('datos' => $datosDB, 'cantidad' => $cant);
+    			return $result;
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}	
+	}
+
+
+
+	public function numero_de_usuarios(){
+	
+		try
+			{	
+				$sql   = $this->pdo->query("SELECT COUNT(*) FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
+				$numrows = $sql->fetchColumn();
+    			return $numrows;
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}	
+	}
 }
 ?>

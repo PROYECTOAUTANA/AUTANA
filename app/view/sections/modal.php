@@ -1,3 +1,8 @@
+<style type="text/css">
+  .modal-content {
+    border-radius: 0px;
+}
+</style>
 <!--nuevo usuario-->
 <div class="modal fade" id="nuevo_usuario">
                     <div class="modal-dialog modal-lg">
@@ -161,6 +166,7 @@
              
             <form class="form-group" method="post">
                 <div class="input-group">
+                 <span class="input-group-addon" id="basic-addon1">@</span>
                 <input type="text" id="email" class="form-control" autofocus placeholder="Escriba su correo..." maxlength="25">
               <div class="input-group-btn">
                 <button type="button" class="btn btn-info btn-block boton" onclick="validar()">
@@ -395,7 +401,7 @@
 
 <!--******************************************************************-->
 
-<!--**********************  consultar trabajo  ***********************-->
+<!--**********************  CORREO PERSONALIZADO  ***********************-->
 
 
 
@@ -407,12 +413,12 @@
                          <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
                         <div class="modal-header">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3 align="center" class="titulo"> modal </h3> 
+                          <h3 align="center" class="titulo"> Correo a</h3> 
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
-                            
+                            <div id="respuestacorreo"></div>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
@@ -438,16 +444,19 @@
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
                             <form method="post" class="form-group">
-                            <div class="col-sm-12 form-group" id="inputoculto"></div>
-                        
                               <div class="col-sm-12 form-group">
-                              <label for="">Autor del Trabajo:</label>
-                                <input type="search" id="docentet" onkeyup='consultardocente()' class="form-control" placeholder="Escribe un nombre de autor...">
+                                <select id="vinculo" name="vinculo" class="form-control" onchange="$('#docentet').removeAttr('disabled');">
+                                  <option value="autor">AUTOR</option>
+                                  <option value="tutor">TUTOR</option>
+                                  <option value="jurado">JURADO</option>
+                                </select>
                               </div>
-                              
-                                <div id="docentelist"></div>
-                                
-                      </form>
+                              <div class="col-sm-12 form-group" id="inputoculto"></div>
+                              <div class="col-sm-12 form-group">
+                              <input type="search" disabled="disabled" id="docentet" onkeyup='consultardocente()' class="form-control" placeholder="Escribe un nombre de autor...">
+                              </div>
+                              <div id="docentelist"></div> 
+                            </form>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
@@ -455,7 +464,7 @@
                         <div class="col-sm-12 form-group" id="respuestadocentes"></div>
                         <div class="col-sm-12 form-group">
                           <button type="button" onclick="cancelarRegistro()" class="btn btn-danger">Cancelar y Salir</button>
-                          <a href="?controller=front&action=trabajos" class="btn btn-info">Guardar y Salir</a>
+                          <a href="?controller=front&action=trabajos" id="guardarysalir" class="btn btn-info">Guardar y Salir</a>
                         </div>
                         </div><!--TERMINA EL FOOTER-->
                       </div>

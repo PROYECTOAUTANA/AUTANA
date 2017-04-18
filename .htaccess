@@ -7,4 +7,4 @@
 #RewriteCond %{DOCUMENT_ROOT}%{ENV:RUTA_BASE}src/%1 -f
 #RewriteRule ^(.*)$ %{ENV:RUTA_BASE}src/%1 [L,R]
 #RewriteRule ^(.*)/$ index.php?controller=$1 [L,NC,QSA]
-#ErrorDocument 404 /autana/404
+ErrorDocument 404 /autana/?controller=front&action=notFound

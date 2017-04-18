@@ -31,13 +31,10 @@ class C_Front{
 	
 	public function trabajos(){
 
-		$db = $this->obj_trabajo->verTrabajos();
 		require_once "app/view/trabajos.php";
 	}
-	
 	public function usuarios(){
-
-		$db = $this->obj_usuario->listar();
+		
 		require_once "app/view/usuarios.php";
 	}
 	

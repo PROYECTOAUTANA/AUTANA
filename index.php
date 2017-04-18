@@ -26,10 +26,10 @@ if(empty($_GET)) {
             if (method_exists($obj_controller, $action)) {
                 $obj_controller->$action();
             }else{
-                echo "este metodo no existe en la clase controller";
+                header("location: ?controller=front&action=notFound");
             }
     }else{
-        echo "este controller no existe";
+        header("location: ?controller=front&action=notFound");
     }
 
 }

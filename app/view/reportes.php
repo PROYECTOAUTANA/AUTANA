@@ -26,8 +26,9 @@ if($_SESSION['rol'] == 'administrador'){
   <link rel="stylesheet" href="src/css/bootstrap.min.css">
   <!--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">-->
    <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
+  <script src="src/js/fecha_y_hora.js"></script>
 </head>
-<body >
+<body onload="javascript:hora()">
 <?php 
 include("sections/cargando.php"); 
 include("sections/navbar.php"); 
@@ -45,22 +46,47 @@ include("sections/$barra.php");
                     </div>
                     <div class="col-sm-12 contenido_4" >
                       <div class="btn-group col-sm-4">
-                        <a href="#" class="btn btn-info btn-block"><i class=" glyphicon glyphicon-download"></i> Descargar Listado PDF</a>
+                        <a href="#" class="btn btn-info btn-block"><i class=" glyphicon glyphicon-print"></i> Reportes Trabajos</a>
                       </div>
                        <div class="btn-group col-sm-4">
-                        <a href="#" class="btn btn-info btn-block"><i class="glyphicon glyphicon-send"></i> Enviar Listado por Correo</a>
+                        <a href="#" class="btn btn-info btn-block"><i class="glyphicon glyphicon-print"></i> Reportes Usuarios </a>
                       </div>
                        <div class="btn-group col-sm-4">
                         <a href="#" class="btn btn-info btn-block"><i class="glyphicon glyphicon-tasks"></i> Constancias</a>
                       </div>
                     </div> 
-                <?php include("sections/minimenu.php"); ?>
+                    <div class="col-sm-12"><br><br>
+                        <div class="panel panel-default">
+                          <!-- Default panel contents -->
+                          <div class="panel-heading">Totalizacion y Estadisticas</div>
+
+                          <!-- Table -->
+                            <table class="table table-hover" >
+                              <thead>
+                                  <tr style="text-align:center;">
+                                      <th>Item</th>
+                                      <th>Cantidad</th>
+                                      <th>Operaciones</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                    <td>Trabajos</td>
+                                    <td>34</td>
+                                    <td><a class="btn btn-danger" href="#"><i class="glyphicon glyphicon-print"></i> Imprimir Reporte</a></td>
+                                  </tr>
+                                 </tbody>
+                            </table>
+                        </div>
+                    </div>
             </div>
         <!-- /contenido -->
         </div>
 <!--*****************************************SOLO MODALS*********************************************************-->
 <?php 
+include("sections/minimenu.php");
 include("sections/modal.php"); 
+include("sections/footer2.php");
 ?>
 <script src="src/js/jquery.js"></script>
 <script src="src/js/cargando.js"></script>

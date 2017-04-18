@@ -1,0 +1,15 @@
+body{
+      font-size: 12px;
+      font-family: century;
+    }
+    .footer {
+        font-family: century;
+        margin: 0px;
+        padding: 12px 0px 4px 0px;
+        color:#000;   
+    }
+    .cintillo{
+
+      padding: 12px 0px 4px 0px;
+      margin: 0px;
+    }

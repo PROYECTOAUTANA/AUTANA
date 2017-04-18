@@ -25,9 +25,9 @@ if($_SESSION['rol'] == 'administrador'){
   <link rel="stylesheet" href="src/css/bootstrap.min.css">
   <!--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">-->
    <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
-
+  <script src="src/js/fecha_y_hora.js"></script>
 </head>
-<body >
+<body onload="javascript:hora()">
 <?php 
 include("sections/cargando.php");
 include("sections/navbar.php"); 
@@ -81,7 +81,6 @@ include("sections/$barra.php");
                       </form>
                     </div>
                 </div>
-                <?php include("sections/minimenu.php"); ?>
               </div>
             </div>
         <!-- /contenido -->
@@ -89,7 +88,9 @@ include("sections/$barra.php");
     <!-- /#principal -->
 <!--*****************************************SOLO MODALS*********************************************************-->
 <?php 
+include("sections/minimenu.php");
 include("sections/modal.php"); 
+include("sections/footer2.php");
 ?>
 <script src="src/js/jquery.js"></script>
 <script src="src/js/cargando.js"></script>
