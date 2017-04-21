@@ -6,28 +6,16 @@ if(!$_SESSION){
 
 if($_SESSION['rol'] == 'administrador'){ 
     $barra = "barra_admin";
-    $titulo = "Administrador";
 }elseif ($_SESSION['rol'] == 'supervisor') {
     $barra = "barra_usuario";
-    $titulo = "Supervisor";
 }else{
 
     header("location: ?controller=front&action=home");
 }
 
+require_once "sections/head.php"; 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
- <link rel="shortcut icon" type="image/x-icon" href="src/img/iautana.ico" />
-  <meta charset="UTF-8">
-  <title>:::  SISTEMA DE USUARIOS  :::</title>
-  <link rel="stylesheet" href="src/css/bootstrap.min.css">
-  <!--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">-->
-   <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
-  <script src="src/js/fecha_y_hora.js"></script>
-</head>
-<body onload="javascript:hora()">
+<body >
 <?php 
 include("sections/cargando.php");
 include("sections/navbar.php"); 
@@ -38,49 +26,218 @@ include("sections/$barra.php");
         <div id="contenido">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="noticias col-sm-12">
-                        <div class="col-sm-12 fecha">
-                            <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
+                    <div class="col-sm-12">
+                        <div class="col-sm-6 trabajos">
+                          <h1><span class="glyphicon glyphicon-th-large"></span>  <?= $title_view  ?></h1>
                         </div>
-                          <h1><span class="glyphicon glyphicon-th-large"></span>  Detalles del Trabajo</h1>
-                        <hr>
-                      </div>
-                    <div class="noticias col-sm-12">
-                    <form action="registrar-usuario" method="post" class="form-group">
-                        <div class="form-group col-sm-4">
-                          <label for="cedula">Titulo:</label>
-                          <input  id="cedula" class="form-control" type="text" value="<?php echo $datos_trabajo["trabajo_titulo"];?>" disabled="disabled" name="cedula" placeholder="Escriba..." autofocus>
+                        <div class="col-sm-6 grupobotones">
+                          <div class="form-group col-sm-6">
+                              <a  href="?controller=reporte&action=estatus&id_trabajo=<?php echo $id_trabajo; ?>" target="_blank" class="btn btn-danger btn-block"><i class="glyphicon glyphicon-print"></i>  Estatus</a>
+                          </div>
+                          <div class="form-group col-sm-6">
+                              <a href="#cambiar_fase" data-toggle="modal" class="btn btn-success btn-block"><i class="glyphicon glyphicon-ok"></i> Cambiar de fase</a>
+                          </div>
                         </div>
-                        <div class="form-group col-sm-4">
-                          <label for="nombre">Fecha de Presentacion Publica:</label>
-                          <input  id="nombre" class="form-control" type="text" value="<?php echo $datos_trabajo["fecha_presentacion"];?>" disabled="disabled" name="nombre" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <label for="apellido">proceso:</label>
-                          <input  id="apellido" class="form-control" type="text" value="<?php echo $datos_trabajo["proceso"];?>" disabled="disabled" name="apellido" placeholder="Escriba...">
-                        </div>
-                          <div class="form-group col-sm-3">
-                          <label for="edad">Categoria de Ascenso:</label>
-                          <input  id="edad" class="form-control" type="text" value="<?php echo $datos_trabajo["categoria_de_ascenso"];?>" disabled="disabled" name="edad" >
-                        </div>
-                         <div class="form-group col-sm-3">
-                          <label for="sexo">Observacion:</label>
-                          <input class="form-control" type="text" value="<?php echo $datos_trabajo["trabajo_observacion"];?>" disabled="disabled" disabled="disabled" id="" name="">
-                        </div>
-                        <div class="form-group col-sm-3">
-                          <label for="telefono">Nombre del Autor:</label>
-                          <input  id="telefono"  class="form-control" type="text" value="<?php echo $datos_trabajo["usuario_nombre"];?>" disabled="disabled" name="telefono" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-3">
-                          <label for="telefono">Fase Actual:</label>
-                          <input  id="telefono"  class="form-control" type="text" value="<?php echo $datos_trabajo["fase_nombre"];?>" disabled="disabled" name="telefono" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-12">
-                          <a href="editar-usuario?id_usuario=<?php echo $id_usuario; ?>&id_categoria=<?php echo $id_categoria; ?>&id_departamento=<?php echo $id_departamento; ?>&id_rol=<?php echo $id_rol; ?>" class="btn btn-info btn-block" name="#">Editar</a>
-                        </div>
-                      </form>
                     </div>
-                </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">Datos del trabajo:</div>
+
+                        <!-- Table -->
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                              <tr>
+                                <td class="col-sm-6">
+                                  FECHA DE PRESENTACION PUBLICA
+                                </td>
+                                <td class="col-sm-6">
+                                    <div class="input-group">
+                                      <input  disabled="disabled" class="form-control" value="<?php echo $datos_trabajo["fecha_presentacion"];?>">
+                                      <span class="input-group-addon" onclick="$('#').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
+                                      </span>
+                                    </div>
+                                </td>
+                              </tr> 
+                              <tr>
+                                <td class="col-sm-6">
+                                 TITULO 
+                                </td>
+                                <td class="col-sm-6">
+                                  <div class="input-group">
+                                      <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_trabajo["trabajo_titulo"];?>">
+                                      <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
+                                      </span>
+                                  </div>
+                                </td>
+                              </tr> 
+                              <tr>
+                                <td class="col-sm-6">
+                                 PROCESO 
+                                </td>
+                                <td class="col-sm-6">
+                                  <div class="input-group">
+                                    <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_trabajo["proceso"];?>">
+                                    <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;">
+                                      <i class="glyphicon glyphicon-pencil"></i>
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr> 
+                              <tr>
+                                <td class="col-sm-6">
+                                 FASE ACTUAL
+                                </td>
+                                <td class="col-sm-6">
+                                  <div class="input-group">
+                                    <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_trabajo["fase_nombre"];?>">
+                                    <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;">
+                                      <i class="glyphicon glyphicon-pencil"></i>
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr> 
+                          </table>
+                        </div>
+                      </div>    
+                    </div>
+
+                    <div class="col-sm-12">
+                      <div class="btn-group">
+                        <a href="#" class="btn btn-info"><i class="glyphicon glyphicon-ok"></i>  Guardar Cambios</a>
+                        <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i> Descartar Cambios</a>
+                      </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <br><br>
+                          <h1><span class="glyphicon glyphicon-th-large"></span>  Docentes</h1>
+                        <hr>
+                    </div>
+                    <div class="col-sm-12">
+
+                        <div class="col-sm-4">
+                          <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Autores:</div>
+
+                                <!-- Table -->
+                                <div class="table-responsive">
+                                  <table class="table table-hover">
+                                    <?php 
+                                    if (!$autores):?>
+                                    <tr>
+                                        <td class="col-sm-12">
+                                          No hay autores para este trabajo...
+                                          <a href="#incluir_docente" data-toggle="modal">Asignar</a>
+                                        </td>
+                                    </tr> 
+                                    <?php
+                                    endif;
+                                    if ($autores):
+                                    ?>
+                                    <?php foreach ($autores as $autor):?>
+                                      <tr>
+                                        <td class="col-sm-6">
+                                          <?php echo $autor["usuario_nombre"]; ?>
+                                        </td>
+                                        <td class="col-sm-6">
+                                          <a href="" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Quitar</a>
+                                        </td>
+                                      </tr> 
+                                    <?php 
+                                    endforeach; 
+                                    endif;
+                                    ?>
+                                  </table>
+                                </div>
+                              </div>  
+                            </div>
+                            
+                        
+
+                        <div class="col-sm-4">
+                          <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Jurados:</div>
+
+                                <!-- Table -->
+                                <div class="table-responsive">
+                                  <table class="table table-hover">
+                                    <?php 
+                                    if (!$jurados):?>
+                                    <tr>
+                                        <td class="col-sm-12">
+                                          No hay jurados para este trabajo...
+                                          <a href="#incluir_docente" data-toggle="modal">Asignar</a>
+                                        </td>
+                                    </tr> 
+                                    <?php
+                                    endif;
+                                    if ($jurados):
+                                    ?>
+                                    <?php foreach ($jurados as $jurado):?>
+                                      <tr>
+                                        <td class="col-sm-6">
+                                          <?php echo $jurado["usuario_nombre"]; ?>
+                                        </td>
+                                        <td class="col-sm-6">
+                                          <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Quitar</a>
+                                        </td>
+                                      </tr> 
+                                    <?php 
+                                    endforeach; 
+                                    endif;
+                                    ?>
+                                  </table>
+                                </div>
+                              </div>    
+                            </div>
+                            
+
+                            <div class="col-sm-4">
+                              <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Tutores:</div>
+
+                                <!-- Table -->
+                                <div class="table-responsive">
+                                  <table class="table table-hover">
+                                    <?php 
+                                    if (!$tutores):?>
+                                    <tr>
+                                        <td class="col-sm-12">
+                                          No hay tutores para este trabajo...
+                                          <a href="#incluir_docente" data-toggle="modal">Asignar</a>
+                                        </td>
+                                    </tr> 
+                                    <?php
+                                    endif;
+                                    if ($tutores):
+                                    ?>
+                                    <?php foreach ($tutores as $tutor):?>
+                                      <tr>
+                                        <td class="col-sm-6">
+                                          <?php echo $tutor["usuario_nombre"]; ?>
+                                        </td>
+                                        <td class="col-sm-6">
+                                          <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Quitar</a>
+                                        </td>
+                                      </tr> 
+                                    <?php 
+                                    endforeach; 
+                                    endif;
+                                    ?>
+                                  </table>
+                                </div>
+                              </div>   
+                            </div>
+                       </div> 
+                       <div class="col-sm-12 form-group">
+                          <a href="#incluir_docente" data-toggle="modal" class="btn btn-info btn-block"><i class="glyphicon glyphicon-plus"></i>  Asignar Docentes</a>
+                        </div>  
+                  </div>
               </div>
             </div>
         <!-- /contenido -->
@@ -92,8 +249,11 @@ include("sections/modal.php");
 include("sections/footer2.php");
 ?>
 <script src="src/js/jquery.js"></script>
-<script src="src/js/cargando.js"></script>
+<script src="src/js/ajax.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
+<script src="src/js/cargando.js"></script>
 <script src="src/js/boton.js"></script>
+<script src="src/js/fecha.js"></script>
+<script src="src/js/hora.js"></script>
 </body>
 </html> 

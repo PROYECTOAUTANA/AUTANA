@@ -3,32 +3,17 @@ session_start();
 if(!$_SESSION){
     header("location: ?controller=front&action=home");
 }
-
 if($_SESSION['rol'] == 'administrador'){ 
     $barra = "barra_admin";
-    $titulo = "Administrador";
 }elseif ($_SESSION['rol'] == 'supervisor') {
     $barra = "barra_usuario";
-    $titulo = "Supervisor";
 }else{
 
     header("location: ?controller=front&action=home");
 }
-
+require_once "sections/head.php"; 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-
- <link rel="shortcut icon" type="image/x-icon" href="src/img/iautana.ico" />
-  <meta charset="UTF-8">
-  <title>:::  SISTEMA DE USUARIOS  :::</title>
-  <link rel="stylesheet" href="src/css/bootstrap.min.css">
-  <!--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">-->
-   <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
-  <script src="src/js/fecha_y_hora.js"></script>
-</head>
-<body onload="javascript:hora()">
+<body>
 <?php 
 include("sections/cargando.php"); 
 include("sections/navbar.php"); 
@@ -38,59 +23,44 @@ include("sections/$barra.php");
         <div id="contenido">
             <div class="container-fluid" >
                     <div class="contenido_1 col-sm-12" >
-                      <div class="col-sm-12 fecha">
-                          <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
-                      </div>
-                        <h1><span class="glyphicon glyphicon-th-large"></span>  Gestion de  Reportes</h1>
+                        <h1><span class="glyphicon glyphicon-th-large"></span>  <?= $title_view  ?></h1>
                         <hr>
                     </div>
-                    <div class="col-sm-12 contenido_4" >
-                      <div class="btn-group col-sm-4">
-                        <a href="#" class="btn btn-info btn-block"><i class=" glyphicon glyphicon-print"></i> Reportes Trabajos</a>
-                      </div>
-                       <div class="btn-group col-sm-4">
-                        <a href="#" class="btn btn-info btn-block"><i class="glyphicon glyphicon-print"></i> Reportes Usuarios </a>
-                      </div>
-                       <div class="btn-group col-sm-4">
-                        <a href="#" class="btn btn-info btn-block"><i class="glyphicon glyphicon-tasks"></i> Constancias</a>
-                      </div>
-                    </div> 
-                    <div class="col-sm-12"><br><br>
-                        <div class="panel panel-default">
-                          <!-- Default panel contents -->
-                          <div class="panel-heading">Totalizacion y Estadisticas</div>
-
-                          <!-- Table -->
-                            <table class="table table-hover" >
-                              <thead>
-                                  <tr style="text-align:center;">
-                                      <th>Item</th>
-                                      <th>Cantidad</th>
-                                      <th>Operaciones</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                    <td>Trabajos</td>
-                                    <td>34</td>
-                                    <td><a class="btn btn-danger" href="#"><i class="glyphicon glyphicon-print"></i> Imprimir Reporte</a></td>
-                                  </tr>
-                                 </tbody>
-                            </table>
+                    <div class="col-sm-12">
+                      <form class="form-group">
+                        <div class="form-group">
+                          <label for="reporte">Seleccione el tipo de reporte:</label>
+                            <select onchange="tipodereporte(this)" id="tipo" name="tipo" class="form-control">
+                              <option value="0">seleccione</option>
+                              <option value="trabajos">trabajos de ascenso</option>
+                              <option value="usuarios">usuarios</option>
+                              <option value="constancia">constancia</option>
+                            </select>
                         </div>
+                      </form>
+                    </div>
+                    <div class="col-sm-12">
+                      <form class="form-group ">
+                        <div class="reporte_respuesta"></div>
+                        
+                        <div class="form-group col-sm-12">
+                            <button type="button" id="verReporte" name="boton" disabled="disabled" class="btn btn-info"><i class="glyphicon glyphicon-print"></i> VER REPORTE</button>
+                        </div>
+                      </form>
                     </div>
             </div>
-        <!-- /contenido -->
         </div>
-<!--*****************************************SOLO MODALS*********************************************************-->
 <?php 
 include("sections/minimenu.php");
 include("sections/modal.php"); 
 include("sections/footer2.php");
 ?>
 <script src="src/js/jquery.js"></script>
-<script src="src/js/cargando.js"></script>
+<script src="src/js/ajax.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
+<script src="src/js/cargando.js"></script>
 <script src="src/js/boton.js"></script>
+<script src="src/js/fecha.js"></script>
+<script src="src/js/hora.js"></script>
 </body>
 </html> 

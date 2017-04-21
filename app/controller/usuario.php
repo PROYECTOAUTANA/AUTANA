@@ -2,107 +2,56 @@
 /**
 * controlador de usuarios
 */
-require_once "app/model/departamento.php";
 require_once "app/model/usuario-departamento.php";
-require_once "app/model/rol.php";
 require_once "app/model/usuario-rol.php";
 require_once "app/model/usuario.php";
 require_once "libs/phpmailer/class.phpmailer.php";
 require_once "libs/phpmailer/class.smtp.php";
-require_once "app/model/usuario.php";
 
 class C_Usuario{
 	
 	private $obj_usuario;
-	private $obj_departamento;
 	private $obj_usuario_departamento;
 	private $obj_usuario_rol;
-	private $obj_rol;
 	private $obj_mail;
 
 	public function __construct()
 	{
 		$this->obj_usuario = new Usuario();
-		$this->obj_departamento = new Departamento();
-		$this->obj_rol = new Rol();	
 		$this->obj_usuario_departamento = new Usuario_Departamento();
 		$this->obj_usuario_rol = new Usuario_Rol();
-		$this->obj_mail = new PHPMailer();
-			
+		$this->obj_mail = new PHPMailer();	
 	}
 
 	public function registrar_usuario(){
 
 			$id_usuario = rand();
-			$id_categoria = rand();
-			$id_departamento = rand();
 			$id_usu_dep = rand();
-			$id_rol = rand();
 			$id_usu_rol = rand();
-
 			$cedula = $_POST['cedula'];
 			$nombre = $_POST['nombre'];
 			$apellido = $_POST['apellido'];
 			$sexo = $_POST['sexo'];
-			$edad = $_POST['edad'];
 			$telefono = $_POST['telefono'];
 			$correo = $_POST['correo'];
 			$direccion = $_POST['direccion'];
-			$tipo = $_POST['tipo'];
+			$categoria_actual = $_POST['categoria_actual'];
+			$id_departamento = $_POST['departamento'];
+			$id_rol = $_POST['rol'];
 
-			if ($tipo == 1) {
-				$rol = "administrador";
-			}elseif ($tipo == 2) {
-				$rol = "supervisor";
-			}elseif ($tipo == 3) {
-				$rol = "docente";
-			}
-			if ($tipo == 1 OR $tipo == 2) {
 
-				$usuario = $_POST['usuario'];
-				$clave = md5($_POST['clave']);
-				$categoria = "ninguna";
-				$result0 = $this->obj_usuario->registrar_categoria($id_categoria,$categoria);
-				$result1 = $this->obj_usuario->registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$id_categoria);
+			$usuario = $_POST['usuario'];
+			$clave = md5($_POST['clave']);
+
+			$result1 = $this->obj_usuario->registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$categoria_actual);
 				
+			$result3 = $this->obj_usuario_departamento->asignar_departamento($id_usu_dep,$id_usuario,$id_departamento);
+
+			$result5 = $this->obj_usuario_rol->asignar_rol($id_usu_rol,$id_usuario,$id_rol);
+
+			header("location: ?controller=front&action=usuarios");
+
 				
-				$departamento = "sin departamento";
-				$result2 = $this->obj_departamento->registrar_departamento($id_departamento,$departamento);
-				
-				$result3 = $this->obj_usuario_departamento->registrar_usuario_departamento($id_usu_dep,$id_usuario,$id_departamento);
-
-				$result4 = $this->obj_rol->registrar_rol($id_rol,$rol);
-
-				$result5 = $this->obj_usuario_rol->registrar_usuario_rol($id_usu_rol,$id_usuario,$id_rol);
-
-				if ($result0 && $result1 && $result2 && $result3 && $result4 && $result5) {
-					header("location: ?controller=front&action=usuarios");
-				}else{
-					echo "ERORR!";
-				}
-
-			}elseif ($tipo == 3) {
-				
-				$usuario = $cedula;
-				$clave = md5($cedula);
-				$categoria = $_POST['categoria_actual'];
-				$result2 = $this->obj_usuario->registrar_categoria($id_categoria,$categoria);
-				$result3 = $this->obj_usuario->registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$id_categoria);
-				$departamento = $_POST['departamento'];
-				$result4 = $this->obj_departamento->registrar_departamento($id_departamento,$departamento);
-				$result5 = $this->obj_usuario_departamento->registrar_usuario_departamento($id_usu_dep,$id_usuario,$id_departamento);
-				$result6 = $this->obj_rol->registrar_rol($id_rol,$rol);
-				$result7 = $this->obj_usuario_rol->registrar_usuario_rol($id_usu_rol,$id_usuario,$id_rol);
-
-				if ($result2 && $result3 && $result4 && $result5 && $result6 && $result7) {
-
-					header("location: ?controller=front&action=usuarios");
-				
-				}else{
-				
-					echo "ERORR!";
-				}
-			}
 	}
 
 	public function buscar(){
@@ -169,7 +118,6 @@ class C_Usuario{
 				$_SESSION['id']     = $arreglo_datos['id_usuario'];
 				$_SESSION['user']   = $arreglo_datos['usuario_usuario'];
 				$_SESSION['nombre']   = $arreglo_datos['usuario_nombre'];
-				$_SESSION['apellido']   = $arreglo_datos['usuario_apellido'];
 				$_SESSION['rol']   = $arreglo_datos['rol'];
 			}
 

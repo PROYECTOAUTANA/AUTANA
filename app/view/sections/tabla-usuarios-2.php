@@ -39,7 +39,7 @@
                                   $id_rol = $dato['id_rol'];
                                 ?>
                                   <tr>
-                                    <td align="center"><input id="radio" type="radio" onclick="$('#botonincluirdocente').removeAttr('disabled');" name="seleccion" value="<?php echo $dato["id_usuario"]; ?>" /></td>
+                                    <td align="center"><input id="radio" type="radio" name="seleccion" value="<?php echo $dato["id_usuario"]; ?>" /></td>
                                     <td align="center"><?php echo $cedula;?></td>
                                     <td align="center"><?php echo $nombre;?></td>
                                     <td align="center"><?php echo $apellido;?></td>
@@ -55,13 +55,5 @@
                           </div>
                           
 </div>
-</div>
-
-<div class="col-sm-12 form-group">
-    <button type="button" class="btn btn-info btn-block" disabled="disabled" id="botonincluirdocente"  onclick="incluirdocente()">listo...</button>
-</div>
-                    
+</div>                   
 <?php endif ?>
-
-
-

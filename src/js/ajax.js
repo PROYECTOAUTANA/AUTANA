@@ -2,7 +2,7 @@
 **ARCHIVO ajax.js nos manejara toda la logica del cliente para hacer multiples consultas 
 **/
 //VARIABLES GLOBALES
-var idTrabajoTmp;
+var idTrabajoGlobal;
 //BUSCAR UN USUARIO
 function buscar1(){
 	var n=document.getElementById('bus').value
@@ -67,7 +67,7 @@ function log(){
         }  		
 	}).done(function(result){
 		if (result.estado == true) {
-			window.location.href = '?controller=front&action=perfil';
+			window.location.href = '?controller=front&action=inicio';
 		}else{
 			var usuario=document.getElementById('user').value=""
 			var password=document.getElementById('password').value=""
@@ -77,41 +77,41 @@ function log(){
 	})
 }
 //REGISTRA EL TRABAJO
-function registrartrabajo(){
- 	var titulo=$("#titulo").val();
- 	var proceso=$("#proceso").val();
- 	var fecha_pp=$("#fecha_pp").val();
- 	var linea=$("#linea").val();
- 	var categoria_ascenso=$("#categoria_ascenso").val();
- 	var fase=$("#fase").val();
- 	var observacion=$("#observacion").val();
+function registrarTrabajo(){
+ 	var titulo=$("#titulo").val()
+ 	var proceso=$("#proceso").val()
+ 	var fecha_pp=$("#fecha_pp").val()
+ 	var linea=document.getElementById('linea_t').value
+ 	var fase=document.getElementById('fase_t').value
+ 	var observacion=$("#observacion").val()
 
     var url  = "?controller=trabajo&action=registrar_trabajo"; 
-    var datos = {"titulo":titulo,"proceso":proceso,"fecha_pp":fecha_pp,"linea":linea,"categoria_ascenso":categoria_ascenso,"fase":fase,"observacion":observacion};
+    var datos = {"titulo":titulo,"proceso":proceso,"fecha_pp":fecha_pp,"linea":linea,"fase":fase,"observacion":observacion};
     $.ajax({
         type: "post",
         url: url,
         data : datos, 
-        beforeSend: function () {
-            $("#botonregistrartrabajo").val("Procesando, espere por favor...");
-        }  
-    }).done(function(result){
-	    	if (result.estado === true) {
-	        	idTrabajoTmp = result.id
+        success:function(result){
+		if (result.estado === true) {
 	        	$("#titulo").val("")
 				$("#proceso").val("")
 				$("#fecha_pp").val("")
-				$("#linea").val("")
-				$("#categoria_ascenso").val("")
-				$("#fase").val("")
+				$("#linea_t").val("")
+				$("#fase_t").val("")
 				$("#observacion").val("")
 				$("#botonregistrartrabajo").val("Listo...");
-	        	$("#incluirdocente").modal("show")
-	        	$("#inputoculto").append('<input type="hidden" class="form-control" name="id_trabajo" id="id_trabajo" value="'+idTrabajoTmp+'" /></div>')
-	        	$("#nuevo_trabajo").modal("hide")
+				
+			    window.location.href = '?controller=front&action=detalles_trabajo&id_trabajo='+result.id;   
+				
+	    	}else{
+	    		alert("error");
 	    	}
-    	})   
+		} 
+    })
 }
+
+
+
 //CONSULTA SI EL DOCENTE EXISTE PARA AGREGARLO AL TRABAJO
 function consultardocente(){
 
@@ -131,9 +131,9 @@ function consultardocente(){
 function incluirdocente(){
 
 	var id_trabajo=$("#id_trabajo").val();
+	var vinculo=$("#vinculo").val();
  	var id_docente=document.getElementById("radio").value
- 	var vinculo=document.getElementById("vinculo").value
-    var url  = "?controller=trabajo&action=vincular_usuario"; 
+    var url  = "?controller=usuarioTrabajo&action=vincular_usuario"; 
 
     var datos = {"id_trabajo":id_trabajo,"id_docente":id_docente,"vinculo":vinculo};
 	    	$.ajax({
@@ -147,10 +147,32 @@ function incluirdocente(){
 				if (result.estado === true) {
 					$("#botonincluirdocente").val(result.mensajeboton);
 					$("#respuestadocentes").html(result.mensajeoperacion);
-					$("#guardarysalir").show();
+					$("#radio").val("")
+					$("#docentet").val("")
+					window.location.href = '?controller=front&action=detalles_trabajo&id_trabajo='+id_trabajo;
+
 				}else if (result.estado === false) {
 					$("#respuestadocentes").html(result.mensajeoperacion);
 				}
+			})
+    
+}
+function cambiarFase(){
+
+	var id_trabajo2=$("#id_trabajo2").val();
+	var id_fase2=$("#id_fase2").val();
+    var url  = "?controller=trabajoFase&action=cambiar_fase"; 
+
+    var datos = {id_trabajo:id_trabajo2,id_fase:id_fase2};
+	    	$.ajax({
+				type: "post",
+				url: url,
+				data:datos,
+				success:function(resultado){
+					$("#respuestacambiarfase").html(resultado.mensajeoperacion);
+					 window.location.href = '?controller=front&action=detalles_trabajo&id_trabajo='+id_trabajo2;   
+
+				}		
 			})
     
 }

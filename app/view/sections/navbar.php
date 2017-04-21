@@ -25,10 +25,10 @@
           </ul> 
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item active">
-                <a href="#" class="nav-link"><?php echo '<script>damelafecha();</script>'; ?></a>
+                <a href="#" id="contenedorfecha" class="nav-link"> </a>
             </li>
             <li class="nav-item active">
-                <a href="#" id="contenedor" class="nav-link"> </a>
+                <a href="#" id="contenedorhora" class="nav-link"> </a>
             </li>
             <li class="dropdown nav-item active">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" >

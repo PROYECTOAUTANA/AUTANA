@@ -8,11 +8,11 @@ class Usuario{
 		$this->pdo = new Conexion();
 	}
 
-	public function registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$categoria){
+	public function registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$categoria_actual){
 
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO usuario VALUES('$id_usuario','$cedula','$nombre','$apellido','$sexo','$telefono','$correo','$direccion',null,'$usuario','$clave','$categoria')");
+				$sql = $this->pdo->prepare("INSERT INTO usuario(id_usuario,usuario_cedula,usuario_nombre, usuario_apellido,sexo, usuario_telefono, usuario_correo, usuario_direccion, usuario_fecha_registro, usuario_usuario, clave, fk_categoria) VALUES('$id_usuario','$cedula','$nombre','$apellido','$sexo','$telefono','$correo','$direccion',null,'$usuario','$clave','$categoria_actual')");
 				$result = $sql->execute();
 				return $result;
 			
@@ -33,32 +33,6 @@ class Usuario{
 				echo 'ERROR : '.$e->getMessage();
 		}		
 	}
-
-	public function registrar_categoria($id_categoria,$categoria){
-   		
-		try
-			{	
-				$sql3 = $this->pdo->prepare("INSERT INTO categoria VALUES('$id_categoria','$categoria')");
-    			$result = $sql3->execute();
-    			return $result;
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}		
-	}
-	public function eliminar_categoria($id_categoria){
-   		
-		try
-			{	
-				$sql3 = $this->pdo->prepare("DELETE FROM categoria WHERE id_categoria = '$id_categoria'");
-    			$result = $sql3->execute();
-    			return $result;
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}		
-	}
-
 
 	public function login($usuario,$password){
    		
@@ -179,25 +153,6 @@ class Usuario{
 				echo 'ERROR : '.$e->getMessage();
 		}	
 	}
-
-	function todos_los_usuarios(){
-
-		try
-			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
-        		$sql->execute();
-    			$datosDB = $sql->fetchAll();
-    			$cant = $sql->rowCount();
-    			$result = array('datos' => $datosDB, 'cantidad' => $cant);
-    			return $result;
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}	
-	}
-
-
 
 	public function numero_de_usuarios(){
 	

@@ -6,28 +6,15 @@ if(!$_SESSION){
 
 if($_SESSION['rol'] == 'administrador'){ 
     $barra = "barra_admin";
-    $titulo = "Administrador";
 }elseif ($_SESSION['rol'] == 'supervisor') {
     $barra = "barra_usuario";
-    $titulo = "Supervisor";
 }else{
 
     header("location: ?controller=front&action=home");
 }
-
+require_once "sections/head.php"; 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
- <link rel="shortcut icon" type="image/x-icon" href="src/img/iautana.ico" />
-  <meta charset="UTF-8">
-  <title>:::  SISTEMA DE USUARIOS  :::</title>
-  <link rel="stylesheet" href="src/css/bootstrap.min.css">
-  <!--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">-->
-   <link rel="stylesheet" type="text/css" href="src/css/estilo.css">
-  <script src="src/js/fecha_y_hora.js"></script>
-</head>
-<body onload="javascript:hora()">
+<body>
 <?php 
 include("sections/cargando.php");
 include("sections/navbar.php"); 
@@ -38,49 +25,102 @@ include("sections/$barra.php");
         <div id="contenido">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="noticias col-sm-12">
-                        <div class="col-sm-12 fecha">
-                            <p align="right"><strong><span class="glyphicon glyphicon-calendar"></span>   <?php echo date("d")." / ".date("m")." / ".date("Y"); ?></strong></p>
+                    <div class="col-sm-12">
+                        <div class="col-sm-6 trabajos">
+                          <h1><span class="glyphicon glyphicon-th-large"></span>  <?= $title_view  ?></h1>
                         </div>
-                          <h1><span class="glyphicon glyphicon-th-large"></span>  Detalles del usuario <?php echo $datos_usuario["usuario_nombre"]; ?></h1>
-                        <hr>
-                      </div>
-                    <div class="noticias col-sm-12">
-                    <form action="registrar-usuario" method="post" class="form-group">
-                        <div class="form-group col-sm-4">
-                          <label for="cedula">Cedula:</label>
-                          <input  id="cedula" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_cedula"];?>" disabled="disabled" name="cedula" placeholder="Escriba..." autofocus>
+                        <div class="col-sm-6 grupobotones">
+                          <div class="form-group col-sm-6">
+                              <a  href="?controller=reporte&action=informacion_usuario&id_usuario=<?php echo $id; ?>" target="_blank" class="btn btn-danger btn-block"><i class="glyphicon glyphicon-print"></i>  Informe</a>
+                          </div>
+                          <div class="form-group col-sm-6">
+                              <a href="#cambiar_rol" data-toggle="modal" class="btn btn-success btn-block"><i class="glyphicon glyphicon-ok"></i> Cambiar Rol</a>
+                          </div>
                         </div>
-                        <div class="form-group col-sm-4">
-                          <label for="nombre">Nombre:</label>
-                          <input  id="nombre" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_nombre"];?>" disabled="disabled" name="nombre" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <label for="apellido">Apellido:</label>
-                          <input  id="apellido" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_apellido"];?>" disabled="disabled" name="apellido" placeholder="Escriba...">
-                        </div>
-                          <div class="form-group col-sm-3">
-                          <label for="edad">Categoria:</label>
-                          <input  id="edad" class="form-control" type="text" value="<?php echo $datos_usuario["categoria_nombre"];?>" disabled="disabled" name="edad" >
-                        </div>
-                         <div class="form-group col-sm-3">
-                          <label for="sexo">Rol:</label>
-                          <input class="form-control" type="text" value="<?php echo $datos_usuario["rol"];?>" disabled="disabled" disabled="disabled" id="" name="">
-                        </div>
-                        <div class="form-group col-sm-3">
-                          <label for="telefono">Departamento:</label>
-                          <input  id="telefono"  class="form-control" type="text" value="<?php echo $datos_usuario["departamento_nombre"];?>" disabled="disabled" name="telefono" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-3">
-                          <label for="telefono">Numero de Trabajos:</label>
-                          <input  id="telefono"  class="form-control" type="text" value="<?php echo $n_trabajos;?>" disabled="disabled" name="telefono" placeholder="Escriba...">
-                        </div>
-                        <div class="form-group col-sm-12">
-                          <a href="editar-usuario?id_usuario=<?php echo $id_usuario; ?>&id_categoria=<?php echo $id_categoria; ?>&id_departamento=<?php echo $id_departamento; ?>&id_rol=<?php echo $id_rol; ?>" class="btn btn-info btn-block" name="#">Editar</a>
-                        </div>
-                      </form>
                     </div>
-                </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">Datos del Usuario:</div>
+
+                        <!-- Table -->
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                              <tr>
+                                <td class="col-sm-6">
+                                  CEDULA
+                                </td>
+                                <td class="col-sm-6">
+                                    <div class="input-group">
+                                      <input  disabled="disabled" class="form-control" value="<?php echo $datos_usuario["usuario_cedula"];?>">
+                                      <span class="input-group-addon" onclick="$('#').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
+                                      </span>
+                                    </div>
+                                </td>
+                              </tr> 
+                              <tr>
+                                <td class="col-sm-6">
+                                 NOMBRE
+                                </td>
+                                <td class="col-sm-6">
+                                  <div class="input-group">
+                                      <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_nombre"];?>">
+                                      <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
+                                      </span>
+                                  </div>
+                                </td>
+                              </tr> 
+                              <tr>
+                                <td class="col-sm-6">
+                                 APELLIDO
+                                </td>
+                                <td class="col-sm-6">
+                                  <div class="input-group">
+                                    <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_apellido"];?>">
+                                    <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;">
+                                      <i class="glyphicon glyphicon-pencil"></i>
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr> 
+                              <tr>
+                                <td class="col-sm-6">
+                                 ROL ACTUAL
+                                </td>
+                                <td class="col-sm-6">
+                                  <div class="input-group">
+                                    <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_usuario["rol"];?>">
+                                    <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;">
+                                      <i class="glyphicon glyphicon-pencil"></i>
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr> 
+                          </table>
+                        </div>
+                      </div>    
+                    </div>
+
+                    <div class="col-sm-12">
+                      <div class="btn-group">
+                        <a href="#" class="btn btn-info"><i class="glyphicon glyphicon-ok"></i>  Guardar Cambios</a>
+                        <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i> Descartar Cambios</a>
+                      </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <br><br>
+                          <h1><span class="glyphicon glyphicon-th-large"></span>  Trabajos de Ascenso</h1>
+                        <hr>
+                    </div>
+                    <div class="col-sm-12">
+
+                    </div> 
+                       <div class="col-sm-12 form-group">
+                          <a href="#incluir_trabajo" data-toggle="modal" class="btn btn-info btn-block"><i class="glyphicon glyphicon-plus"></i>  Asignar Trabajo</a>
+                        </div>  
+                  </div>
               </div>
             </div>
         <!-- /contenido -->
@@ -93,8 +133,11 @@ include("sections/modal.php");
 include("sections/footer2.php");
 ?>
 <script src="src/js/jquery.js"></script>
-<script src="src/js/cargando.js"></script>
+<script src="src/js/ajax.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
+<script src="src/js/cargando.js"></script>
 <script src="src/js/boton.js"></script>
+<script src="src/js/fecha.js"></script>
+<script src="src/js/hora.js"></script>
 </body>
 </html> 

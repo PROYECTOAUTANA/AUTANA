@@ -28,11 +28,7 @@
                           <label for="apellido">Apellido:</label>
                           <input  id="apellido" class="form-control" type="text" name="apellido" placeholder="Escriba...">
                         </div>
-                          <div class="form-group col-sm-3">
-                          <label for="edad">Edad:</label>
-                          <input  id="edad" class="form-control" type="number" name="edad" >
-                        </div>
-                         <div class="form-group col-sm-3">
+                         <div class="form-group col-sm-4">
                           <label for="sexo">Sexo:</label>
                           <select class="form-control" size="1" id="sexo" name="sexo">
                           <option value='0'>selecciona</option>
@@ -40,11 +36,11 @@
                             <option value="2">M</option>
                           </select>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-4">
                           <label for="telefono">Telefono:</label>
                           <input  id="telefono"  class="form-control" type="text" name="telefono" placeholder="Escriba...">
                         </div>
-                         <div class="form-group col-sm-3">
+                         <div class="form-group col-sm-4">
                           <label for="correo">Correo:</label>
                           <input  id="correo"  class="form-control" type="mail" name="correo" placeholder="Escriba...">
                         </div>
@@ -53,41 +49,36 @@
                           <textarea name="direccion" id="direccion" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="form-group col-sm-4">
-                          <label for="tipo">Tipo de Usuario:</label>
-                          <select onchange="habilitar(this.value);" size="1" name="tipo" id="tipo" class="form-control">
-                          <option value='0'>selecciona</option>
-                            <option value="1">Usuario Administrador</option>
-                            <option value="2">Usuario Supervisor</option>
-                            <option value="3">Usuario Docente</option>
+                          <label for="rol">Rol de Usuario:</label>
+                          <select name="rol" id="rol" class="form-control">
+
+                              <option value='0'>selecciona</option>
+                              <?php foreach ($roles as $rol): ?>
+                                <option value="<?php echo $rol['id_rol']; ?>"><?php echo $rol['rol']; ?></option>
+                              <?php endforeach ?>
+                          
                           </select>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="departamento">Departamento:</label>
+
                           <select name="departamento" id="departamento" class="form-control">
-                          <option value='0'>selecciona</option>
-                            <option value="informatica">Informatica</option>
-                            <option value="administracion">Administracion</option>
-                            <option value="contaduria">Contaduria</option>
-                            <option value="agroalimentacion">Agroalimentacion</option>
-                            <option value="ciencias de la informacion">Ciencias de la Informacion</option>
-                            <option value="higiene y seguridad laboral">Higiene y Seguridad Laboral</option>
-                            <option value="sistemas de calidad y ambiente">Sistemas de Calidad y Ambiente</option>
-                            <option value="turismo">Turismo</option>
-                            <option value="deporte">Deporte</option>
+                          
+                                <option value='0'>selecciona</option>
+                            <?php foreach ($departamentos as $departamento) :?>
+                                <option value="<?php echo $departamento['id_departamento']; ?>"><?php echo $departamento["departamento_nombre"]; ?></option>
+                            <?php endforeach; ?>
+
                           </select>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="categoria_actual">Categoria Actual:</label>
                           <select name="categoria_actual" id="categoria_actual" class="form-control">
-                          <option value='0'>selecciona</option>
-                            <option value="titular">Titular</option>
-                            <option value="agregado">Agregado</option>
-                            <option value="asociado">Asociado</option>
+                            <option value='0'>selecciona</option>
+                            <?php foreach ($categorias as $categoria):?>  
+                            <option value="<?php echo $categoria['id_categoria']; ?>"><?php echo $categoria['categoria_nombre']; ?></option>
+                            <?php endforeach; ?>
                           </select>
-                        </div>
-                        <div class="form-group col-sm-12">
-                          <label for="observacion">Observacion:</label>
-                          <textarea name="observacion" id="observacion" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="usuario">Usuario:</label>
@@ -100,6 +91,10 @@
                         <div class="form-group col-sm-4">
                           <label for="rclave">Confirmar Contraseña:</label>
                           <input  id="rclave"  class="form-control" type="password" name="rclave" placeholder="Escriba...">
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <label for="observacion">Observacion:</label>
+                          <textarea name="observacion" id="observacion" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="form-group col-sm-12">
                           <button type="submit" class="btn btn-info btn-block" name="registrar_usuario"><i class="glyphicon glyphicon-ok"></i>  Enviar</button>
@@ -164,12 +159,12 @@
             </div>
             <h4 align="center" class="titulo"> Fase 1: Autenticacion</h4>
              
-            <form class="form-group" method="post">
-                <div class="input-group">
+            <form class="form-group col-sm-12" method="post">
+                <div class="input-group col-sm-12">
                  <span class="input-group-addon" id="basic-addon1">@</span>
                 <input type="text" id="email" class="form-control" autofocus placeholder="Escriba su correo..." maxlength="25">
               <div class="input-group-btn">
-                <button type="button" class="btn btn-info btn-block boton" onclick="validar()">
+                <button type="button" class="btn btn-info boton" onclick="validar()">
                         <span class="glyphicon glyphicon-ok"></span>   
                         Enviar
                       </button>
@@ -221,26 +216,21 @@
                               <input type="text" id="fecha_pp" class="form-control" placeholder="DD/MM/AAAA" />
                             </div>
                             <div class="form-group col-sm-12">
-                              <label for="">Linea de Investigacion:</label>
-
-                             <textarea id="linea" class="form-control" rows="3"></textarea>
-                            </div>
-                             <div class="form-group col-sm-6">
-                             <label for="categoria_ascenso">Categoria de Ascenso</label>
-                               <select onchange="habilitar(this.value);" size="1" id="categoria_ascenso" class="form-control">
+                              <label for="">Linea de investigacion:</label>
+                              <select id="linea_t" class="form-control" class="form-control">
                               <option>seleccione</option>
-                                <option value="titular">Titular</option>
-                                <option value="agregado">Agregado</option>
-                                <option value="asociado">Asociado</option>
+                                <?php foreach ($lineas as $linea):?>
+                                <option value="<?php echo $linea['id_linea']; ?>"><?php echo $linea['linea_nombre']; ?></option>
+                                <?php endforeach; ?>
                               </select>
                             </div>
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-12">
                               <label for="">Fase:</label>
-                              <select id="fase" size="1" class="form-control">
-                                <option>Seleccione</option>
-                                <option value="recepcion">Recepcion</option>
-                                <option value="seguimiento">Seguimiento</option>
-                                <option value="aprobacion">Aprobacion</option>
+                              <select id="fase_t" class="form-control" class="form-control">
+                              <option>seleccione</option>
+                                <?php foreach ($fases as $fase):?>
+                                <option value="<?php echo $fase['id_fase']; ?>"><?php echo $fase['fase_nombre']; ?></option>
+                                <?php endforeach; ?>
                               </select>
                             </div>
                             <div class="form-group col-sm-12">
@@ -249,7 +239,7 @@
                             </div>
 
                             <div class="form-group col-sm-12">
-                              <input type="button" class="btn btn-info btn-block" value="Registrar" id="botonregistrartrabajo" onclick="registrartrabajo()">
+                              <input type="button" class="btn btn-info btn-block" value="Registrar" id="botonregistrartrabajo" onclick="registrarTrabajo()">
                             </div>
                           </form>
                         </div>
@@ -401,7 +391,7 @@
 
 <!--******************************************************************-->
 
-<!--**********************  CORREO PERSONALIZADO  ***********************-->
+<!--**********************  consultar trabajo  ***********************-->
 
 
 
@@ -413,12 +403,12 @@
                          <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
                         <div class="modal-header">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3 align="center" class="titulo"> Correo a</h3> 
+                          <h3 align="center" class="titulo"> modal </h3> 
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
-                            <div id="respuestacorreo"></div>
+                            
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
@@ -433,12 +423,13 @@
 
 <!--*****************   asignar docentes  *********************-->
 
- <div class="modal fade" id="incluirdocente"  data-keyboard="false" data-backdrop="static">
-                    <div class="modal-dialog modal-lg">
+                  <div class="modal fade" id="incluir_docente" >
+                    <div class="modal-dialog">
                       <div class="modal-content">
                          <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
                         <div class="modal-header">
-                          <h3 align="center" class="titulo"> incluir docente </h3> 
+                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h3 align="center" class="titulo"> Incluir Autor </h3> 
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
@@ -446,29 +437,122 @@
                             <form method="post" class="form-group">
                               <div class="col-sm-12 form-group">
                                 <select id="vinculo" name="vinculo" class="form-control" onchange="$('#docentet').removeAttr('disabled');">
+                                  <option onclick="$('#docentet').attr('disabled', 'disabled');">Seleccione..</option>
                                   <option value="autor">AUTOR</option>
                                   <option value="tutor">TUTOR</option>
                                   <option value="jurado">JURADO</option>
                                 </select>
                               </div>
-                              <div class="col-sm-12 form-group" id="inputoculto"></div>
+                              <input type="hidden" id="id_trabajo" value="<?php echo $id_trabajo; ?>">
                               <div class="col-sm-12 form-group">
-                              <input type="search" disabled="disabled" id="docentet" onkeyup='consultardocente()' class="form-control" placeholder="Escribe un nombre de autor...">
+                              <input type="search" id="docentet" disabled onkeyup='consultardocente()' class="form-control" placeholder="Escribe un nombre de un docente...">
                               </div>
                               <div id="docentelist"></div> 
+                              <div class="col-sm-12 form-group">
+                                  <button type="button" class="btn btn-info btn-block" id="botonincluirdocente" onclick="incluirdocente()">listo...</button>
+                              </div>
                             </form>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
                         <div class="modal-footer">
                         <div class="col-sm-12 form-group" id="respuestadocentes"></div>
-                        <div class="col-sm-12 form-group">
-                          <button type="button" onclick="cancelarRegistro()" class="btn btn-danger">Cancelar y Salir</button>
-                          <a href="?controller=front&action=trabajos" id="guardarysalir" class="btn btn-info">Guardar y Salir</a>
-                        </div>
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
                   </div> <!--TERMINO EL DIV DEL MODAL de incluir docente-->
 
+
+<!--Cambiar fase-->
+  <div class="modal fade" id="cambiar_fase">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                         <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
+                        <div class="modal-header">
+                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h3 align="center" class="titulo"> Cambiar fase del Trabajo </h3> 
+                        </div>
+                      <!--TERMINA EL HEADER-->
+                      <!--CUERPO O BODY DE LA VENTANA-->
+                        <div class="modal-body col-sm-12">
+                            <form class="form-group">
+
+                            
+                              <div class="form-group col-sm-12">
+                            
+                                <input type="hidden" id="id_trabajo2" value="<?php echo $id_trabajo; ?>">
+                            
+                                <select id="id_fase2" class="form-control">
+                            
+                                   <option>Seleccione..</option> 
+                                  <?php foreach ($fases as $fase):?>
+                                    <option value="<?php echo $fase['id_fase']; ?>"><?php echo $fase['fase_nombre']; ?></option>
+                                  <?php endforeach;?>
+                            
+                                </select>
+                            
+                              </div>
+                            
+                              <div class="form-group col-sm-12">
+                                <input type="button" id="botoncambiarfase" class="btn btn-info btn-block" value="Cambiar fase" onclick="cambiarFase()">
+                              </div>
+                            
+
+                            </form>
+                        </div>
+                      <!--TERMINA EL BODY DE LA VENTANA-->
+                        <!--FOOTER DE LA VENTANA-->
+                        <div class="modal-footer">
+                          <div class="col-sm-12 form-group" id="respuestacambiarfase"></div>
+                        </div><!--TERMINA EL FOOTER-->
+                      </div>
+                    </div>
+                  </div> <!--TERMINO EL DIV DEL MODAL de cambio de fase-->
+
+<!--cambio de rol-->
+
+<!--Cambiar fase-->
+  <div class="modal fade" id="cambiar_rol">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                         <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
+                        <div class="modal-header">
+                          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h3 align="center" class="titulo"> Cambiar rol de usuario </h3> 
+                        </div>
+                      <!--TERMINA EL HEADER-->
+                      <!--CUERPO O BODY DE LA VENTANA-->
+                        <div class="modal-body col-sm-12">
+                            <form class="form-group" action="?controller=usuarioRol&action=cambiar_rol" method="post">
+
+                              <div class="form-group col-sm-12">
+                            
+                                <input type="text" id="id_usuario" name="id_usuario" value="<?php echo $id_usuario; ?>">
+                            
+                                <select id="rol" name="rol" class="form-control">
+                            
+                                   <option>Seleccione..</option> 
+                                  <?php foreach ($roles as $rol):?>
+                                    <option value="<?php echo $rol['id_rol']; ?>"><?php echo $rol['rol']; ?></option>
+                                  <?php endforeach;?>
+                            
+                                </select>
+                            
+                              </div>
+                            
+                              <div class="form-group col-sm-12">
+                                <input type="submit" id="botoncambiarrol" class="btn btn-info btn-block" value="Cambiar rol">
+                              </div>
+                            
+
+                            </form>
+                        </div>
+                      <!--TERMINA EL BODY DE LA VENTANA-->
+                        <!--FOOTER DE LA VENTANA-->
+                        <div class="modal-footer">
+                          <div class="col-sm-12 form-group" id="respuestacambiarfase"></div>
+                        </div><!--TERMINA EL FOOTER-->
+                      </div>
+                    </div>
+                  </div> <!--TERMINO EL DIV DEL MODAL de cambio de rol-->
 

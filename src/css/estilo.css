@@ -24,10 +24,14 @@ html, body {
 .btn {
     border-radius: 2px;
     border: 0px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.02), 0 6px 6px 0 rgba(0, 0, 0, 0);
 }
 
-
+.btn-default {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #ccc;
+}
 .btn-danger {
     color: #fff;
     background-color: #d13a35;
@@ -146,7 +150,6 @@ html, body {
 }
 
 /*ESTILOS DE BOTONES DINAMICOS*/
-
 .contenido_2{width: 50%;
     position: fixed;
     bottom: 15px;/*MARGEN HACA ABAJO*/
@@ -169,6 +172,7 @@ html, body {
     background-color: RGB(1, 97, 246);
     color: #FFF;
 }
+
 /**/
 /* Sidebar Styles */
 .menu {

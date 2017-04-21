@@ -5,8 +5,9 @@ body{
     .footer {
         font-family: century;
         margin: 0px;
-        padding: 12px 0px 4px 0px;
-        color:#000;   
+        padding: 12px 0px 12px 0px;
+        color:#fff; 
+        background-color: #0288d1;  
     }
     .cintillo{
 

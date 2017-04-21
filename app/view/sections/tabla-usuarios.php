@@ -30,7 +30,6 @@
                                   $id_usuario = $dato["id_usuario"];
                                   $id_categoria = $dato["id_categoria"];
                                   $id_rol = $dato['id_rol'];
-                                  $correo = $dato['usuario_correo'];
                                 ?>
                                   <tr>
                                     <td><?php echo $cedula;?></td>
@@ -42,10 +41,7 @@
                                       <a class="btn btn-default" href="?controller=front&action=detalles_usuario&id_usuario=<?php echo $id_usuario; ?>"><i class="glyphicon glyphicon-cog"></i></a>
                                     </td>
                                     <td>
-                                      <a class="btn btn-info" href=''><i class="glyphicon glyphicon-lock"></i></a>
-                                    </td>
-                                    <td>
-                                      <a class="btn btn-danger" class="dialog_link" data-gid="<?php echo $id_usuario; ?>"><i class="glyphicon glyphicon-envelope"></i> </a>
+                                      <a class="btn btn-danger" href="#correo_p" data-toggle="modal"><i class="glyphicon glyphicon-envelope"></i> </a>
                                     </td>
                                   </tr>
                                 <?php 
@@ -59,35 +55,5 @@
   </div>
 </div>
 
-<script type="text/javascript">
-  
-  $( document ).ready(function() {
-  // Asociar un evento al botón que muestra la ventana modal
-  $('#correo_p').click(function() {
-    $.ajax({
-        // la URL para la petición
-        url : '',
- 
-        // la información a enviar
-        data : { 'correo' : <?php echo $correo; ?> },
- 
-        // especifica si será una petición POST o GET
-        type : 'GET',
- 
-        // el tipo de información que se espera de respuesta
-        dataType : 'html',
- 
-        // código a ejecutar si la petición es satisfactoria;
-        success : function(respuesta) {
-            $('#respuestacorreo').html(respuesta);
-        },
- 
-        // código a ejecutar si la petición falla;
-        error : function(xhr, status) {
-            alert('Disculpe, existió un problema');
-        },
-    });
-  });
-});
-</script>
+
 

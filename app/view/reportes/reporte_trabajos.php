@@ -18,7 +18,7 @@
             <th class="col-md-12"><p style="text-align:left; ">Sistema Web para Gestion de Trabajos de Ascenso (AUTANA)</p></th>
         </tr>
         <tr>
-            <th class="col-md-12"><p style="text-align:left; ">Emitido por: <?php echo $_SESSION['nombre']." ".$_SESSION['apellido']; ?></p></th>
+            <th class="col-md-12"><p style="text-align:left; ">Emitido por: <?php echo $_SESSION['user']; ?></p></th>
         </tr>
         </thead>
     </table>

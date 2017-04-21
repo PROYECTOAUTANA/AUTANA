@@ -1,6 +1,6 @@
 <?php 
 /*
-**Nuestro FrontController index.php 
+**
 **by: Juancho
       YordyJimenez
       YesikaBetancourt

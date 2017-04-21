@@ -7,10 +7,10 @@ class Trabajo{
 		$this->pdo = new Conexion();
 	}
 
-	public function nuevo($id_trabajo,$titulo,$fecha_pp,$proceso,$categoria_ascenso){
+	public function registrar_trabajo($id_trabajo,$titulo,$fecha_pp,$proceso){
 	try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO trabajo(id_trabajo,trabajo_titulo,fecha_presentacion,proceso,categoria_de_ascenso) VALUES('$id_trabajo','$titulo','$fecha_pp','$proceso','$categoria_ascenso')");
+				$sql = $this->pdo->prepare("INSERT INTO trabajo(id_trabajo,trabajo_titulo,fecha_presentacion,proceso) VALUES('$id_trabajo','$titulo','$fecha_pp','$proceso')");
         		$sql->execute(); 
     			$datosDB = $sql->fetchAll();
     			return $datosDB;
@@ -25,7 +25,7 @@ class Trabajo{
 	
 		try
 			{	
-				$query = $this->pdo->prepare("SELECT * FROM trabajo , usuario_trabajo , trabajo_fase ,trabajo_linea , usuario , linea , fase WHERE usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario_trabajo.fk_usuario = usuario.id_usuario AND trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea ORDER BY id LIMIT :per_page OFFSET :offset");
+				$query = $this->pdo->prepare("SELECT * FROM trabajo , trabajo_fase , trabajo_linea , linea , fase WHERE trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea ORDER BY id LIMIT :per_page OFFSET :offset");
 				$query->execute(array(':offset' => $offset, ':per_page' => $per_page));
 				$resultado = $query->fetchAll();
 				return $resultado;
@@ -36,30 +36,11 @@ class Trabajo{
 		}	
 	}
 
-
-	function todos_los_trabajos(){
-
-		try
-			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo , usuario_trabajo , trabajo_fase ,trabajo_linea , usuario , linea , fase WHERE usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario_trabajo.fk_usuario = usuario.id_usuario AND trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea");
-        		$sql->execute();
-    			$datosDB = $sql->fetchAll();
-    			$cant = $sql->rowCount();
-    			$result = array('datos' => $datosDB, 'cantidad' => $cant);
-    			return $result;
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}	
-	}
-
-
 	public function numero_de_trabajos(){
 	
 		try
 			{	
-				$sql   = $this->pdo->query("SELECT COUNT(*) FROM trabajo , usuario_trabajo , trabajo_fase ,trabajo_linea , usuario , linea , fase WHERE usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario_trabajo.fk_usuario = usuario.id_usuario AND trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea");
+				$sql   = $this->pdo->query("SELECT COUNT(*) FROM trabajo , trabajo_fase ,trabajo_linea , linea , fase WHERE trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea");
 				$numrows = $sql->fetchColumn();
     			return $numrows;
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -89,10 +70,8 @@ class Trabajo{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo , usuario_trabajo , trabajo_fase ,trabajo_linea , usuario , linea , fase WHERE usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario_trabajo.fk_usuario = usuario.id_usuario AND trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea AND trabajo.id_trabajo = '$id_trabajo'");
+				$sql = $this->pdo->prepare("SELECT * FROM trabajo , usuario_trabajo , trabajo_fase ,trabajo_linea , usuario , linea , fase WHERE trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea AND trabajo.id_trabajo = '$id_trabajo'");
         		$sql->execute();
-        		//Con fetchAll() puedo hacer los crud PERO no puedo iniciar sesion
-        		//Con fetch(PDO::FETCH_ASSOC)  puedo iniciar sesion  PERO no puedo gestionar los crud  
     			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
     			return $datosDB;
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);

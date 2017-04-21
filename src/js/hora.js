@@ -1,14 +1,5 @@
-function damelafecha(){
-
-  var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
-var f=new Date();
-var fecha = document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
-return fecha;//reloj
-}
-
 function hora(){
-var fecha= new Date();
+    var fecha= new Date();
 var horas= fecha.getHours();
 var minutos = fecha.getMinutes();
 var m = "AM";
@@ -79,6 +70,10 @@ if((horas==0)||(horas==24))
 if (minutos<10) {
   minutos = "0"+minutos;
 }
-document.getElementById('contenedor').innerHTML=''+horas+':'+minutos+' '+m;
+document.getElementById('contenedorhora').innerHTML=''+horas+':'+minutos+' '+m;
 setTimeout('hora()',1000);
-}
+  };
+
+$(window).load(function(){
+    hora();
+});

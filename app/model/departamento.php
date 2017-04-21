@@ -32,5 +32,18 @@ class Departamento{
 				echo 'ERROR : '.$e->getMessage();
 		}		
 	}
+
+	public function verDepartamentos(){
+
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM departamento");
+				$sql->execute();
+				$result = $sql->fetchAll();
+				return $result;
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
 }
 ?>
