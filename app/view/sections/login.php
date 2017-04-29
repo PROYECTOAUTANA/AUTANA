@@ -22,7 +22,7 @@
                     <a href="#validar" data-toggle="modal">¿Olvido su Contraseña?</a>
                   </div>
                   <div class="form-group">
-                    <input type="button" id="botonloguear" class="btn btn-info btn-block boton" onclick="log()" value="Entrar">                  
+                    <input type="button" id="botonloguear" class="btn btn-info btn-block boton" autofocus onclick="log()" value="Entrar">                  
                   </div>  
             </form>
           </div>
