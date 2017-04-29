@@ -64,5 +64,6 @@ include("sections/footer2.php");
 <script src="src/js/fecha.js"></script>
 <script src="src/js/hora.js"></script>
 <script src="src/js/paginar_trabajos.js"></script>
+<script src="src/js/validar.js"></script>
 </body>
 </html> 
