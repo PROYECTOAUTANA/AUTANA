@@ -61,19 +61,16 @@ function log(){
 	$.ajax({
 		type: "post",
 		url: url,
-		data : datos,
-		beforeSend: function () {
-            $("#botonloguear").val("Procesando, espere por favor...");
-        }  		
-	}).done(function(result){
-		if (result.estado == true) {
-			window.location.href = '?controller=front&action=inicio';
-		}else{
-			var usuario=document.getElementById('user').value=""
-			var password=document.getElementById('password').value=""
-			$("#botonloguear").val("Entrar");
-			$("#resultados").html('<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error!</strong> Usuario o clave incorrecta</div>')
-		}
+		data : datos,  
+		success:function(result){
+			if (result.estado == true) {
+				window.location.href = '?controller=front&action=inicio';
+			}else{
+				var usuario=document.getElementById('user').value=""
+				var password=document.getElementById('password').value=""
+				$("#resultados").html(result.mensaje)
+			}
+		}			
 	})
 }
 //REGISTRA EL TRABAJO
@@ -110,7 +107,51 @@ function registrarTrabajo(){
     })
 }
 
+//REGISTRA EL USUARIO
+function registrarUsuario(){
+ 	var cedula=$("#cedula").val()
+ 	var nombre=$("#nombre").val()
+ 	var apellido=$("#apellido").val()
+ 	var sexo=$("#sexo").val()
+ 	var telefono=$("#telefono").val()
+	var correo=$("#correo").val()
+ 	var direccion=$("#direccion").val()
+ 	var rol=$("#rol").val()
+ 	var departamento=$("#departamento").val()
+ 	var categoria_actual=$("#categoria_actual").val()
+ 	var usuario=$("#usuario").val()
+ 	var clave=$("#clave").val()
 
+    var url  = "?controller=usuario&action=registrar_usuario"; 
+    var datos = {cedula,nombre,apellido,sexo,telefono,correo,direccion,rol,departamento,categoria_actual,usuario,clave};
+    $.ajax({
+        type: "post",
+        url: url,
+        data : datos, 
+        success:function(result){
+		if (result.estado === true) {
+	        	$("#cedula").val("")
+				$("#nombre").val("")
+				$("#apellido").val("")
+				$("#sexo").val("")
+				$("#telefono").val("")
+				$("#correo").val("")
+				$("#direccion").val("")
+				$("#rol").val("")
+				$("#departamento").val("")
+				$("#categoria_actual").val("")
+				$("#usuario").val("")
+				$("#clave").val("")
+				$("#resultadoregistrarusuario").html("Listo...");
+				window.location.href = '?controller=front&action=detalles_usuario&id_usuario='+result.id;
+			    
+				
+	    	}else{
+	    		alert("error");
+	    	}
+		} 
+    })
+}
 
 //CONSULTA SI EL DOCENTE EXISTE PARA AGREGARLO AL TRABAJO
 function consultardocente(){

@@ -1,25 +1,14 @@
 <?php 
-session_start();
 if(!$_SESSION){
     header("location: ?controller=front&action=home");
 }
-
-if($_SESSION['rol'] == 'administrador'){ 
-    $barra = "barra_admin";
-}elseif ($_SESSION['rol'] == 'supervisor') {
-    $barra = "barra_usuario";
-}else{
-
-    header("location: ?controller=front&action=home");
-}
-
 require_once "sections/head.php"; 
 ?>
 <body >
 <?php 
 include("sections/cargando.php");
 include("sections/navbar.php"); 
-include("sections/$barra.php"); 
+include("sections/menu.php"); 
 ?>
         <!-- /#sidebar-wrapper -->
         <!-- contenido -->
@@ -53,8 +42,8 @@ include("sections/$barra.php");
                                 </td>
                                 <td class="col-sm-6">
                                     <div class="input-group">
-                                      <input  disabled="disabled" class="form-control" value="<?php echo $datos_trabajo["fecha_presentacion"];?>">
-                                      <span class="input-group-addon" onclick="$('#').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
+                                      <input  disabled="disabled" id="fecha_pp" class="form-control" value="<?php echo $datos_trabajo["fecha_presentacion"];?>">
+                                      <span class="input-group-addon" onclick="$('#fecha_pp').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
                                       </span>
                                     </div>
                                 </td>
@@ -65,8 +54,8 @@ include("sections/$barra.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group">
-                                      <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_trabajo["trabajo_titulo"];?>">
-                                      <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
+                                      <input  disabled="disabled" class="form-control" id="titulo" type="text" value="<?php echo $datos_trabajo["trabajo_titulo"];?>">
+                                      <span class="input-group-addon" id="basic-addon1" onclick="$('#titulo').removeAttr('disabled');" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
                                       </span>
                                   </div>
                                 </td>
@@ -77,8 +66,8 @@ include("sections/$barra.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group">
-                                    <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_trabajo["proceso"];?>">
-                                    <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;">
+                                    <input  disabled="disabled" id="proceso" class="form-control" type="text" value="<?php echo $datos_trabajo["proceso"];?>">
+                                    <span class="input-group-addon" id="basic-addon1" onclick="$('#proceso').removeAttr('disabled');" style="background-color:#777;color:#fff;">
                                       <i class="glyphicon glyphicon-pencil"></i>
                                     </span>
                                   </div>
@@ -89,11 +78,8 @@ include("sections/$barra.php");
                                  FASE ACTUAL
                                 </td>
                                 <td class="col-sm-6">
-                                  <div class="input-group">
+                                  <div class="input-group col-sm-12">
                                     <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_trabajo["fase_nombre"];?>">
-                                    <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;">
-                                      <i class="glyphicon glyphicon-pencil"></i>
-                                    </span>
                                   </div>
                                 </td>
                               </tr> 

@@ -1,15 +1,5 @@
 <?php 
-session_start();
 if(!$_SESSION){
-    header("location: ?controller=front&action=home");
-}
-
-if($_SESSION['rol'] == 'administrador'){ 
-    $barra = "barra_admin";
-}elseif ($_SESSION['rol'] == 'supervisor') {
-    $barra = "barra_usuario";
-}else{
-
     header("location: ?controller=front&action=home");
 }
 require_once "sections/head.php"; 
@@ -17,7 +7,7 @@ require_once "sections/head.php";
 <body>
 <?php 
 include("sections/navbar.php"); 
-include("sections/$barra.php"); 
+include("sections/menu.php"); 
 ?>
 
     <!-- contenido -->
@@ -30,7 +20,7 @@ include("sections/$barra.php");
                       </div>
                       <div class="col-md-6 col-xs-12 grupobotones">
                         <div class="col-xs-3">
-                            <a href="#" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i></a>
+                            <a href="#nuevo_rol" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i></a>
                         </div>
                         <div class="col-xs-3">
                             <a href="?controller=front&action=roles" class="btn btn-info btn-block"><i class="glyphicon glyphicon-refresh"></i></a>

@@ -1,15 +1,5 @@
 <?php 
-session_start();
 if(!$_SESSION){
-    header("location: ?controller=front&action=home");
-}
-
-if($_SESSION['rol'] == 'administrador'){ 
-    $barra = "barra_admin";
-}elseif ($_SESSION['rol'] == 'supervisor') {
-    $barra = "barra_usuario";
-}else{
-
     header("location: ?controller=front&action=home");
 }
 require_once "sections/head.php"; 
@@ -18,7 +8,7 @@ require_once "sections/head.php";
 <?php 
 include("sections/cargando.php"); 
 include("sections/navbar.php"); 
-include("sections/$barra.php"); 
+include("sections/menu.php"); 
 ?>
         <!-- contenido -->
         <div id="contenido">

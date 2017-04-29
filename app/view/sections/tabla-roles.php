@@ -20,7 +20,6 @@
                               <tbody>
                                 <?php 
                                   foreach ($db as $dato):
-
                                   //obtenemos datos para mostrar
                                   $descripcion = $dato["descripcion"];
                                   $rol = $dato["rol"];

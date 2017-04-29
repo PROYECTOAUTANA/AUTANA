@@ -1,17 +1,5 @@
 <?php 
-session_start();
 if(!$_SESSION){
-    header("location: ?controller=front&action=home");
-}
-
-if($_SESSION['rol'] == 'administrador'){ 
-    $barra = "barra_admin";
-}elseif ($_SESSION['rol'] == 'supervisor') {
-    $barra = "barra_usuario";
-}elseif ($_SESSION['rol'] == 'docente') {
-    $barra = "barra_docente";
-}else{
-
     header("location: ?controller=front&action=home");
 }
 require_once "sections/head.php"; 
@@ -19,8 +7,8 @@ require_once "sections/head.php";
 <body>
 <?php 
 include("sections/cargando.php");
-include("sections/navbar.php"); 
-include("sections/$barra.php"); 
+include("sections/navbar.php");  
+include("sections/menu.php");
 ?>
         <!-- /#sidebar-wrapper -->
         <!-- contenido -->

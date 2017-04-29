@@ -15,10 +15,7 @@
                                       <th align="center" >seleccionar</th>
                                       <th align="center" >Cedula</th>
                                       <th align="center" >Nombre</th>
-                                      <th align="center" >Apellido</th>
-                                      <th align="center" >Categoria</th>
                                       <th align="center" >Departamento</th>
-                                      <th align="center" >Rol de Usuario</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -42,10 +39,7 @@
                                     <td align="center"><input id="radio" type="radio" name="seleccion" value="<?php echo $dato["id_usuario"]; ?>" /></td>
                                     <td align="center"><?php echo $cedula;?></td>
                                     <td align="center"><?php echo $nombre;?></td>
-                                    <td align="center"><?php echo $apellido;?></td>
-                                    <td align="center"><?php echo $categoria;?></td>
                                     <td align="center"><?php echo $departamento;?></td>
-                                    <td align="center"><?php echo $rol;?></td>
                                   </tr>
                                 <?php 
                                 endforeach;

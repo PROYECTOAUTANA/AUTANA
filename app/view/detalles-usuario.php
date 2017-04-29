@@ -1,15 +1,5 @@
 <?php 
-session_start();
 if(!$_SESSION){
-    header("location: ?controller=front&action=home");
-}
-
-if($_SESSION['rol'] == 'administrador'){ 
-    $barra = "barra_admin";
-}elseif ($_SESSION['rol'] == 'supervisor') {
-    $barra = "barra_usuario";
-}else{
-
     header("location: ?controller=front&action=home");
 }
 require_once "sections/head.php"; 
@@ -18,7 +8,7 @@ require_once "sections/head.php";
 <?php 
 include("sections/cargando.php");
 include("sections/navbar.php"); 
-include("sections/$barra.php"); 
+include("sections/menu.php"); 
 ?>
         <!-- /#sidebar-wrapper -->
         <!-- contenido -->
@@ -52,8 +42,8 @@ include("sections/$barra.php");
                                 </td>
                                 <td class="col-sm-6">
                                     <div class="input-group">
-                                      <input  disabled="disabled" class="form-control" value="<?php echo $datos_usuario["usuario_cedula"];?>">
-                                      <span class="input-group-addon" onclick="$('#').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
+                                      <input  disabled="disabled" id="cedula" class="form-control" value="<?php echo $datos_usuario["usuario_cedula"];?>">
+                                      <span class="input-group-addon" onclick="$('#cedula').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
                                       </span>
                                     </div>
                                 </td>
@@ -64,8 +54,8 @@ include("sections/$barra.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group">
-                                      <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_nombre"];?>">
-                                      <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
+                                      <input  disabled="disabled" id="nombre" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_nombre"];?>">
+                                      <span class="input-group-addon" onclick="$('#nombre').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
                                       </span>
                                   </div>
                                 </td>
@@ -76,8 +66,8 @@ include("sections/$barra.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group">
-                                    <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_apellido"];?>">
-                                    <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;">
+                                    <input  disabled="disabled" id="apellido" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_apellido"];?>">
+                                    <span class="input-group-addon" onclick="$('#apellido').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;">
                                       <i class="glyphicon glyphicon-pencil"></i>
                                     </span>
                                   </div>
@@ -88,11 +78,8 @@ include("sections/$barra.php");
                                  ROL ACTUAL
                                 </td>
                                 <td class="col-sm-6">
-                                  <div class="input-group">
-                                    <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_usuario["rol"];?>">
-                                    <span class="input-group-addon" id="basic-addon1" style="background-color:#777;color:#fff;">
-                                      <i class="glyphicon glyphicon-pencil"></i>
-                                    </span>
+                                  <div class="input-group col-sm-12">
+                                    <input  disabled="disabled" class="form-control " type="text" value="<?php echo $datos_usuario["rol"];?>">
                                   </div>
                                 </td>
                               </tr> 
@@ -115,8 +102,50 @@ include("sections/$barra.php");
                         <hr>
                     </div>
                     <div class="col-sm-12">
+                          <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Trabajos:</div>
 
-                    </div> 
+                                <!-- Table -->
+                                <div class="table-responsive">
+                                  <table class="table table-hover">
+                                    <?php 
+                                    if (!$trabajos):?>
+                                    <tr>
+                                        <td class="col-sm-12">
+                                          No hay trabajos para este trabajo...
+                                          <a href="#incluir_docente" data-toggle="modal">Asignar</a>
+                                        </td>
+                                    </tr> 
+                                    <?php
+                                    endif;
+                                    if ($trabajos):
+                                    ?>
+                                    <tr>
+                                      <td>Titulo del Trabajo </td>
+                                      <td>Vinculo del Usuario </td>
+                                      <td></td>
+                                    </tr>
+                                    <?php foreach ($trabajos as $trabajo):?>
+                                      <tr>
+                                        <td class="col-sm-6">
+                                          <?php echo $trabajo["trabajo_titulo"]; ?>
+                                        </td>
+                                        <td class="col-sm-6">
+                                          <?php echo $trabajo["vinculo"]; ?>
+                                        </td>
+                                        <td class="col-sm-6">
+                                          <a href="" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Quitar</a>
+                                        </td>
+                                      </tr> 
+                                    <?php 
+                                    endforeach; 
+                                    endif;
+                                    ?>
+                                  </table>
+                                </div>
+                              </div>  
+                            </div>
                        <div class="col-sm-12 form-group">
                           <a href="#incluir_trabajo" data-toggle="modal" class="btn btn-info btn-block"><i class="glyphicon glyphicon-plus"></i>  Asignar Trabajo</a>
                         </div>  

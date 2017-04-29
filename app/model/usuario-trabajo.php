@@ -48,5 +48,19 @@ class Usuario_Trabajo{
 				echo 'ERROR : '.$e->getMessage();
 		}		
 	}
+
+	public function trabajos_del_docente($id_usuario){
+   		
+		try
+			{	
+    			$sql = $this->pdo->prepare("SELECT usuario_trabajo.vinculo , trabajo.* FROM usuario , usuario_trabajo, trabajo WHERE usuario_trabajo.fk_usuario = usuario.id_usuario AND usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario.id_usuario = '$id_usuario'");
+    			$sql->execute();
+    			$result = $sql->fetchAll();
+    			return $result;
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
 }
 ?>

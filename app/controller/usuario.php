@@ -49,9 +49,18 @@ class C_Usuario{
 
 			$result5 = $this->obj_usuario_rol->asignar_rol($id_usu_rol,$id_usuario,$id_rol);
 
-			header("location: ?controller=front&action=usuarios");
-
-				
+			$estado = true;
+			$mensaje = "Listo!";
+			//Seteamos el header de "content-type" como "JSON" para que jQuery lo reconozca como tal
+			header('Content-Type: application/json');
+			//Guardamos los datos en un array
+			$datos = array(
+			'id' => $id_usuario,
+			'estado' => $estado,
+			'mensaje' => $mensaje
+			);
+			//Devolvemos el array pasado a JSON como objeto
+			echo json_encode($datos, JSON_FORCE_OBJECT);			
 	}
 
 	public function buscar(){
@@ -109,21 +118,42 @@ class C_Usuario{
 
 		$arreglo_datos = $this->obj_usuario->login($usuario,$pass);
 
-			if (!$arreglo_datos) {
-				
-			  $estado = false;
+		if (!$arreglo_datos) {
+			
+			$estado = false;
+			$mensaje = '<div class="alert alert-danger alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Error!</strong> Usuario o Contraseña Incorrecto, Vuelva a intentarlo
+					</div>';
+		}else{
+
+			$permiso = $this->obj_usuario->verificar_permiso($arreglo_datos['id_rol'],"iniciar sesion");
+			
+			if ($permiso == 0) {
+			  	
+			  	$estado = false;
+			  	$mensaje = '<div class="alert alert-warning alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Error!</strong> Actualmente su Rol de Usuario no posee permiso para acceder al sistema, comuniquese con el administrador del sistema para solicitar permisos
+					</div>';
+
 			}else{
 				$estado = true;
+				$mensaje = '';
 				session_start();
 				$_SESSION['id']     = $arreglo_datos['id_usuario'];
 				$_SESSION['user']   = $arreglo_datos['usuario_usuario'];
 				$_SESSION['nombre']   = $arreglo_datos['usuario_nombre'];
 				$_SESSION['rol']   = $arreglo_datos['rol'];
+				$_SESSION['id_rol']   = $arreglo_datos['id_rol'];
 			}
 
+		}
+	
 		header('Content-Type: application/json');
 		//Guardamos los datos en un array
-		$datos = array('estado' => $estado);
+		$datos = array('estado' => $estado,
+						'mensaje' => $mensaje);
 		//Devolvemos el array pasado a JSON como objeto
 		echo json_encode($datos, JSON_FORCE_OBJECT);
 	}
@@ -139,7 +169,7 @@ class C_Usuario{
 
 		$email = $_POST['c'];
 		$result = $this->obj_usuario->validaCorreo($email);
-/**/
+
 		//EN DADO CASO DE QUE EL CORREO EXISTA
 		if ($result) {
 			//TOMAMOS EL ID
@@ -156,7 +186,6 @@ class C_Usuario{
 					//SI TODO SALIO BIEN EN EL UPDATE SE ENVIARA UN CORREO
 
 					//Librerías para el envío de mail
-					
 
 					//Recibir todos los parámetros del formulario
 					$asunto = 'Restablecer Clave de Acceso';

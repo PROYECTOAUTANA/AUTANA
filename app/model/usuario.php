@@ -38,10 +38,52 @@ class Usuario{
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_rol , rol WHERE usuario.usuario_usuario = '$usuario' AND usuario.clave = '$password' AND usuario_rol.fk_rol=rol.id_rol AND usuario_rol.fk_usuario=usuario.id_usuario");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_rol , rol WHERE usuario_rol.fk_rol=rol.id_rol AND usuario_rol.fk_usuario=usuario.id_usuario AND usuario.usuario_usuario = '$usuario' AND usuario.clave = '$password'");
         		$sql->execute(); 
     			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
     			return $datosDB;
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
+
+	public function verificar_permiso($id_rol,$modulo){
+   		
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM rol_modulo , modulo WHERE rol_modulo.fk_modulo = modulo.id_modulo AND rol_modulo.fk_rol = '$id_rol' AND modulo.modulo_nombre = '$modulo'");
+    			$sql->execute();
+    			return $sql->rowCount();
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
+
+	public function verModulos($id_rol){
+   		
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT modulo.* FROM rol , rol_modulo , modulo WHERE rol_modulo.fk_modulo = modulo.id_modulo AND rol_modulo.fk_rol = rol.id_rol AND rol_modulo.fk_rol = '$id_rol' ORDER BY modulo.id_modulo");
+    			$sql->execute();
+    			return $sql->fetchAll();
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
+
+	public function todos_los_modulos(){
+   		
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM modulo ORDER BY id_modulo");
+    			$sql->execute();
+    			return $sql->fetchAll();
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	

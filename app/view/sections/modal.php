@@ -15,22 +15,22 @@
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
-                            <form action="?controller=usuario&action=registrar_usuario" method="post" class="form-group">
+                            <form method="post" class="form-group">
                         <div class="form-group col-sm-4">
                           <label for="cedula">Cedula:</label>
-                          <input  id="cedula" class="form-control" type="text" name="cedula" placeholder="Escriba..." autofocus>
+                          <input  id="cedula" class="form-control" type="text" " placeholder="Escriba..." autofocus>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="nombre">Nombre:</label>
-                          <input  id="nombre" class="form-control" type="text" name="nombre" placeholder="Escriba...">
+                          <input  id="nombre" class="form-control" type="text"  placeholder="Escriba...">
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="apellido">Apellido:</label>
-                          <input  id="apellido" class="form-control" type="text" name="apellido" placeholder="Escriba...">
+                          <input  id="apellido" class="form-control" type="text"  placeholder="Escriba...">
                         </div>
                          <div class="form-group col-sm-4">
                           <label for="sexo">Sexo:</label>
-                          <select class="form-control" size="1" id="sexo" name="sexo">
+                          <select class="form-control" size="1" id="sexo" >
                           <option value='0'>selecciona</option>
                             <option value="1">F</option>
                             <option value="2">M</option>
@@ -38,19 +38,19 @@
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="telefono">Telefono:</label>
-                          <input  id="telefono"  class="form-control" type="text" name="telefono" placeholder="Escriba...">
+                          <input  id="telefono"  class="form-control" type="text" placeholder="Escriba...">
                         </div>
                          <div class="form-group col-sm-4">
                           <label for="correo">Correo:</label>
-                          <input  id="correo"  class="form-control" type="mail" name="correo" placeholder="Escriba...">
+                          <input  id="correo"  class="form-control" type="mail" placeholder="Escriba...">
                         </div>
                         <div class="form-group col-sm-12">
                           <label for="direccion">Direccion:</label>
-                          <textarea name="direccion" id="direccion" class="form-control" rows="3"></textarea>
+                          <textarea  id="direccion" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="rol">Rol de Usuario:</label>
-                          <select name="rol" id="rol" class="form-control">
+                          <select id="rol" class="form-control">
 
                               <option value='0'>selecciona</option>
                               <?php foreach ($roles as $rol): ?>
@@ -62,7 +62,7 @@
                         <div class="form-group col-sm-4">
                           <label for="departamento">Departamento:</label>
 
-                          <select name="departamento" id="departamento" class="form-control">
+                          <select id="departamento" class="form-control">
                           
                                 <option value='0'>selecciona</option>
                             <?php foreach ($departamentos as $departamento) :?>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="categoria_actual">Categoria Actual:</label>
-                          <select name="categoria_actual" id="categoria_actual" class="form-control">
+                          <select id="categoria_actual" class="form-control">
                             <option value='0'>selecciona</option>
                             <?php foreach ($categorias as $categoria):?>  
                             <option value="<?php echo $categoria['id_categoria']; ?>"><?php echo $categoria['categoria_nombre']; ?></option>
@@ -82,28 +82,29 @@
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="usuario">Usuario:</label>
-                          <input  id="usuario"  class="form-control" type="text" name="usuario" placeholder="Escriba...">
+                          <input  id="usuario"  class="form-control" type="text" placeholder="Escriba...">
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="clave">Contraseña:</label>
-                          <input  id="clave"  class="form-control" type="password" name="clave" placeholder="Escriba...">
+                          <input  id="clave"  class="form-control" type="password" placeholder="Escriba...">
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="rclave">Confirmar Contraseña:</label>
-                          <input  id="rclave"  class="form-control" type="password" name="rclave" placeholder="Escriba...">
+                          <input  id="rclave"  class="form-control" type="password" placeholder="Escriba...">
                         </div>
                         <div class="form-group col-sm-12">
                           <label for="observacion">Observacion:</label>
-                          <textarea name="observacion" id="observacion" class="form-control" rows="3"></textarea>
+                          <textarea id="observacion" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="form-group col-sm-12">
-                          <button type="submit" class="btn btn-info btn-block" name="registrar_usuario"><i class="glyphicon glyphicon-ok"></i>  Enviar</button>
+                          <button type="button" class="btn btn-info btn-block" onclick="registrarUsuario()"><i class="glyphicon glyphicon-ok" ></i>  Enviar</button>
                         </div>
                       </form>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
                         <div class="modal-footer">
+                        <div id="resultadoregistrarusuario"></div>
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
@@ -391,29 +392,56 @@
 
 <!--******************************************************************-->
 
-<!--**********************  consultar trabajo  ***********************-->
+<!--**********************  nuevo_rol  ***********************-->
 
 
 
 
 
-                  <div class="modal fade" id="correo_p">
+                  <div class="modal fade" id="nuevo_rol">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                          <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
                         <div class="modal-header">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3 align="center" class="titulo"> modal </h3> 
+                          <h3 align="center" class="titulo"> nuevo rol de usuario </h3> 
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
-                            
+                            <form action="?controller=rol&action=nuevo_rol" method="post" class="form-group col-sm-12"> 
+                                <div class="form-group col-sm-12">
+                                  <label for="nombrerol">Nombre:</label>
+                                  <input type="text" id="nombrerol" class="form-control" name="nombre">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                  <label>Permisos del rol:</label>
+                                    <table width="100%" class="table table-hover">
+                                      <?php foreach ($todos_los_modulos as $modulo): ?>
+                                        <tr>
+                                          <td>
+                                            <?= $modulo['modulo_nombre'] ?>  
+                                          </td>
+                                          <td>
+                                            <input type="checkbox" name="modulos[]" value="<?= $modulo['id_modulo'] ?>">
+                                          </td>
+                                        </tr>
+                                      <?php endforeach ?>
+                                    </table>
+                                </div>
+                                <div class="form-group col-sm-8">
+                                  <label for="observacionrol">Descripcion del rol:</label>
+                                  <textarea  id="observacionrol" class="form-control" rows="14"></textarea>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                  <input type="submit" class="btn btn-info btn-block" name="">
+                                </div>
+                            </form>
                         </div>
                       <!--TERMINA EL BODY DE LA VENTANA-->
                         <!--FOOTER DE LA VENTANA-->
                         <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Salir</button> 
+
                         </div><!--TERMINA EL FOOTER-->
                       </div>
                     </div>
@@ -523,11 +551,11 @@
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
-                            <form class="form-group" action="?controller=usuarioRol&action=cambiar_rol" method="post">
+                            <form class="form-group col-sm-12" action="?controller=usuarioRol&action=cambiar_rol" method="post">
 
                               <div class="form-group col-sm-12">
                             
-                                <input type="text" id="id_usuario" name="id_usuario" value="<?php echo $id_usuario; ?>">
+                                <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo $id_usuario; ?>">
                             
                                 <select id="rol" name="rol" class="form-control">
                             

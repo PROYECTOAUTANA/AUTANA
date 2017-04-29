@@ -14,12 +14,6 @@
         <div class="collapse navbar-collapse" id="navegacion-fm">
           <ul class="nav navbar-nav navbar-left">
                 <li class="nav-item">
-                    <a href="gestionar-trabajos" id="item_nav" class="nav-link"><span class="glyphicon glyphicon-asterisk"></span> Trabajos</a>
-                </li>
-                <li class="nav-item">
-                    <a href="gestionar-usuarios" id="item_nav" class="nav-link"><span class="glyphicon glyphicon-user"></span> Usuarios</a>
-                </li>
-                <li class="nav-item">
                     <a target="_blank" id="item_nav" href="http://www.uptaeb.edu.ve/site/" class="nav-link"><span class="glyphicon glyphicon-globe"></span> WebSite</a>
                 </li> 
           </ul> 
