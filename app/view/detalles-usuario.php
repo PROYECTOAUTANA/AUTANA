@@ -1,4 +1,5 @@
 <?php 
+session_start();
 if(!$_SESSION){
     header("location: ?controller=front&action=home");
 }
@@ -42,7 +43,7 @@ include("sections/menu.php");
                                 </td>
                                 <td class="col-sm-6">
                                     <div class="input-group">
-                                      <input  disabled="disabled" id="cedula" class="form-control" value="<?php echo $datos_usuario["usuario_cedula"];?>">
+                                      <input  disabled="disabled" id="cedula" class="form-control" value="<?php echo $datos_usuario->usuario_cedula;?>">
                                       <span class="input-group-addon" onclick="$('#cedula').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
                                       </span>
                                     </div>
@@ -54,7 +55,7 @@ include("sections/menu.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group">
-                                      <input  disabled="disabled" id="nombre" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_nombre"];?>">
+                                      <input  disabled="disabled" id="nombre" class="form-control" type="text" value="<?php echo $datos_usuario->usuario_nombre;?>">
                                       <span class="input-group-addon" onclick="$('#nombre').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
                                       </span>
                                   </div>
@@ -66,7 +67,7 @@ include("sections/menu.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group">
-                                    <input  disabled="disabled" id="apellido" class="form-control" type="text" value="<?php echo $datos_usuario["usuario_apellido"];?>">
+                                    <input  disabled="disabled" id="apellido" class="form-control" type="text" value="<?php echo $datos_usuario->usuario_apellido;?>">
                                     <span class="input-group-addon" onclick="$('#apellido').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;">
                                       <i class="glyphicon glyphicon-pencil"></i>
                                     </span>
@@ -79,7 +80,7 @@ include("sections/menu.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group col-sm-12">
-                                    <input  disabled="disabled" class="form-control " type="text" value="<?php echo $datos_usuario["rol"];?>">
+                                    <input  disabled="disabled" class="form-control " type="text" value="<?php echo $rol;?>">
                                   </div>
                                 </td>
                               </tr> 
@@ -129,10 +130,10 @@ include("sections/menu.php");
                                     <?php foreach ($trabajos as $trabajo):?>
                                       <tr>
                                         <td class="col-sm-6">
-                                          <?php echo $trabajo["trabajo_titulo"]; ?>
+                                          <?php echo $trabajo->trabajo_titulo; ?>
                                         </td>
                                         <td class="col-sm-6">
-                                          <?php echo $trabajo["vinculo"]; ?>
+                                          <?php echo $trabajo->vinculo; ?>
                                         </td>
                                         <td class="col-sm-6">
                                           <a href="" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Quitar</a>

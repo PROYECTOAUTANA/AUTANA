@@ -1,10 +1,11 @@
 <?php 
+session_start();
 if(!$_SESSION){
     header("location: ?controller=front&action=home");
 }
 require_once "sections/head.php"; 
 ?>
-<body >
+<body>
 <?php 
 include("sections/cargando.php");
 include("sections/navbar.php"); 
@@ -16,15 +17,12 @@ include("sections/menu.php");
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="col-sm-6 trabajos">
+                        <div class="col-sm-9 trabajos">
                           <h1><span class="glyphicon glyphicon-th-large"></span>  <?= $title_view  ?></h1>
                         </div>
-                        <div class="col-sm-6 grupobotones">
-                          <div class="form-group col-sm-6">
+                        <div class="col-sm-3 grupobotones">
+                          <div class="form-group col-sm-12">
                               <a  href="?controller=reporte&action=estatus&id_trabajo=<?php echo $id_trabajo; ?>" target="_blank" class="btn btn-danger btn-block"><i class="glyphicon glyphicon-print"></i>  Estatus</a>
-                          </div>
-                          <div class="form-group col-sm-6">
-                              <a href="#cambiar_fase" data-toggle="modal" class="btn btn-success btn-block"><i class="glyphicon glyphicon-ok"></i> Cambiar de fase</a>
                           </div>
                         </div>
                     </div>
@@ -42,7 +40,7 @@ include("sections/menu.php");
                                 </td>
                                 <td class="col-sm-6">
                                     <div class="input-group">
-                                      <input  disabled="disabled" id="fecha_pp" class="form-control" value="<?php echo $datos_trabajo["fecha_presentacion"];?>">
+                                      <input  disabled="disabled" id="fecha_pp" class="form-control" value="<?php echo $datos_trabajo->trabajo_fecha_presentacion;?>">
                                       <span class="input-group-addon" onclick="$('#fecha_pp').removeAttr('disabled');" id="basic-addon1" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
                                       </span>
                                     </div>
@@ -54,7 +52,7 @@ include("sections/menu.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group">
-                                      <input  disabled="disabled" class="form-control" id="titulo" type="text" value="<?php echo $datos_trabajo["trabajo_titulo"];?>">
+                                      <input  disabled="disabled" class="form-control" id="titulo" type="text" value="<?php echo $datos_trabajo->trabajo_titulo;?>">
                                       <span class="input-group-addon" id="basic-addon1" onclick="$('#titulo').removeAttr('disabled');" style="background-color:#777;color:#fff;"><i class="glyphicon glyphicon-pencil"></i>
                                       </span>
                                   </div>
@@ -66,23 +64,13 @@ include("sections/menu.php");
                                 </td>
                                 <td class="col-sm-6">
                                   <div class="input-group">
-                                    <input  disabled="disabled" id="proceso" class="form-control" type="text" value="<?php echo $datos_trabajo["proceso"];?>">
+                                    <input  disabled="disabled" id="proceso" class="form-control" type="text" value="<?php echo $datos_trabajo->trabajo_proceso;?>">
                                     <span class="input-group-addon" id="basic-addon1" onclick="$('#proceso').removeAttr('disabled');" style="background-color:#777;color:#fff;">
                                       <i class="glyphicon glyphicon-pencil"></i>
                                     </span>
                                   </div>
                                 </td>
-                              </tr> 
-                              <tr>
-                                <td class="col-sm-6">
-                                 FASE ACTUAL
-                                </td>
-                                <td class="col-sm-6">
-                                  <div class="input-group col-sm-12">
-                                    <input  disabled="disabled" class="form-control" type="text" value="<?php echo $datos_trabajo["fase_nombre"];?>">
-                                  </div>
-                                </td>
-                              </tr> 
+                              </tr>  
                           </table>
                         </div>
                       </div>    
@@ -112,6 +100,9 @@ include("sections/menu.php");
                                 <div class="table-responsive">
                                   <table class="table table-hover">
                                     <?php 
+
+                                    
+                                    
                                     if (!$autores):?>
                                     <tr>
                                         <td class="col-sm-12">
@@ -126,7 +117,7 @@ include("sections/menu.php");
                                     <?php foreach ($autores as $autor):?>
                                       <tr>
                                         <td class="col-sm-6">
-                                          <?php echo $autor["usuario_nombre"]; ?>
+                                          <?php echo $autor->usuario_nombre; ?>
                                         </td>
                                         <td class="col-sm-6">
                                           <a href="" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Quitar</a>
@@ -166,7 +157,7 @@ include("sections/menu.php");
                                     <?php foreach ($jurados as $jurado):?>
                                       <tr>
                                         <td class="col-sm-6">
-                                          <?php echo $jurado["usuario_nombre"]; ?>
+                                          <?php echo $jurado->usuario_nombre; ?>
                                         </td>
                                         <td class="col-sm-6">
                                           <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Quitar</a>
@@ -205,7 +196,7 @@ include("sections/menu.php");
                                     <?php foreach ($tutores as $tutor):?>
                                       <tr>
                                         <td class="col-sm-6">
-                                          <?php echo $tutor["usuario_nombre"]; ?>
+                                          <?php echo $tutor->usuario_nombre; ?>
                                         </td>
                                         <td class="col-sm-6">
                                           <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Quitar</a>

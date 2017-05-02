@@ -1,7 +1,7 @@
-<?php if (!$db): ?>
+<?php if (!$todos_los_roles): ?>
   <?php echo "No se encontraron registros..."; ?>
 <?php endif ?>
-<?php if ($db): ?>
+<?php if ($todos_los_roles): ?>
 <br><br>
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -19,14 +19,14 @@
                               </thead>
                               <tbody>
                                 <?php 
-                                  foreach ($db as $dato):
-                                  //obtenemos datos para mostrar
-                                  $descripcion = $dato["descripcion"];
-                                  $rol = $dato["rol"];
-                                  $id_rol = $dato['id_rol'];
+                                  foreach ($todos_los_roles as $rol):
+                                  //obtenemos rols para mostrar
+                                  $descripcion = $rol->rol_descripcion;
+                                  $nombre = $rol->rol_nombre;
+                                  $id_rol = $rol->id_rol;
                                 ?>
                                   <tr>
-                                    <td align="center"><?php echo $rol;?></td>
+                                    <td align="center"><?php echo $nombre;?></td>
                                     <td align="center"><?php echo $descripcion;?></td>
                                     <td>
                                         <a class="btn btn-info" href="#"> <i class="glyphicon glyphicon-cog"></i>

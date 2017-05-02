@@ -9,32 +9,24 @@
             <tr>
               <th>Titulo</th>
               <th>Fecha de presentacion</th>
-              <th>Fase</th>
               <th colspan="3">Operaciones</th>
             </tr>
           </thead>
           <tbody>
-          <?php
-          foreach ($trabajos as $dato):
-              $id = $dato["id_trabajo"];
-              $titulo = $dato["trabajo_titulo"]; 
-              $fecha_pp = $dato["fecha_presentacion"];
-              $fase = $dato["fase_nombre"]; 
-          ?>
+          <?php foreach ($trabajos as $trabajo):?>
           <tr>
-            <td><?php echo $titulo?></td>
-            <td><?php echo $fecha_pp?></td>
-            <td><?php echo $fase?></td>
+            <td><?php echo $trabajo->trabajo_titulo?></td>
+            <td><?php echo $trabajo->trabajo_fecha_presentacion?></td>
             <td>
-                <a class="btn btn-info" href="?controller=front&action=detalles_trabajo&id_trabajo=<?php echo $id; ?>"> <i class="glyphicon glyphicon-cog"></i>
+                <a class="btn btn-info" href="?controller=front&action=detalles_trabajo&id_trabajo=<?php echo $trabajo->id_trabajo; ?>"> <i class="glyphicon glyphicon-cog"></i>
                 </a>
             </td>
             <td>
-              <a class="btn btn-danger" href="eliminar-trabajo?=<?php echo $id; ?>"><i class="glyphicon glyphicon-trash"></i> 
+              <a class="btn btn-danger" href="eliminar-trabajo?=<?php echo $trabajo->id_trabajo; ?>"><i class="glyphicon glyphicon-trash"></i> 
               </a>
             </td>
             <td>
-              <a class="btn btn-default" href="?controller=reporte&action=estatus&id_trabajo=<?php echo $id; ?>" target="_blank"> <i class="glyphicon glyphicon-stats"></i>
+              <a class="btn btn-default" href="?controller=reporte&action=estatus&id_trabajo=<?php echo $trabajo->id_trabajo; ?>" target="_blank"> <i class="glyphicon glyphicon-stats"></i>
               </a>
             </td>
           </tr>

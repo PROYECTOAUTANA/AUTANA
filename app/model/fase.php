@@ -2,20 +2,30 @@
 class Fase{
 
 	private $pdo;
+	private $id;
+	private $nombre;
+	private $descripcion;
+	private $fecha_de_registro;
+
 
 	public function __construct(){
 		$this->pdo = new Conexion();
 	}
 
-	public function registrar_fase($id_fase,$fase){
+	public function set_id($id){$this->id = $id;}
+	public function get_id(){return $this->id;}
+
+	public function set_nombre($nombre){$this->nombre = $nombre;}
+	public function get_nombre(){return $this->nombre;}
+
+	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
+	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
+
+	public function registrar_fase(){
 	try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO fase VALUES('$id_fase','$fase')");
-        		$sql->execute();
-        		//Con fetchAll() puedo hacer los crud PERO no puedo iniciar sesion
-        		//Con fetch(PDO::FETCH_ASSOC)  puedo iniciar sesion  PERO no puedo gestionar los crud  
-    			$datosDB = $sql->fetchAll();
-    			return $datosDB;
+				$sql = $this->pdo->prepare("INSERT INTO fase(fase_nombre, fase_fecha_registro)VALUES ('$this->nombre','$this->fecha_de_registro')");
+    			return $sql->execute();
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -29,23 +39,7 @@ class Fase{
 			{	
 				$sql = $this->pdo->prepare("SELECT * FROM fase"); 
     			$sql->execute();
-    			$result = $sql->fetchAll();
-    			return $result;
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}	
-	}
-	public function eliminar_fase($id_fase){
-	
-		try
-			{	
-				$sql = $this->pdo->prepare("DELETE FROM fase WHERE id_fase = '$id_fase'");
-        		//Con fetchAll() puedo hacer los crud PERO no puedo iniciar sesion
-        		//Con fetch(PDO::FETCH_ASSOC)  puedo iniciar sesion  PERO no puedo gestionar los crud  
-    			$result = $sql->execute();
-    			return $result;
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	

@@ -28,6 +28,5 @@ class C_UsuarioRol{
 			echo "error";
 		}
 	}
-
 }
 ?>

@@ -21,7 +21,7 @@ include("sections/menu.php");
                       </div>
                       <div class="col-md-6 col-xs-12 grupobotones">
                         <div class="col-xs-3">
-                            <a href="#nueva_categoria" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i></a>
+                            <a href="#nueva_fase" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i></a>
                         </div>
                         <div class="col-xs-3">
                             <a href="?controller=front&action=categorias" class="btn btn-info btn-block"><i class="glyphicon glyphicon-refresh"></i></a>
@@ -42,7 +42,7 @@ include("sections/menu.php");
                           </form>
                         </div>
                       <div class="col-sm-12"> 
-                          <?php require_once "app/view/sections/tabla-categorias.php"; ?>  
+                          <?php require_once "app/view/sections/tabla-fases.php"; ?>  
                       </div> 
                 </div>
             </div>

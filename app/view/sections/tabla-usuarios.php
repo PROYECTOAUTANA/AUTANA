@@ -11,7 +11,6 @@
                                       <th>Nombre</th>
                                       <th>Apellido</th>
                                       <th>Categoria</th>
-                                      <th>Rol de Usuario</th>
                                       <th colspan="3">Operaciones</th>
                                   </tr>
                               </thead>
@@ -20,23 +19,19 @@
                                   foreach ($usuarios as $dato):
 
                                   //obtenemos datos para mostrar
-                                  $cedula = $dato["usuario_cedula"];
-                                  $nombre = $dato["usuario_nombre"];
-                                  $apellido = $dato["usuario_apellido"];
-                                  $categoria = $dato["categoria_nombre"];
-                                  $rol = $dato["rol"];
-                                  
-                                  $id_departamento = $dato["id_departamento"];
-                                  $id_usuario = $dato["id_usuario"];
-                                  $id_categoria = $dato["id_categoria"];
-                                  $id_rol = $dato['id_rol'];
+                                  $cedula = $dato->usuario_cedula;
+                                  $nombre = $dato->usuario_nombre;
+                                  $apellido = $dato->usuario_apellido;
+                                  $categoria = $dato->categoria_nombre;
+
+                                  $id_usuario = $dato->id_usuario;
+                                  $id_categoria = $dato->id_categoria;
                                 ?>
                                   <tr>
                                     <td><?php echo $cedula;?></td>
                                     <td><?php echo $nombre;?></td>
                                     <td><?php echo $apellido;?></td>
                                     <td><?php echo $categoria;?></td>
-                                    <td><?php echo $rol;?></td>
                                     <td>
                                       <a class="btn btn-default" href="?controller=front&action=detalles_usuario&id_usuario=<?php echo $id_usuario; ?>"><i class="glyphicon glyphicon-cog"></i></a>
                                     </td>

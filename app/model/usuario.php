@@ -2,17 +2,67 @@
 class Usuario{
 
 	private $pdo;
+	private $id;
+	private $nombre;
+	private $apellido;
+	private $cedula;
+	private $correo;
+	private $telefono;
+	private $sexo;
+	private $direccion;
+	private $usuario;
+	private $clave;
+	private $fecha_de_registro;
+	private $fk_categoria;
 
 	public function __construct(){
-	
 		$this->pdo = new Conexion();
 	}
 
-	public function registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$categoria_actual){
+	public function set_id($id){$this->id = $id;}
+	public function get_id(){return $this->id;}
+
+	public function set_nombre($nombre){$this->nombre = $nombre;}
+	public function get_nombre(){return $this->nombre;}
+
+	public function set_apellido($apellido){$this->apellido = $apellido;}
+	public function get_apellido(){return $this->apellido;}
+	
+	public function set_cedula($cedula){$this->cedula = $cedula;}
+	public function get_cedula(){return $this->cedula;}
+
+	public function set_correo($correo){$this->correo = $correo;}
+	public function get_correo(){return $this->correo;}
+
+	public function set_telefono($telefono){$this->telefono = $telefono;}
+	public function get_telefono(){return $this->telefono;}
+
+	public function set_sexo($sexo){$this->sexo = $sexo;}
+	public function get_sexo(){return $this->sexo;}
+
+	public function set_direccion($direccion){$this->direccion = $direccion;}
+	public function get_direccion(){return $this->direccion;}
+
+	public function set_usuario($usuario){$this->usuario = $usuario;}
+	public function get_usuario(){return $this->usuario;}
+
+	public function set_clave($clave){$this->clave = $clave;}
+	public function get_clave(){return $this->clave;}
+
+	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
+	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
+
+	public function set_fk_categoria($fk_categoria){$this->fk_categoria = $fk_categoria;}
+	public function get_fk_categoria(){return $this->fk_categoria;}
+
+	
+	public function registrar_usuario(){
 
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO usuario(id_usuario,usuario_cedula,usuario_nombre, usuario_apellido,sexo, usuario_telefono, usuario_correo, usuario_direccion, usuario_fecha_registro, usuario_usuario, clave, fk_categoria) VALUES('$id_usuario','$cedula','$nombre','$apellido','$sexo','$telefono','$correo','$direccion',null,'$usuario','$clave','$categoria_actual')");
+				$sql = $this->pdo->prepare("INSERT INTO usuario(usuario_cedula, usuario_nombre, usuario_apellido, 
+            usuario_sexo, usuario_telefono, usuario_correo, usuario_direccion, 
+            usuario_usuario, usuario_clave, usuario_fecha_registro, fk_categoria) VALUES ('$this->cedula','$this->nombre','$this->apellido','$this->sexo','$this->telefono','$this->correo','$this->direccion','$this->usuario','$this->clave','$this->fecha_de_registro','$this->fk_categoria')");
 				$result = $sql->execute();
 				return $result;
 			
@@ -21,69 +71,13 @@ class Usuario{
 		}		
 	}
 
-	public function eliminar_usuario($id_usuario){
-
-		try
-			{	
-				$sql = $this->pdo->prepare("DELETE FROM usuario WHERE id_usuario ='$id_usuario'");
-				$result = $sql->execute();
-				return $result;
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}		
-	}
-
-	public function login($usuario,$password){
+	public function login(){
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_rol , rol WHERE usuario_rol.fk_rol=rol.id_rol AND usuario_rol.fk_usuario=usuario.id_usuario AND usuario.usuario_usuario = '$usuario' AND usuario.clave = '$password'");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario WHERE usuario_usuario = '$this->usuario' AND usuario_clave = '$this->clave'");
         		$sql->execute(); 
-    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    			return $datosDB;
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}		
-	}
-
-	public function verificar_permiso($id_rol,$modulo){
-   		
-		try
-			{	
-				$sql = $this->pdo->prepare("SELECT * FROM rol_modulo , modulo WHERE rol_modulo.fk_modulo = modulo.id_modulo AND rol_modulo.fk_rol = '$id_rol' AND modulo.modulo_nombre = '$modulo'");
-    			$sql->execute();
-    			return $sql->rowCount();
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}		
-	}
-
-	public function verModulos($id_rol){
-   		
-		try
-			{	
-				$sql = $this->pdo->prepare("SELECT modulo.* FROM rol , rol_modulo , modulo WHERE rol_modulo.fk_modulo = modulo.id_modulo AND rol_modulo.fk_rol = rol.id_rol AND rol_modulo.fk_rol = '$id_rol' ORDER BY modulo.id_modulo");
-    			$sql->execute();
-    			return $sql->fetchAll();
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}		
-	}
-
-	public function todos_los_modulos(){
-   		
-		try
-			{	
-				$sql = $this->pdo->prepare("SELECT * FROM modulo ORDER BY id_modulo");
-    			$sql->execute();
-    			return $sql->fetchAll();
+    			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -96,8 +90,7 @@ class Usuario{
 			{	
 				$sql = $this->pdo->prepare("SELECT * FROM usuario WHERE usuario_correo = '$email'");
         		$sql->execute(); 
-    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    			return $datosDB;
+    			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -105,13 +98,12 @@ class Usuario{
 		}			
 	}
 
-	public function cambio_clave($id_usuario,$new_pass){
+	public function cambio_clave(){
 		try
 			{	
 				$sql = $this->pdo->prepare("UPDATE usuario SET clave = '$new_pass' WHERE id_usuario='$id_usuario'");
         		$sql->execute(); 
-    			$datosDB = $sql->fetchAll();
-    			return $datosDB;
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -120,13 +112,12 @@ class Usuario{
 	}
 
 
-	public function consultar_id($id_usuario){
+	public function consultar_id(){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario  AND usuario.id_usuario = '$id_usuario'");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , categoria WHERE usuario.id_usuario = '$this->id'");
         		$sql->execute(); 
-    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    			return $datosDB;
+    			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -134,61 +125,14 @@ class Usuario{
 		}			
 	}
 
-	public function consultar_cedula($usuario_cedula){
-		try
-			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario  AND usuario.usuario_cedula = '$usuario_cedula'");
-        		$sql->execute(); 
-    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
-    			return $datosDB;
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}			
-	}
-
-
-	public function buscar($filtro){
-		try
-			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario AND usuario.usuario_nombre LIKE '$filtro%'");
-        		$sql->execute(); 
-    			$datosDB = $sql->fetchAll();
-    			$cant = $sql->rowCount();
-    			$result = array('datos' => $datosDB, 'cantidad' => $cant);
-    			return $result;
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}			
-	}
-
-	public function listar(){
-		try
-			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
-        		$sql->execute(); 
-    			$datosDB = $sql->fetchAll();
-    			$cant = $sql->rowCount();
-    			$result = array('datos' => $datosDB, 'cantidad' => $cant);
-    			return $result;
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}			
-	}
 
 	public function listar_usuarios($offset,$per_page){
 	
 		try
 			{	
-				$query = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario ORDER BY id_usuario LIMIT :per_page OFFSET :offset");
+				$query = $this->pdo->prepare("SELECT * FROM usuario,  categoria ORDER BY id_usuario LIMIT :per_page OFFSET :offset");
 				$query->execute(array(':offset' => $offset, ':per_page' => $per_page));
-				$resultado = $query->fetchAll();
-				return $resultado;
+				return $query->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -200,9 +144,22 @@ class Usuario{
 	
 		try
 			{	
-				$sql   = $this->pdo->query("SELECT COUNT(*) FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
-				$numrows = $sql->fetchColumn();
-    			return $numrows;
+				$sql   = $this->pdo->query("SELECT COUNT(*) FROM usuario");
+    			return $sql->fetchColumn();
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}	
+	}
+
+	public function ultimo_usuario(){
+	
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT MAX(id_usuario) as ultimo FROM usuario");
+        		$sql->execute();
+    			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	

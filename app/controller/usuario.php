@@ -4,7 +4,9 @@
 */
 require_once "app/model/usuario-departamento.php";
 require_once "app/model/usuario-rol.php";
+require_once "app/model/rol_modulo.php";
 require_once "app/model/usuario.php";
+require_once "app/model/rol.php";
 require_once "libs/phpmailer/class.phpmailer.php";
 require_once "libs/phpmailer/class.smtp.php";
 
@@ -13,112 +15,83 @@ class C_Usuario{
 	private $obj_usuario;
 	private $obj_usuario_departamento;
 	private $obj_usuario_rol;
+	private $obj_rol_modulo;
 	private $obj_mail;
+	private $obj_rol;
 
 	public function __construct()
 	{
 		$this->obj_usuario = new Usuario();
 		$this->obj_usuario_departamento = new Usuario_Departamento();
+		$this->obj_rol_modulo = new Rol_Mod();
 		$this->obj_usuario_rol = new Usuario_Rol();
+		$this->obj_rol = new Rol();
 		$this->obj_mail = new PHPMailer();	
 	}
 
 	public function registrar_usuario(){
 
-			$id_usuario = rand();
-			$id_usu_dep = rand();
-			$id_usu_rol = rand();
-			$cedula = $_POST['cedula'];
-			$nombre = $_POST['nombre'];
-			$apellido = $_POST['apellido'];
-			$sexo = $_POST['sexo'];
-			$telefono = $_POST['telefono'];
-			$correo = $_POST['correo'];
-			$direccion = $_POST['direccion'];
-			$categoria_actual = $_POST['categoria_actual'];
-			$id_departamento = $_POST['departamento'];
-			$id_rol = $_POST['rol'];
+			$this->obj_usuario->set_nombre($_POST['nombre']);
+			$this->obj_usuario->set_apellido($_POST['apellido']);
+			$this->obj_usuario->set_cedula($_POST['cedula']);
+			$this->obj_usuario->set_correo($_POST['correo']);
+			$this->obj_usuario->set_telefono($_POST['telefono']);
+			$this->obj_usuario->set_sexo($_POST['sexo']);
+			$this->obj_usuario->set_direccion($_POST['direccion']);
+			$this->obj_usuario->set_usuario( $_POST['usuario']);
+			$this->obj_usuario->set_clave(md5($_POST['clave']));
+			$this->obj_usuario->set_fecha_de_registro("23/04/2017");
+			$this->obj_usuario->set_fk_categoria($_POST['categoria_actual']);	
+			
+			$resultados = $this->obj_usuario->registrar_usuario();
+			$ultimo_usuario = $this->obj_usuario->ultimo_usuario();
+			$id_usuario = $ultimo_usuario->ultimo;
 
+			if (!$resultados) {
 
-			$usuario = $_POST['usuario'];
-			$clave = md5($_POST['clave']);
+				$id = "";
+				$estado = false;
+				$mensaje = '<div class="alert alert-danger alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Error!</strong> Hubo un error en la operacion
+					</div>';
 
-			$result1 = $this->obj_usuario->registrar_usuario($id_usuario,$cedula,$nombre,$apellido,$sexo,$telefono,$correo,$direccion,$usuario,$clave,$categoria_actual);
-				
-			$result3 = $this->obj_usuario_departamento->asignar_departamento($id_usu_dep,$id_usuario,$id_departamento);
+			}else{
 
-			$result5 = $this->obj_usuario_rol->asignar_rol($id_usu_rol,$id_usuario,$id_rol);
+				$this->obj_usuario_rol->set_fk_rol($_POST['rol']);
+				$this->obj_usuario_rol->set_fk_usuario($id_usuario);
+				$this->obj_usuario_rol->set_fecha_de_registro("fdf");
+				$this->obj_usuario_rol->asignar_rol();
 
-			$estado = true;
-			$mensaje = "Listo!";
+				$this->obj_usuario_departamento->set_fk_departamento($_POST['departamento']);
+				$this->obj_usuario_departamento->set_fk_usuario($id_usuario);
+				$this->obj_usuario_departamento->set_fecha_de_registro("fdf");
+				$this->obj_usuario_departamento->asignar_departamento();
+
+				$id = $id_usuario;
+				$estado = true;
+				$mensaje = "";
+			}
 			//Seteamos el header de "content-type" como "JSON" para que jQuery lo reconozca como tal
 			header('Content-Type: application/json');
 			//Guardamos los datos en un array
 			$datos = array(
-			'id' => $id_usuario,
+			'id' => $id,
 			'estado' => $estado,
 			'mensaje' => $mensaje
 			);
 			//Devolvemos el array pasado a JSON como objeto
-			echo json_encode($datos, JSON_FORCE_OBJECT);			
+			echo json_encode($datos, JSON_FORCE_OBJECT);	
+
 	}
 
-	public function buscar(){
+	public function login(){
 
-		$filtro = $_POST['n'];
-		$array_db = $this->obj_usuario->buscar($filtro);
-		$db = $array_db['datos'];
-		$dbc = $array_db['cantidad'];
-		if(!$db){
-			echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
-		}else{
-			echo '<b>Sugerencias:</b><br />';
-			require_once "app/view/sections/tabla-usuarios.php";
-		}  
-	}
+		$this->obj_usuario->set_usuario($_POST['u']);
+		$this->obj_usuario->set_clave(md5($_POST['p']));
+		$datos_usuario = $this->obj_usuario->login();
 
-	public function buscar_docente(){
-
-			$filtro = $_POST['docente'];
-			$array_db = $this->obj_usuario->buscar($filtro);
-			$db = $array_db['datos'];
-			$dbc = $array_db['cantidad'];
-			if(!$db){
-				echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
-			}else{
-				
-				echo '<b>Sugerencias:</b><br />';
-				foreach ($db as $dato) {
-					require_once "app/view/sections/tabla-usuarios-2.php";
-				}
-				
-			}  
-	}
-
-	public function eliminar(){
-
-		$id_usuario = $_GET['id_usuario'];
-		$id_departamento = $_GET['id_departamento'];
-		$id_categoria = $_GET['id_categoria'];
-		$id_rol = $_GET['id_rol'];
-
-		$this->obj_usuario_departamento->eliminar_usuario_departamento($id_usuario,$id_departamento);	
-		$this->obj_usuario_rol->eliminar_usuario_rol($id_usuario,$id_rol);
-		$this->obj_rol->eliminar_rol($id_rol);
-		$this->obj_usuario->eliminar_usuario($id_usuario);
-		$this->obj_usuario->eliminar_categoria($id_categoria);
-
-		header("location: ?controller=front&action=usuarios");
-	}
-
-		public function login(){
-
-		$usuario = $_POST['u'];
-		$pass = md5($_POST['p']);
-
-		$arreglo_datos = $this->obj_usuario->login($usuario,$pass);
-
-		if (!$arreglo_datos) {
+		if (!$datos_usuario) {
 			
 			$estado = false;
 			$mensaje = '<div class="alert alert-danger alert-dismissible" role="alert">
@@ -127,35 +100,49 @@ class C_Usuario{
 					</div>';
 		}else{
 
-			$permiso = $this->obj_usuario->verificar_permiso($arreglo_datos['id_rol'],"iniciar sesion");
+			//obtenemos el id del rol de este usuario
+			$this->obj_usuario_rol->set_fk_usuario($datos_usuario->id_usuario);
+			$usuario_rol = $this->obj_usuario_rol->rol_de_usuario();
+			//le enviamos el id del rol a la tabla rol_modulo para verificar si tiene el permiso de iniciar sesion
+			$this->obj_rol_modulo->set_fk_rol($usuario_rol->fk_rol);
+			$permiso = $this->obj_rol_modulo->verificar_permiso("iniciar sesion");
 			
 			if ($permiso == 0) {
-			  	
+	
 			  	$estado = false;
 			  	$mensaje = '<div class="alert alert-warning alert-dismissible" role="alert">
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					  <strong>Error!</strong> Actualmente su Rol de Usuario no posee permiso para acceder al sistema, comuniquese con el administrador del sistema para solicitar permisos
-					</div>';
-
+					  <strong>Error!</strong> Actualmente su Rol de Usuario no posee permiso para acceder al sistema, comuniquese con el administrador del sistema para solicitar permisos</div>';
 			}else{
+
 				$estado = true;
 				$mensaje = '';
+				$this->obj_rol->set_id($usuario_rol->fk_rol);
+				$rol = $this->obj_rol->consultar_rol();
+
+				$this->obj_rol_modulo->set_fk_rol($usuario_rol->fk_rol);
+				$modulos = $this->obj_rol_modulo->verModulos();
 				session_start();
-				$_SESSION['id']     = $arreglo_datos['id_usuario'];
-				$_SESSION['user']   = $arreglo_datos['usuario_usuario'];
-				$_SESSION['nombre']   = $arreglo_datos['usuario_nombre'];
-				$_SESSION['rol']   = $arreglo_datos['rol'];
-				$_SESSION['id_rol']   = $arreglo_datos['id_rol'];
+				$_SESSION['id']     = $datos_usuario->id_usuario;
+				$_SESSION['user']   = $datos_usuario->usuario_usuario;
+				$_SESSION['nombre']   = $datos_usuario->usuario_nombre;
+				$_SESSION['modulos'] = $modulos;
+				$_SESSION['rol']   = $rol->rol_nombre;
+				$_SESSION['id_rol']   = $rol->id_rol;
+
 			}
+			
 
 		}
 	
-		header('Content-Type: application/json');
+		
+header('Content-Type: application/json');
 		//Guardamos los datos en un array
 		$datos = array('estado' => $estado,
 						'mensaje' => $mensaje);
 		//Devolvemos el array pasado a JSON como objeto
 		echo json_encode($datos, JSON_FORCE_OBJECT);
+		
 	}
 
 	public function cerrar_sesion(){

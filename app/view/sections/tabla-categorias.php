@@ -1,7 +1,8 @@
-<?php if (!$db): ?>
+
+<?php if (!$todas_las_categorias): ?>
   <?php echo "No se encontraron registros..."; ?>
 <?php endif ?>
-<?php if ($db): ?>
+<?php if ($todas_las_categorias): ?>
 <br><br>
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -19,11 +20,11 @@
                               </thead>
                               <tbody>
                                 <?php 
-                                  foreach ($db as $dato):
-                                  //obtenemos datos para mostrar
-                                  $descripcion = $dato["categoria_descripcion"];
-                                  $nombre = $dato["categoria_nombre"];
-                                  $id_categoria = $dato['id_categoria'];
+                                  foreach ($todas_las_categorias as $categoria):
+                                  //obtenemos categorias para mostrar
+                                  $descripcion = $categoria->categoria_descripcion;
+                                  $nombre = $categoria->categoria_nombre;
+                                  $id_categoria = $categoria->id_categoria;
                                 ?>
                                   <tr>
                                     <td align="center"><?php echo $nombre;?></td>

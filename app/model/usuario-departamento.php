@@ -2,18 +2,34 @@
 class Usuario_Departamento{
 
 	private $pdo;
+	private $id;
+	private $fk_usuario;
+	private $fk_departamento;
+	private $fecha_de_registro;
 
 	public function __construct(){
 		$this->pdo = new Conexion();
 	}
 
-	public function asignar_departamento($id_usu_dep,$id_usuario,$id_departamento){
+
+	public function set_id($id){$this->id = $id;}
+	public function get_id(){return $this->id;}
+
+	public function set_fk_usuario($fk_usuario){$this->fk_usuario = $fk_usuario;}
+	public function get_fk_usuario(){return $this->fk_usuario;}
+
+	public function set_fk_departamento($fk_departamento){$this->fk_departamento = $fk_departamento;}
+	public function get_fk_departamento(){return $this->fk_departamento;}
+
+	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
+	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
+
+	public function asignar_departamento(){
    		
 		try
 			{	
-				$sql3 = $this->pdo->prepare("INSERT INTO usuario_departamento VALUES('$id_usu_dep','$id_usuario','$id_departamento')");
-    			$result = $sql3->execute();
-    			return $result;
+				$sql = $this->pdo->prepare("INSERT INTO usuario_departamento(fk_usuario, fk_departamento, usuario_departamento_fecha_registro) VALUES('$this->fk_usuario','$this->fk_departamento','$this->fecha_de_registro')");
+    			return $sql->execute();
 			
 		}catch(Exception $e){	
 				echo 'ERROR : '.$e->getMessage();

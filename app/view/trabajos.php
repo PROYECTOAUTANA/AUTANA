@@ -1,4 +1,5 @@
 <?php 
+session_start();
 if(!$_SESSION){
     header("location: ?controller=front&action=home");
 }
@@ -46,8 +47,7 @@ include("sections/menu.php");
                     </div>
                 </div>
             </div>
-
-
+            
             <div class="respuestacancelar"></div>
         <!-- /contenido -->
 <!--*****************************************SOLO MODALS*********************************************************-->
@@ -64,6 +64,5 @@ include("sections/footer2.php");
 <script src="src/js/fecha.js"></script>
 <script src="src/js/hora.js"></script>
 <script src="src/js/paginar_trabajos.js"></script>
-<script src="src/js/validar.js"></script>
 </body>
 </html> 

@@ -27,8 +27,6 @@
                                   $nombre = $dato["usuario_nombre"];
                                   $apellido = $dato["usuario_apellido"];
                                   $categoria = $dato["categoria_nombre"];
-                                  $rol = $dato["rol"];
-                                  $departamento = $dato["departamento_nombre"];
                                   
                                   $id_departamento = $dato["id_departamento"];
                                   $id_usuario = $dato["id_usuario"];

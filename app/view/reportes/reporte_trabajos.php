@@ -35,25 +35,19 @@
               <thead>
                 <tr class="info">
                   <th class="col-md-3">Titulo</th>
-                  <th class="col-md-3">Autor</th>
                   <th class="col-md-3">Fecha de Presentacion</th>
-                  <th class="col-md-3">Fase</th>
                 </tr>
               </thead>
               <tbody>
                 <?php 
                   foreach ($db as $dato):
-                  $id = $dato["id_trabajo"];
-                  $titulo = $dato["trabajo_titulo"]; 
-                  $autor = $dato["usuario_nombre"];
-                  $fecha_pp = $dato["fecha_presentacion"];
-                  $fase = $dato["fase_nombre"];
+                  $id = $dato->id_trabajo;
+                  $titulo = $dato->trabajo_titulo; 
+                  $fecha_pp = $dato->trabajo_fecha_presentacion;
                 ?>
                 <tr>
                   <td class="col-md-3"><p align="center"><?php echo $titulo;?></p></td>
-                  <td class="col-md-3"><p align="center"><?php echo $autor;?></p></td>
-                  <td class="col-md-3"><p align="center"><?php echo $fecha_pp;?></p></td>
-                  <td class="col-md-3"><p align="center"><?php echo $fase;?></p></td>                        
+                  <td class="col-md-3"><p align="center"><?php echo $fecha_pp;?></p></td>                       
                 </tr>
                 <?php 
                   endforeach;

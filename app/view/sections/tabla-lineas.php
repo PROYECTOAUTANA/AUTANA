@@ -1,7 +1,8 @@
-<?php if (!$db): ?>
+
+<?php if (!$lineas): ?>
   <?php echo "No se encontraron registros..."; ?>
 <?php endif ?>
-<?php if ($db): ?>
+<?php if ($lineas): ?>
 <br><br>
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -19,11 +20,11 @@
                               </thead>
                               <tbody>
                                 <?php 
-                                  foreach ($db as $dato):
-                                  //obtenemos datos para mostrar
-                                  $descripcion = $dato["linea_descripcion"];
-                                  $nombre = $dato["linea_nombre"];
-                                  $id_linea = $dato['id_linea'];
+                                  foreach ($lineas as $linea):
+                                  //obtenemos lineas para mostrar
+                                  $descripcion = $linea->linea_descripcion;
+                                  $nombre = $linea->linea_nombre;
+                                  $id_linea = $linea->id_linea;
                                 ?>
                                   <tr>
                                     <td align="center"><?php echo $nombre;?></td>

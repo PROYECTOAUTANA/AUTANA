@@ -1,13 +1,30 @@
 <?php 
 /**
-* 
+* controlador de categoria
 */
-class C_Categoria
-{
+require_once "app/model/categoria.php";
+
+class C_Categoria{
 	
-	function __construct(argument)
+	private $obj_categoria;
+	public function __construct()
 	{
-		# code...
+		$this->obj_categoria = new Categoria();
 	}
+
+	public function registrar_categoria(){
+
+			$this->obj_categoria->set_nombre($_POST['nombre']);
+			$this->obj_categoria->set_descripcion($_POST['descripcion']);
+			$this->obj_categoria->set_fecha_de_registro("02/05/2017");
+			$resultados = $this->obj_categoria->registrar_categoria();
+			
+			if (!$resultados) {
+				echo "error";
+			}else{
+				header('location: ?controller=front&action=categorias');
+			}
+	}
+
 }
- ?>
+?>

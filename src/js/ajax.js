@@ -63,6 +63,8 @@ function log(){
 		url: url,
 		data : datos,  
 		success:function(result){
+
+
 			if (result.estado == true) {
 				window.location.href = '?controller=front&action=inicio';
 			}else{
@@ -80,29 +82,21 @@ function registrarTrabajo(){
  	var fecha_pp=$("#fecha_pp").val()
  	var linea=document.getElementById('linea_t').value
  	var fase=document.getElementById('fase_t').value
- 	var observacion=$("#observacion").val()
 
     var url  = "?controller=trabajo&action=registrar_trabajo"; 
-    var datos = {"titulo":titulo,"proceso":proceso,"fecha_pp":fecha_pp,"linea":linea,"fase":fase,"observacion":observacion};
+    var datos = {"titulo":titulo,"proceso":proceso,"fecha_pp":fecha_pp,"linea":linea,"fase":fase};
     $.ajax({
         type: "post",
         url: url,
         data : datos, 
         success:function(result){
+
 		if (result.estado === true) {
-	        	$("#titulo").val("")
-				$("#proceso").val("")
-				$("#fecha_pp").val("")
-				$("#linea_t").val("")
-				$("#fase_t").val("")
-				$("#observacion").val("")
-				$("#botonregistrartrabajo").val("Listo...");
-				
-			    window.location.href = '?controller=front&action=detalles_trabajo&id_trabajo='+result.id;   
-				
+			   window.location.href = '?controller=front&action=detalles_trabajo&id_trabajo='+result.id;   
 	    	}else{
 	    		alert("error");
 	    	}
+		
 		} 
     })
 }
@@ -116,20 +110,23 @@ function registrarUsuario(){
  	var telefono=$("#telefono").val()
 	var correo=$("#correo").val()
  	var direccion=$("#direccion").val()
- 	var rol=$("#rol").val()
- 	var departamento=$("#departamento").val()
  	var categoria_actual=$("#categoria_actual").val()
  	var usuario=$("#usuario").val()
  	var clave=$("#clave").val()
+ 	var rol=$("#rol").val()
+ 	var departamento=$("#departamento").val()
 
     var url  = "?controller=usuario&action=registrar_usuario"; 
-    var datos = {cedula,nombre,apellido,sexo,telefono,correo,direccion,rol,departamento,categoria_actual,usuario,clave};
+    var datos = {cedula,nombre,apellido,sexo,telefono,correo,direccion,categoria_actual,usuario,clave,rol,departamento};
     $.ajax({
         type: "post",
         url: url,
         data : datos, 
         success:function(result){
-		if (result.estado === true) {
+
+			if (result.estado === true) {
+
+			$("#resultadoregistrarusuario").html("Listo...");
 	        	$("#cedula").val("")
 				$("#nombre").val("")
 				$("#apellido").val("")
@@ -137,17 +134,16 @@ function registrarUsuario(){
 				$("#telefono").val("")
 				$("#correo").val("")
 				$("#direccion").val("")
-				$("#rol").val("")
-				$("#departamento").val("")
 				$("#categoria_actual").val("")
 				$("#usuario").val("")
 				$("#clave").val("")
+				$("#rol").val()
+				$("#departamento").val()
 				$("#resultadoregistrarusuario").html("Listo...");
 				window.location.href = '?controller=front&action=detalles_usuario&id_usuario='+result.id;
-			    
-				
+			    	
 	    	}else{
-	    		alert("error");
+	    		$("#resultadoregistrarusuario").html(result.mensaje);
 	    	}
 		} 
     })

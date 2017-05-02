@@ -2,20 +2,33 @@
 class Linea{
 
 	private $pdo;
+	private $id;
+	private $nombre;
+	private $descripcion;
+	private $fecha_de_registro;
+
 
 	public function __construct(){
 		$this->pdo = new Conexion();
 	}
 
-	public function registrar_linea($id_linea,$linea){
+	public function set_id($id){$this->id = $id;}
+	public function get_id(){return $this->id;}
+
+	public function set_nombre($nombre){$this->nombre = $nombre;}
+	public function get_nombre(){return $this->nombre;}
+
+	public function set_descripcion($descripcion){$this->descripcion = $descripcion;}
+	public function get_descripcion(){return $this->descripcion;}
+
+	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
+	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
+
+	public function registrar_linea(){
 	try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO linea VALUES('$id_linea','$linea')");
-        		$sql->execute();
-        		//Con fetchAll() puedo hacer los crud PERO no puedo iniciar sesion
-        		//Con fetch(PDO::FETCH_ASSOC)  puedo iniciar sesion  PERO no puedo gestionar los crud  
-    			$datosDB = $sql->fetchAll();
-    			return $datosDB;
+				$sql = $this->pdo->prepare("INSERT INTO linea(linea_nombre, linea_descripcion, linea_fecha_registro)VALUES ('$this->nombre','$this->descripcion','$this->fecha_de_registro')");
+    			return $sql->execute();
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -30,28 +43,13 @@ class Linea{
 			{	
 				$sql = $this->pdo->prepare("SELECT * FROM linea"); 
     			$sql->execute();
-    			$result = $sql->fetchAll();
-    			return $result;
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
 				echo 'ERROR : '.$e->getMessage();
 		}	
 	}
-	public function eliminar_linea($id_linea){
 	
-		try
-			{	
-				$sql = $this->pdo->prepare("DELETE FROM linea WHERE id_linea = '$id_linea'");
-        		//Con fetchAll() puedo hacer los crud PERO no puedo iniciar sesion
-        		//Con fetch(PDO::FETCH_ASSOC)  puedo iniciar sesion  PERO no puedo gestionar los crud  
-    			$result = $sql->execute();
-    			return $result;
-				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
-			
-		}catch(Exception $e){	
-				echo 'ERROR : '.$e->getMessage();
-		}	
-	}
 }
 ?>

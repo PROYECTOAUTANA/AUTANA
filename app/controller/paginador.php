@@ -2,11 +2,6 @@
 /**
 * controlador de usuarios
 */
-require_once "app/model/departamento.php";
-require_once "app/model/usuario-departamento.php";
-require_once "app/model/rol.php";
-require_once "app/model/usuario-rol.php";
-require_once "app/model/usuario.php";
 require_once "app/model/usuario.php";
 require_once "app/model/trabajo.php";
 require_once "libs/paginacion/paginador.config.php";
@@ -14,20 +9,12 @@ require_once "libs/paginacion/paginador.config.php";
 class C_Paginador{
 	
 	private $obj_usuario;
-	private $obj_departamento;
-	private $obj_usuario_departamento;
-	private $obj_usuario_rol;
-	private $obj_rol;
 	private $obj_trabajo;
 
 	public function __construct()
 	{
 		$this->obj_usuario = new Usuario();
 		$this->obj_trabajo = new Trabajo();
-		$this->obj_departamento = new Departamento();
-		$this->obj_rol = new Rol();	
-		$this->obj_usuario_departamento = new Usuario_Departamento();
-		$this->obj_usuario_rol = new Usuario_Rol();
 			
 	}
 

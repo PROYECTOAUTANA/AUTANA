@@ -11,9 +11,9 @@ class Reporte{
 
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo , usuario_trabajo , trabajo_fase ,trabajo_linea , usuario , linea , fase WHERE usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario_trabajo.fk_usuario = usuario.id_usuario AND trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea");
+				$sql = $this->pdo->prepare("SELECT * FROM trabajo");
         		$sql->execute();
-    			$datosDB = $sql->fetchAll();
+    			$datosDB = $sql->fetchAll(PDO::FETCH_OBJ);
     			$cant = $sql->rowCount();
     			$result = array('datos' => $datosDB, 'cantidad' => $cant);
     			return $result;
@@ -28,9 +28,9 @@ class Reporte{
 
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_departamento , departamento , categoria , usuario_rol ,rol WHERE  usuario_departamento.fk_departamento = departamento.id_departamento AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario.fk_categoria = categoria.id_categoria AND usuario_rol.fk_rol = rol.id_rol AND usuario_rol.fk_usuario = usuario.id_usuario");
+				$sql = $this->pdo->prepare("SELECT * FROM usuario");
         		$sql->execute();
-    			$datosDB = $sql->fetchAll();
+    			$datosDB = $sql->fetchAll(PDO::FETCH_OBJ);
     			$cant = $sql->rowCount();
     			$result = array('datos' => $datosDB, 'cantidad' => $cant);
     			return $result;
@@ -45,9 +45,9 @@ class Reporte{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo , usuario_trabajo , trabajo_fase ,trabajo_linea , usuario , linea , fase WHERE usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario_trabajo.fk_usuario = usuario.id_usuario AND trabajo_fase.fk_trabajo = trabajo.id_trabajo AND trabajo_fase.fk_fase = fase.id_fase AND trabajo_linea.fk_trabajo = trabajo.id_trabajo AND trabajo_linea.fk_linea = linea.id_linea AND trabajo.id_trabajo = '$id_trabajo'");
+				$sql = $this->pdo->prepare("SELECT * FROM trabajo WHERE id_trabajo = '$id_trabajo'");
         		$sql->execute();
-    			$datosDB = $sql->fetch(PDO::FETCH_ASSOC);
+    			$datosDB = $sql->fetch(PDO::FETCH_OBJ);
     			return $datosDB;
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			

@@ -28,6 +28,7 @@ class C_Reporte
 		 9,     // margin footer
 		 'L');  // L - landscape, P - portrait
 		*/
+		 
 		$this->obj_mpdf=new mPDF('c','A4','','',10,10,32,32,10,10); 
 		$this->obj_PHPExcel = new PHPExcel();
 		$this->obj_reporte = new Reporte();			

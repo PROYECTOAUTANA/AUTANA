@@ -1,28 +1,29 @@
 
-<?php if (!$todos_los_departamentos): ?>
+<?php if (!$fases): ?>
   <?php echo "No se encontraron registros..."; ?>
 <?php endif ?>
-<?php if ($todos_los_departamentos): ?>
+<?php if ($fases): ?>
 <br><br>
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Departamentos</div>
+  <div class="panel-heading">fases</div>
 
   <!-- Table -->
   <div class="table-responsive">
     <table border="0" class="table table-hover" align="center" >
                               <thead>
                                   <tr style="text-align:center;">
-                                      <th align="center" >Departamento</th>
+                                      <th align="center" >fase</th>
+                                      <th align="center" >Descripcion</th>
                                       <th colspan="2">Operaciones</th>
                                   </tr>
                               </thead>
                               <tbody>
                                 <?php 
-                                  foreach ($todos_los_departamentos as $departamento):
-                                  //obtenemos departamentos para mostrar
-                                  $nombre = $departamento->departamento_nombre;
-                                  $id_departamento = $departamento->id_departamento;
+                                  foreach ($fases as $fase):
+                                  //obtenemos fases para mostrar
+                                  $nombre = $fase->fase_nombre;
+                                  $id_fase = $fase->id_fase;
                                 ?>
                                   <tr>
                                     <td align="center"><?php echo $nombre;?></td>

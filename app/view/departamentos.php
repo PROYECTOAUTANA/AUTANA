@@ -1,4 +1,5 @@
 <?php 
+session_start();
 if(!$_SESSION){
     header("location: ?controller=front&action=home");
 }
@@ -20,7 +21,7 @@ include("sections/menu.php");
                       </div>
                       <div class="col-md-6 col-xs-12 grupobotones">
                         <div class="col-xs-3">
-                            <a href="#" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i></a>
+                            <a href="#nuevo_departamento" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i></a>
                         </div>
                         <div class="col-xs-3">
                             <a href="?controller=front&action=categorias" class="btn btn-info btn-block"><i class="glyphicon glyphicon-refresh"></i></a>
@@ -41,7 +42,7 @@ include("sections/menu.php");
                           </form>
                         </div>
                       <div class="col-sm-12"> 
-                          <?php require_once "app/view/sections/tabla-departamentos.php"; ?>  
+                          <?php require_once "sections/tabla-departamentos.php"; ?>  
                       </div> 
                 </div>
             </div>
