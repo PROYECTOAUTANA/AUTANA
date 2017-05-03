@@ -6,7 +6,6 @@ class Rol_Mod{
 	private $id;
 	private $fk_rol;
 	private $fk_modulo;
-	private $fecha_de_registro;
 
 	public function __construct(){
 		$this->pdo = new Conexion();
@@ -21,15 +20,12 @@ class Rol_Mod{
 	public function set_fk_modulo($fk_modulo){$this->fk_modulo = $fk_modulo;}
 	public function get_fk_modulo(){return $this->fk_modulo;}
 
-	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
-	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
-
 	public function asignar_modulo(){
    		
 		try
 			{	
 				$sql = $this->pdo->prepare("INSERT INTO rol_modulo(fk_rol, fk_modulo, rol_modulo_fecha_registro)
-    VALUES ('$this->fk_rol','$this->fk_modulo','$this->fecha_de_registro');
+    VALUES ('$this->fk_rol','$this->fk_modulo',NOW());
 ");
     			return $sql->execute();
 			

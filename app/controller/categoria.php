@@ -16,7 +16,6 @@ class C_Categoria{
 
 			$this->obj_categoria->set_nombre($_POST['nombre']);
 			$this->obj_categoria->set_descripcion($_POST['descripcion']);
-			$this->obj_categoria->set_fecha_de_registro("02/05/2017");
 			$resultados = $this->obj_categoria->registrar_categoria();
 			
 			if (!$resultados) {

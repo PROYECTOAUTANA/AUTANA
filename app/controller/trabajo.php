@@ -28,7 +28,6 @@ class C_Trabajo{
 		$this->obj_trabajo->set_mension("fds");
 		$this->obj_trabajo->set_resumen("fsdfsd");
 		$this->obj_trabajo->set_categoria_ascenso("fsd");
-		$this->obj_trabajo->set_fecha_de_registro("fsd");
 
 		$registro = $this->obj_trabajo->registrar_trabajo();
 		$ultimo_trabajo = $this->obj_trabajo->ultimo_trabajo();
@@ -42,12 +41,10 @@ class C_Trabajo{
 
 			$this->obj_trabajo_fase->set_fk_fase($_POST['fase']);
 			$this->obj_trabajo_fase->set_fk_trabajo($id_trabajo);
-			$this->obj_trabajo_fase->set_fecha_de_registro("gfgdf");
 			$this->obj_trabajo_fase->asignar_fase();
 
 			$this->obj_trabajo_linea->set_fk_linea($_POST['linea']);
 			$this->obj_trabajo_linea->set_fk_trabajo($id_trabajo);
-			$this->obj_trabajo_linea->set_fecha_de_registro("fsdfds");
 			$this->obj_trabajo_linea->asignar_linea();
 
 			$id = $id_trabajo;

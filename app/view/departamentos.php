@@ -17,7 +17,7 @@ include("sections/menu.php");
                 <div class="row">
                     <div class="contenido_1 col-md-12">
                       <div class="col-md-6">
-                        <h1><span class="glyphicon glyphicon-list"></span>  <?= $title_view  ?></h1>
+                        <h3><span class="glyphicon glyphicon-list"></span>  <?= $title_view  ?></h3>
                       </div>
                       <div class="col-md-6 col-xs-12 grupobotones">
                         <div class="col-xs-3">

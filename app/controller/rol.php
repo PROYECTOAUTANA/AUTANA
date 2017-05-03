@@ -22,7 +22,6 @@ class C_Rol{
 		
 		$this->obj_rol->set_nombre($nombre);
 		$this->obj_rol->set_descripcion($descripcion);
-		$this->obj_rol->set_fecha_de_registro("fsddf");
 		$registrar = $this->obj_rol->registrar_rol();
 		$ultimo_rol = $this->obj_rol->ultimo_rol();
 		$id_rol = $ultimo_rol->ultimo;
@@ -36,7 +35,6 @@ class C_Rol{
 
 				$this->obj_rol_mod->set_fk_rol($id_rol);
 				$this->obj_rol_mod->set_fk_modulo($id_modulo[$aux]);
-				$this->obj_rol_mod->set_fecha_de_registro("gfd");
 				$asignar_modulos = $this->obj_rol_mod->asignar_modulo();
 			}	
 

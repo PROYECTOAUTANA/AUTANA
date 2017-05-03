@@ -31,6 +31,7 @@
                                 echo '<li class="boton_desplegable">
                                         <a href="#"><i class="glyphicon glyphicon-cog"></i> '.$modulo->modulo_nombre.'</a>
                                 <div class="submenu">
+                                    <a href="?controller=front&action=bitacora">Bitacora</a>
                                     <a href="?controller=front&action=usuarios">Gestionar Usuarios</a>
                                     <a href="?controller=front&action=roles">Gestionar Roles</a>
                                     <a href="?controller=front&action=departamentos">Gestionar Departamentos</a>

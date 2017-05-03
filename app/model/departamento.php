@@ -4,8 +4,6 @@ class Departamento{
 	private $pdo;
 	private $id;
 	private $nombre;
-	private $fecha_de_registro;
-
 
 	public function __construct(){
 		$this->pdo = new Conexion();
@@ -17,15 +15,12 @@ class Departamento{
 	public function set_nombre($nombre){$this->nombre = $nombre;}
 	public function get_nombre(){return $this->nombre;}
 
-	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
-	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
-
 
 	public function registrar_departamento(){
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO departamento(departamento_nombre,departamento_fecha_registro) VALUES('$this->nombre','$this->fecha_de_registro')");
+				$sql = $this->pdo->prepare("INSERT INTO departamento(departamento_nombre,departamento_fecha_registro) VALUES('$this->nombre',NOW())");
     			return $sql->execute();
 			
 		}catch(Exception $e){	

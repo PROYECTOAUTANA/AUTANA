@@ -15,7 +15,6 @@ class C_Fase{
 	public function registrar_fase(){
 
 			$this->obj_fase->set_nombre($_POST['nombre']);
-			$this->obj_fase->set_fecha_de_registro("fgdfg");
 			$resultados = $this->obj_fase->registrar_fase();
 			
 			if (!$resultados) {

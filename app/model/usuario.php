@@ -12,7 +12,6 @@ class Usuario{
 	private $direccion;
 	private $usuario;
 	private $clave;
-	private $fecha_de_registro;
 	private $fk_categoria;
 
 	public function __construct(){
@@ -49,9 +48,6 @@ class Usuario{
 	public function set_clave($clave){$this->clave = $clave;}
 	public function get_clave(){return $this->clave;}
 
-	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
-	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
-
 	public function set_fk_categoria($fk_categoria){$this->fk_categoria = $fk_categoria;}
 	public function get_fk_categoria(){return $this->fk_categoria;}
 
@@ -62,7 +58,7 @@ class Usuario{
 			{	
 				$sql = $this->pdo->prepare("INSERT INTO usuario(usuario_cedula, usuario_nombre, usuario_apellido, 
             usuario_sexo, usuario_telefono, usuario_correo, usuario_direccion, 
-            usuario_usuario, usuario_clave, usuario_fecha_registro, fk_categoria) VALUES ('$this->cedula','$this->nombre','$this->apellido','$this->sexo','$this->telefono','$this->correo','$this->direccion','$this->usuario','$this->clave','$this->fecha_de_registro','$this->fk_categoria')");
+            usuario_usuario, usuario_clave, usuario_fecha_registro, fk_categoria) VALUES ('$this->cedula','$this->nombre','$this->apellido','$this->sexo','$this->telefono','$this->correo','$this->direccion','$this->usuario','$this->clave',NOW(),'$this->fk_categoria')");
 				$result = $sql->execute();
 				return $result;
 			

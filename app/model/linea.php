@@ -5,8 +5,6 @@ class Linea{
 	private $id;
 	private $nombre;
 	private $descripcion;
-	private $fecha_de_registro;
-
 
 	public function __construct(){
 		$this->pdo = new Conexion();
@@ -21,13 +19,10 @@ class Linea{
 	public function set_descripcion($descripcion){$this->descripcion = $descripcion;}
 	public function get_descripcion(){return $this->descripcion;}
 
-	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
-	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
-
 	public function registrar_linea(){
 	try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO linea(linea_nombre, linea_descripcion, linea_fecha_registro)VALUES ('$this->nombre','$this->descripcion','$this->fecha_de_registro')");
+				$sql = $this->pdo->prepare("INSERT INTO linea(linea_nombre, linea_descripcion, linea_fecha_registro)VALUES ('$this->nombre','$this->descripcion',NOW())");
     			return $sql->execute();
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			

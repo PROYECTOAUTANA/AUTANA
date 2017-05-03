@@ -13,6 +13,8 @@ require_once "app/model/rol.php";
 require_once "app/model/departamento.php";
 require_once "app/model/rol_modulo.php";
 require_once "app/model/modulo.php";
+require_once "app/model/bitacora-trabajo.php";
+require_once "app/model/bitacora-usuario.php";
 
 class C_Front{
 
@@ -27,6 +29,7 @@ class C_Front{
 	private $obj_categoria;
 	private $obj_rol_modulo;
 	private $obj_modulo;
+	private $obj_bitacora_usuario;
 
 	public function __construct(){
 
@@ -41,6 +44,8 @@ class C_Front{
 		$this->obj_rol_modulo = new Rol_Mod();
 		$this->obj_categoria = new Categoria();
 		$this->obj_modulo = new Modulo();
+		$this->obj_bitacora_trabajo = new Bitacora_Trabajo();
+		$this->obj_bitacora_usuario = new Bitacora_Usuario();
 	}
 	
 	public function home(){
@@ -56,7 +61,6 @@ class C_Front{
 	public function trabajos(){
 
 		$title_view = "Gestionar Trabajos";
-
 		$lineas = $this->obj_linea->ver_lineas();
         $fases = $this->obj_fase->ver_fases();
 		require_once "app/view/trabajos.php";
@@ -74,7 +78,12 @@ class C_Front{
 		$title_view = "Gestionar Reportes";
 		require_once "app/view/reportes.php";
 	}
-
+	public function bitacora(){
+		$title_view = "Bitacora del Sistema";
+		$bitacora_trabajo = $this->obj_bitacora_trabajo->ver_bitacora();
+		$bitacora_usuario = $this->obj_bitacora_usuario->ver_bitacora();
+		require_once "app/view/bitacora.php";
+	}
 	public function categorias(){
 		$title_view = "Gestionar Categorias de Docentes";
 		$todas_las_categorias = $this->obj_categoria->verCategorias();

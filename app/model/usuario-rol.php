@@ -5,7 +5,6 @@ class Usuario_Rol{
 	private $id;
 	private $fk_usuario;
 	private $fk_rol;
-	private $fecha_de_registro;
 
 	public function __construct(){
 		$this->pdo = new Conexion();
@@ -20,14 +19,11 @@ class Usuario_Rol{
 	public function set_fk_rol($fk_rol){$this->fk_rol = $fk_rol;}
 	public function get_fk_rol(){return $this->fk_rol;}
 
-	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
-	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
-
 	public function asignar_rol(){
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO usuario_rol(fk_usuario, fk_rol, usuario_rol_fecha_registro) VALUES('$this->fk_usuario','$this->fk_rol', '$this->fecha_de_registro')");
+				$sql = $this->pdo->prepare("INSERT INTO usuario_rol(fk_usuario, fk_rol, usuario_rol_fecha_registro) VALUES('$this->fk_usuario','$this->fk_rol', NOW())");
     			return $sql->execute();
 			
 		}catch(Exception $e){	

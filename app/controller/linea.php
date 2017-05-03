@@ -15,7 +15,6 @@ class C_Linea{
 	public function registrar_linea(){
 
 			$this->obj_linea->set_nombre($_POST['nombre']);
-			$this->obj_linea->set_fecha_de_registro("02/05/2017");
 			$resultados = $this->obj_linea->registrar_linea();
 			
 			if (!$resultados) {

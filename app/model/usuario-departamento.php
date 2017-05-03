@@ -5,7 +5,6 @@ class Usuario_Departamento{
 	private $id;
 	private $fk_usuario;
 	private $fk_departamento;
-	private $fecha_de_registro;
 
 	public function __construct(){
 		$this->pdo = new Conexion();
@@ -21,14 +20,11 @@ class Usuario_Departamento{
 	public function set_fk_departamento($fk_departamento){$this->fk_departamento = $fk_departamento;}
 	public function get_fk_departamento(){return $this->fk_departamento;}
 
-	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
-	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
-
 	public function asignar_departamento(){
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO usuario_departamento(fk_usuario, fk_departamento, usuario_departamento_fecha_registro) VALUES('$this->fk_usuario','$this->fk_departamento','$this->fecha_de_registro')");
+				$sql = $this->pdo->prepare("INSERT INTO usuario_departamento(fk_usuario, fk_departamento, usuario_departamento_fecha_registro) VALUES('$this->fk_usuario','$this->fk_departamento',NOW())");
     			return $sql->execute();
 			
 		}catch(Exception $e){	

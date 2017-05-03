@@ -40,9 +40,8 @@ class C_Usuario{
 			$this->obj_usuario->set_direccion($_POST['direccion']);
 			$this->obj_usuario->set_usuario( $_POST['usuario']);
 			$this->obj_usuario->set_clave(md5($_POST['clave']));
-			$this->obj_usuario->set_fecha_de_registro("23/04/2017");
 			$this->obj_usuario->set_fk_categoria($_POST['categoria_actual']);	
-			
+
 			$resultados = $this->obj_usuario->registrar_usuario();
 			$ultimo_usuario = $this->obj_usuario->ultimo_usuario();
 			$id_usuario = $ultimo_usuario->ultimo;
@@ -60,12 +59,10 @@ class C_Usuario{
 
 				$this->obj_usuario_rol->set_fk_rol($_POST['rol']);
 				$this->obj_usuario_rol->set_fk_usuario($id_usuario);
-				$this->obj_usuario_rol->set_fecha_de_registro("fdf");
 				$this->obj_usuario_rol->asignar_rol();
 
 				$this->obj_usuario_departamento->set_fk_departamento($_POST['departamento']);
 				$this->obj_usuario_departamento->set_fk_usuario($id_usuario);
-				$this->obj_usuario_departamento->set_fecha_de_registro("fdf");
 				$this->obj_usuario_departamento->asignar_departamento();
 
 				$id = $id_usuario;

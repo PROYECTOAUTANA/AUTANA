@@ -37,16 +37,13 @@ class Trabajo{
 	public function set_resumen($resumen){$this->resumen = $resumen;}
 	public function get_resumen(){return $this->resumen;}
 
-	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
-	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
-
 
 	public function registrar_trabajo(){
 
 	try
 			{	
 				$sql = $this->pdo->prepare("INSERT INTO trabajo(trabajo_titulo, trabajo_mension, trabajo_fecha_presentacion, trabajo_proceso, trabajo_categoria_de_ascenso, trabajo_resumen,trabajo_fecha_registro)
-					VALUES('$this->titulo','$this->mension',' $this->fecha_presentacion','$this->proceso','$this->categoria_ascenso','$this->resumen','$this->fecha_de_registro')");
+					VALUES('$this->titulo','$this->mension',' $this->fecha_presentacion','$this->proceso','$this->categoria_ascenso','$this->resumen',NOW())");
         		
     			return $sql->execute();
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);

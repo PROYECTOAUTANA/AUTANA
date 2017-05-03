@@ -6,7 +6,6 @@ class Usuario_Trabajo{
 	private $fk_usuario;
 	private $fk_trabajo;
 	private $vinculo;
-	private $fecha_de_registro;
 
 	public function __construct(){
 		$this->pdo = new Conexion();
@@ -23,9 +22,6 @@ class Usuario_Trabajo{
 	
 	public function set_vinculo($vinculo){$this->vinculo = $vinculo;}
 	public function get_vinculo(){return $this->vinculo;}
-
-	public function set_fecha_de_registro($fecha_de_registro){$this->fecha_de_registro = $fecha_de_registro;}
-	public function get_fecha_de_registro(){return $this->fecha_de_registro;}
 
 	public function numero_de_trabajos(){
    		
