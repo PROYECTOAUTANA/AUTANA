@@ -5,18 +5,21 @@
 require_once "app/model/trabajo.php";
 require_once "app/model/trabajo-fase.php";
 require_once "app/model/trabajo-linea.php";
+require_once "app/model/bitacora-trabajo.php";
 
 class C_Trabajo{
 	
 	private $obj_trabajo;
 	private $obj_trabajo_linea;
 	private $obj_trabajo_fase;
+	private $obj_bitacora_trabajo;
 
 	public function __construct()
 	{
 		$this->obj_trabajo = new Trabajo();
 		$this->obj_trabajo_fase = new Trabajo_Fase();
-		$this->obj_trabajo_linea = new Trabajo_Linea();			
+		$this->obj_trabajo_linea = new Trabajo_Linea();	
+		$this->obj_bitacora_trabajo = new Bitacora_Trabajo();			
 	}
 
 	public function registrar_trabajo(){
@@ -43,9 +46,16 @@ class C_Trabajo{
 			$this->obj_trabajo_fase->set_fk_trabajo($id_trabajo);
 			$this->obj_trabajo_fase->asignar_fase();
 
+
 			$this->obj_trabajo_linea->set_fk_linea($_POST['linea']);
 			$this->obj_trabajo_linea->set_fk_trabajo($id_trabajo);
 			$this->obj_trabajo_linea->asignar_linea();
+
+			session_start();
+			$this->obj_bitacora_trabajo->set_fk_usuario_gestor($_SESSION['id']);
+			$this->obj_bitacora_trabajo->set_fk_trabajo($id_trabajo);
+			$this->obj_bitacora_trabajo->set_observacion("Registro del Trabajo, Asignacion de fase y Linea de Investigacion");
+			$this->obj_bitacora_trabajo->registrar_bitacora();
 
 			$id = $id_trabajo;
 			$estado = true;

@@ -38,7 +38,7 @@ class Bitacora_Trabajo{
 		try
 			{	
 				$sql = $this->pdo->prepare("INSERT INTO bitacora_trabajo(fk_usuario_gestor, fk_trabajo, fecha, hora, 
-            observacion) VALUES ('$this->fk_usuario_gestor', '$this->fk_trabajo', '$this->fecha', '$this->hora', 
+            observacion) VALUES ('$this->fk_usuario_gestor', '$this->fk_trabajo', NOW(), NOW(), 
             '$this->observacion')");
     			return $sql->execute();
 			

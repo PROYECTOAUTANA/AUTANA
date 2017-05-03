@@ -6,7 +6,7 @@
 <br><br>
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Bitacora de Trabajos</div>
+  <div class="panel-heading">Bitacora de Usuarios</div>
 
   <!-- Table -->
   <div class="table-responsive">
@@ -15,9 +15,11 @@
                                   <tr style="text-align:center;">
                                       <th align="center" >Usuario</th>
                                       <th align="center" >Fecha de entrada</th>
-                                      <th colspan="2">Hora de entrada</th>
-                                      <th colspan="2">Fecha de salida</th>
-                                      <th colspan="2">Hora de salida</th>
+                                      <th>Hora de entrada</th>
+                                      <th>Fecha de salida</th>
+                                      <th>Hora de salida</th>
+                                      <th>Estado del Usuario</th>
+
                                   </tr>
                               </thead>
                               <tbody>
@@ -30,6 +32,11 @@
                                   $hora_de_entrada = $bitacora->hora_de_entrada;
                                   $hora_de_salida = $bitacora->hora_de_salida;
                                   $estado = $bitacora->estado;
+                                  if ($estado == 1) {
+                                    $estado = "conectado";
+                                  }else{
+                                    $estado = "desconectado";
+                                  }
                                 ?>
                                   <tr>
                                     <td align="center"><?php echo $usuario;?></td>

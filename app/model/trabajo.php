@@ -10,7 +10,6 @@ class Trabajo{
 	private $mension;
 	private $resumen;
 	private $categoria_ascenso;
-	private $fecha_de_registro;
 
 	public function __construct(){
 		$this->pdo = new Conexion();

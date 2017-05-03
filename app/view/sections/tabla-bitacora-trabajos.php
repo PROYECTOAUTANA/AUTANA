@@ -14,9 +14,9 @@
                               <thead>
                                   <tr style="text-align:center;">
                                       <th align="center" >Trabajo</th>
-                                      <th colspan="2">Observacion</th>
-                                      <th colspan="2">Fecha</th>
-                                      <th colspan="2">Hora</th>
+                                      <th>Observacion</th>
+                                      <th>Fecha</th>
+                                      <th>Hora</th>
                                       <th align="center" >Usuario Gestor</th>
                                   </tr>
                               </thead>
@@ -24,7 +24,7 @@
                                 <?php 
                                   foreach ($bitacora_trabajo as $bitacora):
                                   //obtenemos categorias para mostrar
-                                  $usuario = $bitacora->fk_usuario;
+                                  $usuario = $bitacora->fk_usuario_gestor;
                                   $trabajo = $bitacora->fk_trabajo;
                                   $observacion = $bitacora->observacion;
                                   $fecha = $bitacora->fecha;

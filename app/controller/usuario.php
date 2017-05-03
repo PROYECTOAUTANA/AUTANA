@@ -7,6 +7,7 @@ require_once "app/model/usuario-rol.php";
 require_once "app/model/rol_modulo.php";
 require_once "app/model/usuario.php";
 require_once "app/model/rol.php";
+require_once "app/model/bitacora-usuario.php";
 require_once "libs/phpmailer/class.phpmailer.php";
 require_once "libs/phpmailer/class.smtp.php";
 
@@ -18,6 +19,7 @@ class C_Usuario{
 	private $obj_rol_modulo;
 	private $obj_mail;
 	private $obj_rol;
+	private $obj_bitacora_usuario;
 
 	public function __construct()
 	{
@@ -26,7 +28,8 @@ class C_Usuario{
 		$this->obj_rol_modulo = new Rol_Mod();
 		$this->obj_usuario_rol = new Usuario_Rol();
 		$this->obj_rol = new Rol();
-		$this->obj_mail = new PHPMailer();	
+		$this->obj_mail = new PHPMailer();
+		$this->obj_bitacora_usuario = new Bitacora_Usuario();	
 	}
 
 	public function registrar_usuario(){
@@ -114,11 +117,14 @@ class C_Usuario{
 
 				$estado = true;
 				$mensaje = '';
+
 				$this->obj_rol->set_id($usuario_rol->fk_rol);
 				$rol = $this->obj_rol->consultar_rol();
 
 				$this->obj_rol_modulo->set_fk_rol($usuario_rol->fk_rol);
 				$modulos = $this->obj_rol_modulo->verModulos();
+				
+
 				session_start();
 				$_SESSION['id']     = $datos_usuario->id_usuario;
 				$_SESSION['user']   = $datos_usuario->usuario_usuario;
@@ -127,13 +133,17 @@ class C_Usuario{
 				$_SESSION['rol']   = $rol->rol_nombre;
 				$_SESSION['id_rol']   = $rol->id_rol;
 
+				//registramos la entrada en la bitacora
+
+				$this->obj_bitacora_usuario->set_fk_usuario($_SESSION['id']);
+				$this->obj_bitacora_usuario->set_estado(1);
+				$this->obj_bitacora_usuario->registrar_bitacora();
 			}
 			
 
 		}
 	
-		
-header('Content-Type: application/json');
+		header('Content-Type: application/json');
 		//Guardamos los datos en un array
 		$datos = array('estado' => $estado,
 						'mensaje' => $mensaje);
@@ -145,6 +155,9 @@ header('Content-Type: application/json');
 	public function cerrar_sesion(){
 
 		session_start();
+		$this->obj_bitacora_usuario->set_fk_usuario($_SESSION['id']);
+		$this->obj_bitacora_usuario->set_estado(0);
+		$this->obj_bitacora_usuario->actualizar_bitacora();
 		session_destroy();
 		header("location: ?controller=front&action=home");
 	}

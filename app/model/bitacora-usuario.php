@@ -41,7 +41,7 @@ class Bitacora_Usuario{
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO bitacora_usuario(fk_usuario, fecha_de_entrada, hora_de_entrada,fecha_de_salida,hora_de_salida,estado) VALUES('$this->fk_usuario', '$this->fecha_de_entrada', '$this->hora_de_entrada','','','$this->estado')");
+				$sql = $this->pdo->prepare("INSERT INTO bitacora_usuario(fk_usuario, fecha_de_entrada, hora_de_entrada,fecha_de_salida,hora_de_salida,estado) VALUES('$this->fk_usuario', NOW(), NOW(),null,null,'$this->estado')");
     			return $sql->execute();
 			
 		}catch(Exception $e){	
@@ -53,7 +53,7 @@ class Bitacora_Usuario{
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("UPDATE bitacora_usuario SET fecha_de_salida='$this->fecha_de_salida', hora_de_salida='$this->hora_de_salida', estado='$this->estado' WHERE id_bitacora_usuario = '$this->id';");
+				$sql = $this->pdo->prepare("UPDATE bitacora_usuario SET fecha_de_salida=NOW(), hora_de_salida=NOW(), estado='$this->estado' WHERE fk_usuario = '$this->fk_usuario';");
     			return $sql->execute();
 			
 		}catch(Exception $e){	
