@@ -19,38 +19,48 @@
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
-                            <form method="post" class="form-group">
+                            <form method="post" data-toggle="validator" role="form">
+
+
                         <div class="form-group col-sm-4">
                           <label for="cedula">Cedula:</label>
-                          <input  id="cedula" class="form-control" type="text" " placeholder="Escriba..." autofocus>
-                        </div>
+                          <input class="form-control" data-minlength="7" data-error="Debe ser mayor a 6 digitos." id="cedula" name="cedula" placeholder="Cédula"  type="text" required />
+                          <div class="help-block with-errors"></div>
+                         </div>
+
                         <div class="form-group col-sm-4">
                           <label for="nombre">Nombre:</label>
-                          <input  id="nombre" class="form-control" type="text"  placeholder="Escriba...">
+                          <input class="form-control" data-error="Introduzca un nombre." id="nombre" name="nombre" placeholder="Nombre"  onkeypress="return controltext(event)" type="text" required />
+                          <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="apellido">Apellido:</label>
-                          <input  id="apellido" class="form-control" type="text"  placeholder="Escriba...">
+                          <input class="form-control" data-error="Introduzca un apellido." id="apellido" placeholder="Apellido"  onkeypress="return controltext(event)" type="text" required />
+                          <div class="help-block with-errors"></div>
                         </div>
                          <div class="form-group col-sm-4">
                           <label for="sexo">Sexo:</label>
-                          <select class="form-control" size="1" id="sexo" >
+                          <select class="form-control" size="1" id="sexo" required>
                           <option value='0'>selecciona</option>
                             <option value="1">F</option>
                             <option value="2">M</option>
                           </select>
+                          <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="telefono">Telefono:</label>
-                          <input  id="telefono"  class="form-control" type="text" placeholder="Escriba...">
+                          <input class="form-control" data-minlength="11" data-error="El número debe ser mayor a 10 digitos" id="telefono" name="telefono" placeholder="Telefono (Opcional)" type="text" onkeypress="return controltag(event)">
+                          <div class="help-block with-errors"></div>
                         </div>
                          <div class="form-group col-sm-4">
-                          <label for="correo">Correo:</label>
-                          <input  id="correo"  class="form-control" type="mail" placeholder="Escriba...">
+                          <label for="inputEmail">Correo:</label>
+                          <input type="email" class="form-control" id="correo" placeholder="Email (Opcional)">
+                    <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-12">
                           <label for="direccion">Direccion:</label>
-                          <textarea  id="direccion" class="form-control" rows="3"></textarea>
+                          <textarea  id="direccion" class="form-control" rows="3" required /></textarea>
+                          <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="rol">Rol de Usuario:</label>
@@ -84,24 +94,27 @@
                             <?php endforeach; ?>
                           </select>
                         </div>
-                        <div class="form-group col-sm-4">
+                       <div class="form-group col-sm-4">
                           <label for="usuario">Usuario:</label>
-                          <input  id="usuario"  class="form-control" type="text" placeholder="Escriba...">
+                          <input type="text" class="form-control" data-error="El nombre de Usuario es Requerido." id="usuario" placeholder="Usuario" required/>
+                    <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="clave">Contraseña:</label>
-                          <input  id="clave"  class="form-control" type="password" placeholder="Escriba...">
-                        </div>
+                          <input type="password" data-minlength="6" class="form-control" id="clave" placeholder="Password" required>
+                          <div class="help-block">Míninmo 6 Carácteres</div>
+                          </div>
                         <div class="form-group col-sm-4">
                           <label for="rclave">Confirmar Contraseña:</label>
-                          <input  id="rclave"  class="form-control" type="password" placeholder="Escriba...">
+                          <input type="password" class="form-control" id="clave" data-match="#clave" data-match-error="las contraseñas no coinciden" placeholder="Confirm" required>
+                        <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-12">
                           <label for="observacion">Observacion:</label>
                           <textarea id="observacion" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="form-group col-sm-12">
-                          <button type="button" class="btn btn-info btn-block" onclick="registrarUsuario()"><i class="glyphicon glyphicon-ok" ></i>  Enviar</button>
+                          <button type="submit" class="btn btn-info btn-block" onclick="registrarUsuario()"><i class="glyphicon glyphicon-ok" ></i>  Enviar</button>
                         </div>
                       </form>
                         </div>
@@ -161,23 +174,28 @@
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                       <div class="modal-body col-sm-12">
-                        <form method="post" class="form-group">
+                        <form method="post" class="form-group" data-toggle="validator">
+
                               <div class="form-group col-sm-4">
                               <label for="titulo">Titulo:</label>
-                              <input class="form-control" type="text" id="titulo" placeholder="Escriba..." >
+                              <input class="form-control" data-error="Por favor introduzca un título." id="titulo" placeholder="Escriba..." type="text"   required />    
+                                  <div class="help-block with-errors"></div>
                             </div>
+
                             <div class="form-group col-sm-4">
                               <label for="proceso">Proceso:</label>
-                              <select id="proceso" size="1" class="form-control">
+                              <select id="proceso" size="1" class="form-control" >
                                 <option>Seleccione</option>
                                 <option value="regular">Regular</option>
                                 <option value="extraordinario">Extraordinario</option>
                               </select>
                             </div>
                             <div class="form-group col-sm-4">
-                              <label for="fecha_pp">Fecha de Presentacion Publica:</label>
-                              <input type="text" id="fecha_pp" class="form-control" placeholder="DD/MM/AAAA" />
+                              <label>Fecha de Presentacion Publica:</label>
+                              <input type="text" id="fecha_pp" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required /> 
+                                  <div class="help-block with-errors"></div>
                             </div>
+
                              <div class="form-group col-sm-12">
                               <label for="">Linea de investigacion:</label>
                           <select id="linea_t" class="form-control" class="form-control">
@@ -197,11 +215,12 @@
                               </select>
                             </div>
                             <div class="form-group col-sm-12">
-                              <label for="">Resumen:</label>
-                              <textarea id="observacion" class="form-control" rows="3"></textarea>
+                              <label for="">Observacion:</label>
+                              <textarea id="observacion" class="form-control" rows="3" required/></textarea>
+                              <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group col-sm-12">
-                              <input type="button" class="btn btn-info btn-block" value="Registrar" id="botonregistrartrabajo" onclick="registrarTrabajo()">
+                              <input type="submit" class="btn btn-info btn-block" value="Registrar" id="botonregistrartrabajo" onclick="registrarTrabajo()">
                             </div>
                           </form>
                         </div>

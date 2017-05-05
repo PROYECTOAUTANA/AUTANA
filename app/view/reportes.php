@@ -6,6 +6,7 @@ if(!$_SESSION){
 require_once "sections/head.php"; 
 ?>
 <body>
+  <link rel="stylesheet" type="text/css" href="src/css/jquery-ui-data.css">
 <?php 
 include("sections/cargando.php"); 
 include("sections/navbar.php"); 
@@ -91,122 +92,106 @@ include("sections/menu.php");
                                     <div role="tabpanel" class="tab-pane fade in active" id="htab1">
                                         <div class="col-sm-12">
                                         <br>
-                                          <div class="col-sm-8">
+                                          <div class="col-sm-12">
                                              <h4><i class="glyphicon glyphicon-print"></i>  Reporte de Trabajos de Ascenso</h4>
-                                          </div>
-                                          <div class="col-sm-4">
-                                            <div class="dropdown">
-                                              <button class="btn btn-info btn-block dropdown-toggle" type="button" data-toggle="dropdown">Organizar Por
-                                              <span class="caret"></span></button>
-                                              <ul class="dropdown-menu">
-                                                <li><a href="#" id="fecha">Fecha</a></li>
-                                                <li><a href="#" id="fase">Fase</a></li>
-                                                <li><a href="#" id="autor">Autor</a></li>
-                                              </ul>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-10 col-sm-offset-1" >
+                                             </div></br>
 
-                                          <div class="tipo1" style="margin-top:70px;text-align:center;display:none;">
-                                            <form class="form-inline col-sm-12" >
+                                         <div class="col-sm-4">
+                                            <form class="form-group col-sm-8" >
                                               <div class="form-group">
-                                                <label for="desde">Desde:</label>
-                                                <input type="date" class="form-control" id="desde">
-                                              </div>
-                                              <div class="form-group">
-                                                <label for="hasta">Hasta:</label>
-                                                <input type="date" class="form-control" id="hasta">
-                                              </div>
-                                              <button type="button" class="btn btn-info">Mostrar</button>
-                                            </form>
-                                          </div>  
-                                          
-                                           <div class="tipo2" style="margin-top:70px;display:none;">
-                                            <form class="form-group col-sm-12" >
-                                              <div class="form-group">
-                                                <label for="desde">Seleccione una Fase:</label>
-                                                <select id="fases" class="form-control">
+                                                <label>Seleccione una Linea:</label>
+                                                <select class="form-control">
                                                   <option>Seleccione</option>
-                                                  <option value="fases1">fases1</option>
-                                                  <option value="fases2">fases2</option>
-                                                  <option value="fases3">fases3</option>
+                                                  <option value="lineas1">linea1</option>
+                                                  <option value="lineas2">linea2</option>
+                                                  <option value="lineas3">linea3</option>
                                                 </select>
                                               </div>
-                                              <button type="button" class="btn btn-info">Mostrar</button>
                                             </form>
                                           </div>  
 
-                                           <div class="tipo3" style="margin-top:70px;display:none;">
-                                            <form class="form-group col-sm-12" >
+                                          <div class="col-sm-4">
+                                            <form class="form-group col-sm-8" >
                                               <div class="form-group">
-                                                <label for="desde">Escriba la C.I. del autor:</label>
-                                                <input type="text" class="form-control" id="desde">
+                                                <label>Seleccione una Fase:</label>
+                                                <select class="form-control">
+                                                  <option>Seleccione</option>
+                                                  <option value="fase1">Fase1</option>
+                                                  <option value="fase2">Fase2</option>
+                                                  <option value="fase3">Fase3</option>
+                                                </select>
                                               </div>
-                                              <button type="button" class="btn btn-info">Mostrar</button>
                                             </form>
                                           </div>  
+
+
+
+                                          <div class="col-sm-12">
+                                            <form class="form-inline col-sm-12" >
+                                              <div class="form-group">
+                                              <label>Seleccione La Fecha:</label>
+                                                </br>
+                                                <label>Desde:</label>
+                                                <input type="text" placeholder="dd/mm/aaaa" class="form-control" id="desde">
+                                              <div class="form-group">
+                                                <label>Hasta:</label>
+                                                <input type="text" placeholder="dd/mm/aaaa"  class="form-control" id="hasta">
+                                              </div>
+                                              <button type="button" class="btn btn-success">Generar Reporte</button>
+                                            </form>
+                                          </div> </div>
+
 
 
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade" id="htab2">
                                         <br>
-                                          <div class="col-sm-8">
+                                          <div class="col-sm-12">
                                              <h4><i class="glyphicon glyphicon-print"></i>  Usuarios</h4>
-                                          </div>
-                                          <div class="col-sm-4">
-                                            <div class="dropdown">
-                                              <button class="btn btn-info btn-block dropdown-toggle" type="button" data-toggle="dropdown">Organizar Por
-                                              <span class="caret"></span></button>
-                                              <ul class="dropdown-menu">
-                                                <li><a href="#" id="fecha2">Fecha</a></li>
-                                                <li><a href="#" id="categoria">Categorias</a></li>
-                                                <li><a href="#" id="departamento">Departamentos</a></li>
-                                              </ul>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-10 col-sm-offset-1" >
+                                          </div></br>
 
-                                          <div class="tipo1" style="margin-top:70px;text-align:center;display:none;">
-                                            <form class="form-inline col-sm-12" >
+                                          <div class="col-sm-4">
+                                            <form class="form-group col-sm-8" >
                                               <div class="form-group">
-                                                <label for="desde">Desde:</label>
-                                                <input type="date" class="form-control" id="desde">
+                                                <label>Escriba la C.I. del autor:</label>
+                                                <input type="text" onkeypress="return controltag(event)" class="form-control" id="cedula">
                                               </div>
-                                              <div class="form-group">
-                                                <label for="hasta">Hasta:</label>
-                                                <input type="date" class="form-control" id="hasta">
-                                              </div>
-                                              <button type="button" class="btn btn-info">Mostrar</button>
                                             </form>
                                           </div>  
-                                          
-                                           <div class="tipo2" style="margin-top:70px;display:none;">
-                                            <form class="form-group col-sm-12" >
+
+                                          <div class="col-sm-4">
+                                            <form class="form-group col-sm-8" >
                                               <div class="form-group">
-                                                <label for="desde">Seleccione un Categoria</label>
-                                                <select id="categoria" class="form-control">
+                                                <label>Seleccione el Rol:</label>
+                                                <select class="form-control">
                                                   <option>Seleccione</option>
-                                                  <option value="Categoria1">Categoria1</option>
-                                                  <option value="Categoria2">Categoria2</option>
-                                                  <option value="Categoria3">Categoria3</option>
+                                                  <option value="rol1">Rol1</option>
+                                                  <option value="rol2">Rol2</option>
+                                                  <option value="rol3">Rol3</option>
                                                 </select>
                                               </div>
-                                              <button type="button" class="btn btn-info">Mostrar</button>
                                             </form>
                                           </div>  
 
-                                           <div class="tipo3" style="margin-top:70px;display:none;">
-                                            <form class="form-group col-sm-12" >
+
+
+                                          <div class="col-sm-12">
+                                            <form class="form-inline col-sm-12" >
                                               <div class="form-group">
-                                                <label for="desde">Escriba la C.I. del autor:</label>
-                                                <input type="text" class="form-control" id="desde">
+                                              <label>Seleccione La Fecha:</label>
+                                                </br>
+                                                <label>Desde:</label>
+                                                <input type="text" placeholder="dd/mm/aaaa" class="form-control" id="desde1">
+                                              <div class="form-group">
+                                                <label>Hasta:</label>
+                                                <input type="text" placeholder="dd/mm/aaaa"  class="form-control" id="hasta1">
                                               </div>
-                                              <button type="button" class="btn btn-info">Mostrar</button>
+                                              <button type="button" class="btn btn-success">Generar Reporte</button>
                                             </form>
-                                          </div>  
+                                          </div> </div>
+
+                                           
 
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade in" id="htab3">
@@ -214,7 +199,7 @@ include("sections/menu.php");
                                         <form class="form-group col-sm-12">
                                           <div class="col-sm-6 form-group"> 
                                             <label> Cedula:</label>
-                                            <input type="text" name="" class="form-control">
+                                            <input type="text" onkeypress="return controltag(event)" class="form-control">
                                           </div>
                                           <div class="col-sm-12 form-group"> 
                                             <input type="submit" name="" class="btn btn-info" value="Mostrar">
@@ -232,6 +217,7 @@ include("sections/modal.php");
 include("sections/footer2.php");
 ?>
 <script src="src/js/jquery.js"></script>
+<script src="src/js/jquery-ui.js"></script>
 <script src="src/js/ajax.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
 <script src="src/js/cargando.js"></script>
@@ -239,55 +225,42 @@ include("sections/footer2.php");
 <script src="src/js/fecha.js"></script>
 <script src="src/js/hora.js"></script>
 <script src="src/js/menuHorizontal.js"></script>
-</body>
-</html> 
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    
-    $("#fecha").click(function(event) {
-      
-      $(".tipo1").fadeIn();
-      $(".tipo2").hide();
-      $(".tipo3").hide();
-      
-    });
-    $("#fase").click(function(event) {
-      
-      $(".tipo2").fadeIn();
-      $(".tipo1").hide();
-      $(".tipo3").hide();
-      
-    });
-    $("#autor").click(function(event) {
-      
-      $(".tipo3").fadeIn();
-      $(".tipo1").hide();
-      $(".tipo2").hide();
-      
-    });
 
-    $("#fecha2").click(function(event) {
-      
-      $(".tipo1").fadeIn();
-      $(".tipo2").hide();
-      $(".tipo3").hide();
-      
-    });
-    $("#categoria").click(function(event) {
-      
-      $(".tipo2").fadeIn();
-      $(".tipo1").hide();
-      $(".tipo3").hide();
-      
-    });
-    $("#departamento").click(function(event) {
-      
-      $(".tipo3").fadeIn();
-      $(".tipo1").hide();
-      $(".tipo2").hide();
-      
-    });
 
-  });
+  
+  <script>
+  $( function() {
+    $( "#desde" ).datepicker();
+  } );
+  </script>
+
+  <script>
+  $( function() {
+    $( "#hasta" ).datepicker();
+  } );
+  </script>
+
+  <script>
+  $( function() {
+    $( "#desde1" ).datepicker();
+  } );
+  </script>
+
+  <script>
+  $( function() {
+    $( "#hasta1" ).datepicker();
+  } );
+  </script>
+
+  <script type="text/javascript">
+  function controltag(e) {
+        tecla = (document.all) ? e.keyCode : e.which; 
+        if (tecla==8) return true; // para la tecla de retroseso
+        else if (tecla==0||tecla==9)  return true; //<-- PARA EL TABULADOR-> su keyCode es 9 pero en tecla se esta transformando a 0 asi que porsiacaso los dos
+        patron =/[0-9\s]/;// -> solo letras
+       // patron =/[0-9\s]/;// -> solo numeros
+        te = String.fromCharCode(tecla);
+        return patron.test(te); 
+    }
 </script>

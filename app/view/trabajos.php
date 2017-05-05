@@ -3,14 +3,20 @@ session_start();
 if(!$_SESSION){
     header("location: ?controller=front&action=home");
 }
+
+
 require_once "sections/head.php"; 
 ?>
+<link rel="stylesheet" type="text/css" href="src/css/jquery-ui-data.css">
+
+
 <body>
 <?php 
 include("sections/cargando.php"); 
 include("sections/navbar.php"); 
 include("sections/menu.php"); 
 ?>
+
         <!-- contenido -->
         <div id="contenido">
             <div class="container-fluid">
@@ -47,7 +53,8 @@ include("sections/menu.php");
                     </div>
                 </div>
             </div>
-            
+
+
             <div class="respuestacancelar"></div>
         <!-- /contenido -->
 <!--*****************************************SOLO MODALS*********************************************************-->
@@ -56,7 +63,13 @@ include("sections/minimenu.php");
 include("sections/modal.php"); 
 include("sections/footer2.php");
 ?>
+
+
+
+
+
 <script src="src/js/jquery.js"></script>
+<script src="src/js/jquery-ui.js"></script>
 <script src="src/js/ajax.js"></script>
 <script src="src/js/bootstrap.min.js"></script>
 <script src="src/js/cargando.js"></script>
@@ -64,5 +77,14 @@ include("sections/footer2.php");
 <script src="src/js/fecha.js"></script>
 <script src="src/js/hora.js"></script>
 <script src="src/js/paginar_trabajos.js"></script>
+<script src="src/js/validar.js"></script>
+
+
+<script>
+  $( function() {
+    $( "#fecha_pp" ).datepicker();
+  } );
+  </script>
+
 </body>
 </html> 

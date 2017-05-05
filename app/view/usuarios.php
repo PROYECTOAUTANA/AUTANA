@@ -5,7 +5,9 @@ if(!$_SESSION){
 }
 require_once "sections/head.php"; 
 ?>
+
 <body>
+<link rel="stylesheet" href="src/css/jquery-ui.css">
 <?php 
 include("sections/navbar.php"); 
 include("sections/menu.php"); 
@@ -62,5 +64,33 @@ include("sections/footer2.php");
 <script src="src/js/fecha.js"></script>
 <script src="src/js/hora.js"></script>
 <script src="src/js/paginar_usuarios.js"></script>
+<script src="src/js/validar.js"></script>
+<script src="src/js/jquery-ui.js"></script>
+
+<script type="text/javascript">
+  function controltag(e) {
+        tecla = (document.all) ? e.keyCode : e.which; 
+        if (tecla==8) return true; // para la tecla de retroseso
+        else if (tecla==0||tecla==9)  return true; //<-- PARA EL TABULADOR-> su keyCode es 9 pero en tecla se esta transformando a 0 asi que porsiacaso los dos
+        patron =/[0-9\s]/;// -> solo letras
+       // patron =/[0-9\s]/;// -> solo numeros
+        te = String.fromCharCode(tecla);
+        return patron.test(te); 
+    }
+</script>
+
+<script type="text/javascript">
+  function controltext(e) {
+        tecla = (document.all) ? e.keyCode : e.which; 
+        if (tecla==8) return true; // para la tecla de retroseso
+        else if (tecla==0||tecla==9)  return true; //<-- PARA EL TABULADOR-> su keyCode es 9 pero en tecla se esta transformando a 0 asi que porsiacaso los dos
+        //patron =/[0-9\s]/;// -> solo letras
+        patron =/[a-z-A-Z\s]/;// -> solo numeros
+        te = String.fromCharCode(tecla);
+        return patron.test(te); 
+    }
+</script>
+
+
 </body>
 </html> 
