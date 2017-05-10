@@ -56,11 +56,16 @@ class Controlador_Fase{
 				echo '<script>alert("no puede borrar esta fase porque hay trabajos aun vinculados");</script>';
 				echo '<script>window.location.href = "?controller=front&action=fases";</script>';
 			}else{
-				$this->obj_fase->set_id($id_fase);
-				$eliminar = $this->obj_fase->eliminar();		
-				header("location: ?controller=front&action=fases");
-			}
-				
+				if ($id_fase == 1) {
+					echo '<script>alert("no puede borrar esta fase");</script>';
+					echo '<script>window.location.href = "?controller=front&action=fases";</script>';
+				}else{
+
+					$this->obj_fase->set_id($id_fase);
+					$eliminar = $this->obj_fase->eliminar();		
+					header("location: ?controller=front&action=fases");
+				}
+			}		
 	}
 
 }

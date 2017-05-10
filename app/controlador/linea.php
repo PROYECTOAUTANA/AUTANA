@@ -56,9 +56,15 @@ class Controlador_Linea{
 				echo '<script>alert("no puede borrar esta linea porque hay trabajos aun vinculados");</script>';
 				echo '<script>window.location.href = "?controller=front&action=lineas";</script>';
 			}else{
-				$this->obj_linea->set_id($id_linea);
-				$eliminar = $this->obj_linea->eliminar();		
-				header("location: ?controller=front&action=lineas");
+
+				if ($id_linea == 1) {
+					echo '<script>alert("no puede borrar esta linea de investigacion");</script>';
+					echo '<script>window.location.href = "?controller=front&action=lineas";</script>';
+				}else{
+					$this->obj_linea->set_id($id_linea);
+					$eliminar = $this->obj_linea->eliminar();		
+					header("location: ?controller=front&action=lineas");
+				}
 			}
 				
 	}

@@ -90,9 +90,15 @@ class Controlador_Rol{
 				echo '<script>alert("no puede borrar este rol porque existen usuarios haciendo uso de el actualmente");</script>';
 				echo '<script>window.location.href = "?controller=front&action=roles";</script>';
 			}else{
-				$this->obj_rol->set_id($id_rol);
-				$rol = $this->obj_rol->eliminar();		
-				header("location: ?controller=front&action=roles");
+
+				if ($id_rol == 1) {
+					echo '<script>alert("no puede borrar este rol de usuario");</script>';
+					echo '<script>window.location.href = "?controller=front&action=roles";</script>';
+				}else{
+					$this->obj_rol->set_id($id_rol);
+					$rol = $this->obj_rol->eliminar();		
+					header("location: ?controller=front&action=roles");
+				}
 			}
 	}
 }

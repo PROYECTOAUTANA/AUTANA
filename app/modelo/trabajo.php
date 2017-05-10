@@ -96,11 +96,11 @@ class Modelo_Trabajo{
 		}	
 	}
 
-	public function reportar_trabajos(){
+	public function reportar_trabajos($desde,$hasta){
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo,trabajo_fase,fase,trabajo_linea,linea where trabajo_fase.fk_fase = fase.id_fase and trabajo_fase.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = linea.id_linea and trabajo_linea.fk_trabajo = trabajo.id_trabajo");
+				$sql = $this->pdo->prepare("SELECT * FROM trabajo,trabajo_fase,fase,trabajo_linea,linea where trabajo_fase.fk_fase = fase.id_fase and trabajo_fase.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = linea.id_linea and trabajo_linea.fk_trabajo = trabajo.id_trabajo and trabajo.trabajo_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
 				$sql->execute();
 				return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -131,6 +131,20 @@ class Modelo_Trabajo{
 				$sql = $this->pdo->prepare("SELECT MAX(id_trabajo) as ultimo FROM trabajo");
         		$sql->execute();
     			return $sql->fetch(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}	
+	}
+
+	public function reportar_trabajos_filtrados($id_fase,$id_linea,$desde,$hasta){
+	
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT trabajo.*,linea.*,fase.* FROM trabajo,trabajo_fase,fase,trabajo_linea,linea where trabajo_fase.fk_fase = fase.id_fase and trabajo_fase.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = linea.id_linea and trabajo_linea.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = '$id_linea' and trabajo_fase.fk_fase = '$id_fase' and trabajo.trabajo_fecha_registro BETWEEN ('$desde') AND ('$hasta')'");
+				$sql->execute();
+				return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	

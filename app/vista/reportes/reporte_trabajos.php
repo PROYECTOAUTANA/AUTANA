@@ -20,6 +20,9 @@
         <tr>
             <th class="col-md-12"><p style="text-align:left; ">Emitido por: <?php echo $_SESSION['nombre']; ?></p></th>
         </tr>
+        <tr>
+            <th class="col-md-12"><p style="text-align:left; ">Departamento:  <?php echo $_SESSION['departamento']; ?></p></th>
+        </tr>
         </thead>
     </table>
 
@@ -34,12 +37,12 @@
             <table class="table">
               <thead>
                 <tr class="info">
-                  <th>#</th>
-                  <th>titulo</th>
-                  <th>fecha de presentacion publica</th>
-                  <th>proceso</th>
-                  <th>fase actual</th>
-                  <th>linea</th>
+                  <th class="2">#</th>
+                  <th class="2">titulo</th>
+                  <th class="2">fecha de presentacion publica</th>
+                  <th class="2">proceso</th>
+                  <th class="2">fase actual</th>
+                  <th class="2">linea</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,12 +57,12 @@
                   $linea = $trabajo->linea_nombre;
                 ?>
                 <tr>
-                  <td ><?php echo $numero; ?></td>
-                  <td><p><?php echo $titulo;?></p></td>
-                  <td><p><?php echo $fecha_pp;?></p></td>
-                  <td><p><?php echo $proceso;?></p></td>
-                  <td><p><?php echo $fase;?></p></td>
-                  <td><p><?php echo $linea;?></p></td>                      
+                  <td class="col-sm-2" ><?php echo $numero; ?></td>
+                  <td class="col-sm-2"><p><?php echo $titulo;?></p></td>
+                  <td class="col-sm-2"><p><?php echo $fecha_pp;?></p></td>
+                  <td class="col-sm-2"><p><?php echo $proceso;?></p></td>
+                  <td class="col-sm-2"><p><?php echo $fase;?></p></td>
+                  <td class="col-sm-2"><p><?php echo $linea;?></p></td>                      
                 </tr>
                 <?php 
                   $numero = $numero+1;

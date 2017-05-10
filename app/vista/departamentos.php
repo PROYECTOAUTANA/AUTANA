@@ -49,13 +49,14 @@ include("secciones/menu.php");
                               <table border="0" class="table table-hover" align="center" >
                                    <thead>
                                     <tr style="text-align:center;">
-                                        <th align="center" >departamento</th>
-                                        <th align="center" >Descripcion</th>
+                                        <th >departamento</th>
+                                        <th >Descripcion</th>
                                         <th colspan="2">Operaciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php 
+                                  $contador=1;
                                   foreach ($departamentos as $departamento):
                                   //obtenemos departamentos para mostrar
                                   $descripcion = $departamento->departamento_descripcion;
@@ -63,8 +64,9 @@ include("secciones/menu.php");
                                   $id_departamento = $departamento->id_departamento;
                                 ?>
                                   <tr>
-                                    <td align="center"><?php echo $nombre;?></td>
-                                    <td align="center"><?php echo $descripcion;?></td>
+                                    <td><?php echo $contador; ?></td>
+                                    <td><?php echo $nombre;?></td>
+                                    <td><?php echo $descripcion;?></td>
                                     <td>
                                       <a class="btn btn-info" href="?controller=front&action=detalles_departamento&id_departamento=<?= $id_departamento ?>"> <i class="glyphicon glyphicon-pencil"></i>  Detalles</a>
                                     </td>
@@ -72,7 +74,9 @@ include("secciones/menu.php");
                                       <a class="btn btn-danger" href="#eliminar_departamento" data-toggle="modal" ><i class="glyphicon glyphicon-trash"></i>  Eliminar</a>
                                     </td>
                                   </tr>
-                                <?php endforeach; ?>
+                                <?php 
+                                $contador++;
+                                endforeach; ?>
                                     </tbody>
                               </table>
                             </div>

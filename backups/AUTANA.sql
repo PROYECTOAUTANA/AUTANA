@@ -95,7 +95,6 @@ CREATE TABLE modulo
 (
   id_modulo serial,
   modulo_nombre varchar(70),
-  modulo_url varchar(120),
   modulo_fecha_registro date,
   CONSTRAINT modulo_pkey PRIMARY KEY (id_modulo)
 );

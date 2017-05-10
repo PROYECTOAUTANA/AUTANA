@@ -50,13 +50,15 @@ include("secciones/menu.php");
                             <table border="0" class="table table-hover" align="center" >
                                 <thead>
                                 <tr style="text-align:center;">
-                                    <th align="center" >fase</th>
-                                    <th align="center" >Descripcion</th>
+                                    <th>#</th>
+                                    <th >fase</th>
+                                    <th >Descripcion</th>
                                     <th colspan="2">Operaciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php 
+                              $contador=1;
                               foreach ($fases as $fase):
                               //obtenemos fases para mostrar
                               $descripcion = $fase->fase_descripcion;
@@ -64,8 +66,9 @@ include("secciones/menu.php");
                               $id_fase = $fase->id_fase;
                             ?>
                               <tr>
-                                <td align="center"><?php echo $nombre;?></td>
-                                <td align="center"><?php echo $descripcion;?></td>
+                                <td><?php echo $contador;?></td>
+                                <td><?php echo $nombre;?></td>
+                                <td><?php echo $descripcion;?></td>
                                 <td>
                                   <a class="btn btn-info" href="?controller=front&action=detalles_fase&id_fase=<?= $id_fase ?>"> <i class="glyphicon glyphicon-pencil"></i>  Detalles</a>
                                 </td>
@@ -73,7 +76,9 @@ include("secciones/menu.php");
                                   <a class="btn btn-danger" href="#eliminar_fase" data-toggle="modal" ><i class="glyphicon glyphicon-trash"></i>  Eliminar</a>
                                 </td>
                               </tr>
-                            <?php endforeach; ?>
+                            <?php 
+                            $contador++;
+                            endforeach; ?>
                                 </tbody>
                             </table>
                           </div>

@@ -15,7 +15,6 @@
 include("secciones/navbar.php"); 
 include("secciones/menu.php"); 
 ?>
-
         <!-- contenido -->
         <div id="contenido">
             <div class="container-fluid">
@@ -25,7 +24,7 @@ include("secciones/menu.php");
                         <h3><span class="glyphicon glyphicon-th-large"></span>  <?php echo $titulo_de_la_vista; ?></h3>
                       </div>
                        <div class="col-sm-3" style="margin-top:20px;">
-                          <a class="btn btn-danger" href="?controller=reporte&action=trabajos_del_docente&id_usuario=<?php echo $SESSION['id']; ?>"> <i class="glyphicon glyphicon-save"></i> Constancia general </a>
+                          <a class="btn btn-danger" href="?controller=reporte&action=trabajos_del_docente&id_usuario=<?php echo $SESSION['id']; ?>"> <i class="glyphicon glyphicon-save"></i> Estatus general </a>
                       </div>
                     </div>
                       <div class="col-sm-12 tablas">
@@ -41,6 +40,7 @@ include("secciones/menu.php");
                               <table class="table table-hover">
                                       <thead>
                                       <tr>
+                                        <th>#</th>
                                         <th>Vinculo</th>
                                         <th>Titulo</th>
                                         <th>Fecha de presentacion</th>
@@ -49,21 +49,20 @@ include("secciones/menu.php");
                                       </tr>
                                     </thead>
                                     <tbody>
-                                    <?php foreach ($trabajos_usuario as $trabajo):
+                                    <?php 
+                                    $contador=1;
+                                    foreach ($trabajos_usuario as $trabajo):
                                           
                                           $id_trabajo = $trabajo->id_trabajo;
                                     ?>
                                     <tr>
+                                      <td><?php echo $contador;?></td>
                                       <td><?php echo $trabajo->vinculo;?></td>
                                       <td><?php echo $trabajo->trabajo_titulo;?></td>
                                       <td><?php echo $trabajo->trabajo_fecha_presentacion;?></td>
                                       <td><?php echo $trabajo->trabajo_resumen;?></td>
                                       <td>
-                                          <a class="btn btn-info" href="?controller=front&action=detalles_trabajo_lectura&id_trabajo=<?php echo $trabajo->id_trabajo; ?>"> <i class="glyphicon glyphicon-pencil"></i>  Detalles
-                                          </a>
-                                      </td>
-                                      <td>
-                                        <a class="btn btn-default" href="#" target="_blank"> <i class="glyphicon glyphicon-stats"></i>  Estatus
+                                        <a class="btn btn-default" href="?controller=reporte&action=ver_estatus_trabajo&id_trabajo=<?php echo $trabajo->id_trabajo; ?>" target="_blank"> <i class="glyphicon glyphicon-stats"></i>  Estatus
                                         </a>
                                       </td>
                                       <td>
@@ -71,7 +70,9 @@ include("secciones/menu.php");
                                           </a>
                                       </td>
                                     </tr>
-                                    <?php endforeach;?>
+                                    <?php 
+                                    $contador++;
+                                    endforeach;?>
                                   </tbody>
                                 </table>
                               </div>

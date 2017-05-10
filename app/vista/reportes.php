@@ -6,17 +6,20 @@
   <link rel="shortcut icon" type="image/x-icon" href="src/img/iautana.ico" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title><?php echo $titulo_de_la_vista; ?></title>
 <!-- ******  ARCHIVO DONDE ESTAN TODOS LOS LLAMADOS A JAVASCRIPT Y CSS -->
 <?php require_once "secciones/scripts.php"; ?>
 <script type="text/javascript">
   
   $( function() {
     $( "#fecha_inicial" ).datepicker();
+    $( "#fecha_inicial" ).datepicker('option', { dateFormat: 'yy/mm/dd' })
   } );
 
 
   $( function() {
     $( "#fecha_final" ).datepicker();
+    $( "#fecha_final" ).datepicker('option', { dateFormat: 'yy/mm/dd' })
   } );
  
 </script>
@@ -93,15 +96,15 @@ include("secciones/menu.php");
         <div id="contenido">
             <div class="container-fluid" >
                     <div class="contenido_1 col-sm-12" >
-                        <h3><span class="glyphicon glyphicon-th-large"></span>  <?php echo $titulo_de_la_vista; ?></h3>
+                        <h3><i class="fa fa-file-pdf-o" aria-hidden="true"></i>  <?php echo $titulo_de_la_vista; ?></h3>
                         <hr>
                     </div>
                     <div class="col-sm-12">
                                 <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">Tabs</a>
                                 <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal">
                                   <li class="active"><a href="#htab1" data-toggle="tab"><i class="glyphicon glyphicon-print"></i>  Trabajos</a></li>
-                                  <li><a href="#htab2" data-toggle="tab"><i class="glyphicon glyphicon-print"></i>   Usuarios</a></li>
-                                  <li><a href="#htab3" data-toggle="tab"><i class="glyphicon glyphicon-print"></i>   Constancias</a></li>
+                                  <li><a href="#htab2" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i>   Usuarios</a></li>
+                                  <li><a href="#htab3" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i>   Constancias</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active" id="htab1">
@@ -111,38 +114,40 @@ include("secciones/menu.php");
                                             <h4><i class="glyphicon glyphicon-print"></i>  Trabajos de Ascenso</h4>
                                           </div>
                                           <div class="col-sm-12">
-                                            <form class="form-group">
+                                            <form class="form-group" action="?controller=reporte&action=reporte_filtrado_trabajos" method="post">
 
                                               <div class="form-group col-sm-12">
-                                                <label>Seleccione una Linea:</label>
-                                                <select class="form-control">
+                                                <label>Seleccione una Linea de investigacion:</label>
+                                                <select class="form-control" name="id_linea">
                                                   <option>Seleccione</option>
-                                                  <option value="lineas1">linea1</option>
-                                                  <option value="lineas2">linea2</option>
-                                                  <option value="lineas3">linea3</option>
+                                                  <?php foreach ($lineas as $linea): ?>
+                                                    <option value="<?php echo $linea->id_linea; ?>"><?php echo $linea->linea_nombre; ?></option>
+                                                  <?php endforeach ?>
+                                                  <option value="0">todas las lineas</option>
                                                 </select>
                                               </div>
 
-                                              <div class="form-group col-sm-12">
-                                                <label>Seleccione una Fase:</label>
-                                                <select class="form-control">
+                                               <div class="form-group col-sm-12">
+                                                <label>Seleccione una fase:</label>
+                                                <select class="form-control" name="id_fase">
                                                   <option>Seleccione</option>
-                                                  <option value="fase1">Fase1</option>
-                                                  <option value="fase2">Fase2</option>
-                                                  <option value="fase3">Fase3</option>
+                                                  <?php foreach ($fases as $fase): ?>
+                                                    <option value="<?php echo $fase->id_fase; ?>"><?php echo $fase->fase_nombre; ?></option>
+                                                  <?php endforeach ?>
+                                                  <option value="0">todas las fases</option>
                                                 </select>
-                                              </div>  
+                                              </div> 
                                                
                                                 
                                               <div class="form-group col-sm-12">
                                                 <div class="col-sm-6">
                                                   <label>Desde:</label>
-                                                  <input type="text" id="fecha_inicial" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required id="desde">
+                                                  <input type="text" id="fecha_inicial" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required name="desde">
                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                   <label>Hasta:</label>
-                                                  <input type="text" id="fecha_final" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required id="hasta">
+                                                  <input type="text" id="fecha_final" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required name="hasta">
                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                               </div>
@@ -157,7 +162,7 @@ include("secciones/menu.php");
                                     <div role="tabpanel" class="tab-pane fade" id="htab2">
                                         <br>
                                           <div class="col-sm-12">
-                                             <h4><i class="glyphicon glyphicon-print"></i>  Usuarios</h4>
+                                             <h4><i class="fa fa-users" aria-hidden="true"></i>  Usuarios</h4>
                                           </div>
                                           <div class="col-sm-12">
                                             <form class="form-group">
@@ -205,7 +210,7 @@ include("secciones/menu.php");
                                           </div>
                                       </div>
                                     <div role="tabpanel" class="tab-pane fade in" id="htab3">
-                                        <h3>Constancias</h3>
+                                        <h3><i class="fa fa-users" aria-hidden="true"></i>  Constancias</h3>
                                         <br>
                                        <div class="col-sm-12">
                                           <form class="form-group">

@@ -13,14 +13,14 @@
                         switch ($modulo->modulo_nombre) {
                     
                             case 'mis trabajos':
-                                echo '<li><a href="?controller=front&action=mis_trabajos"><span class="glyphicon glyphicon-book"></span> '.$modulo->modulo_nombre.'</a></li>';
+                                echo '<li><a href="?controller=front&action=mis_trabajos"><i class="fa fa-id-card-o" aria-hidden="true"></i> '.$modulo->modulo_nombre.'</a></li>';
                                 break;
 
                             case 'gestionar trabajos':
-                                echo '<li><a href="?controller=front&action=trabajos"><span class="glyphicon glyphicon-book"></span> '.$modulo->modulo_nombre.'</a></li>';
+                                echo '<li><a href="?controller=front&action=trabajos"><i class="fa fa-tasks" aria-hidden="true"></i> '.$modulo->modulo_nombre.'</a></li>';
                                 break;
                             case 'gestionar reportes':
-                                echo '<li><a href="?controller=front&action=reportes"><span class="glyphicon glyphicon-print"></span> '.$modulo->modulo_nombre.'</a></li>';
+                                echo '<li><a href="?controller=front&action=reportes"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> '.$modulo->modulo_nombre.'</a></li>';
                                 break;
                             case 'gestion basica':
                                  echo '<li class="boton_desplegable">

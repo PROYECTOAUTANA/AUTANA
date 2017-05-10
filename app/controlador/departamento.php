@@ -56,9 +56,16 @@ class Controlador_Departamento{
 				echo '<script>alert("no puede borrar este departamento porque hay usuarios aun vinculados");</script>';
 				echo '<script>window.location.href = "?controller=front&action=departamentos";</script>';
 			}else{
-				$this->obj_departamento->set_id($id_departamento);
-				$eliminar = $this->obj_departamento->eliminar();		
-				header("location: ?controller=front&action=departamentos");
+
+				if ($id_departamento == 1) {
+					echo '<script>alert("no puede borrar este departamento");</script>';
+					echo '<script>window.location.href = "?controller=front&action=departamentos";</script>';
+				}else{
+
+					$this->obj_departamento->set_id($id_departamento);
+					$eliminar = $this->obj_departamento->eliminar();		
+					header("location: ?controller=front&action=departamentos");
+				}
 			}
 				
 	}

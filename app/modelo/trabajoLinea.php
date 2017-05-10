@@ -90,5 +90,18 @@ class Modelo_Trabajo_Linea{
 		}			
 	}
 
+	public function reportar_trabajos($desde,$hasta){
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT trabajo.*,linea.*,fase.* FROM trabajo,trabajo_fase,fase,trabajo_linea,linea where trabajo_fase.fk_fase = fase.id_fase and trabajo_fase.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = linea.id_linea and trabajo_linea.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = '$this->fk_linea' and trabajo.trabajo_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+        		$sql->execute(); 
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
+
 }
 ?>

@@ -49,13 +49,14 @@ include("secciones/menu.php");
                               <table border="0" class="table table-hover" align="center" >
                                                         <thead>
                                                             <tr style="text-align:center;">
-                                                                <th align="center" >Rol</th>
-                                                                <th align="center" >Descripcion</th>
+                                                                <th >Rol</th>
+                                                                <th >Descripcion</th>
                                                                 <th colspan="2">Operaciones</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                           <?php 
+                                                            $contador=1;
                                                             foreach ($roles as $rol):
                                                             //obtenemos rols para mostrar
                                                             $descripcion = $rol->rol_descripcion;
@@ -63,8 +64,9 @@ include("secciones/menu.php");
                                                             $id_rol = $rol->id_rol;
                                                           ?>
                                                             <tr>
-                                                              <td align="center"><?php echo $nombre;?></td>
-                                                              <td align="center"><?php echo $descripcion;?></td>
+                                                              <td><?php echo $contador;?></td>
+                                                              <td><?php echo $nombre;?></td>
+                                                              <td><?php echo $descripcion;?></td>
                                                               <td>
                                                                   <a class="btn btn-info" href="?controller=front&action=detalles_rol&id_rol=<?php echo $id_rol; ?>"> <i class="glyphicon glyphicon-pencil"></i>  Detalles
                                                                   </a>
@@ -75,6 +77,7 @@ include("secciones/menu.php");
                                                               </td>
                                                             </tr>
                                                           <?php 
+                                                          $contador++;
                                                           endforeach;
                                                           ?>
                                                            </tbody>

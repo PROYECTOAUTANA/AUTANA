@@ -22,7 +22,7 @@ include("secciones/menu.php");
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="col-sm-6 trabajos">
-                          <h3><span class="glyphicon glyphicon-th-large"></span>  <?php echo $titulo_de_la_vista; ?></h3>
+                          <h3><i class="fa fa-user-circle" aria-hidden="true"></i>  <?php echo $titulo_de_la_vista; ?></h3>
                         </div>
                         <div class="col-sm-6 grupobotones"></div>
                     </div>

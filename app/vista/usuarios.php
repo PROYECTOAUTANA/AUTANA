@@ -25,7 +25,7 @@ include("secciones/menu.php");
                 <div class="row">
                     <div class="contenido_1 col-sm-12">
                       <div class="col-sm-4 trabajos">
-                        <h3><span class="glyphicon glyphicon-user"></span>  <?php echo $titulo_de_la_vista; ?></h3>
+                        <h3><i class="fa fa-users" aria-hidden="true"></i>  <?php echo $titulo_de_la_vista; ?></h3>
                       </div>
                        <div class="col-sm-8 grupobotones">
                         <div class="col-sm-4">
@@ -57,6 +57,7 @@ include("secciones/menu.php");
                               </thead>
                               <tbody>
                                <?php 
+                                  $contador=1;
                                   foreach ($usuarios as $dato):
                                   //obtenemos datos para mostrar
                                     $cedula = $dato->usuario_cedula;
@@ -65,6 +66,7 @@ include("secciones/menu.php");
                                     $id_usuario = $dato->id_usuario;
                                 ?>
                                   <tr>
+                                    <td><?php echo $contador;?></td>
                                     <td><?php echo $cedula;?></td>
                                     <td><?php echo $nombre;?></td>
                                     <td><?php echo $apellido;?></td>
@@ -76,6 +78,7 @@ include("secciones/menu.php");
                                     </td>
                                   </tr>
                                 <?php 
+                                $contador++;
                                 endforeach;
                                 ?>
                               </tbody>
@@ -187,12 +190,12 @@ include("secciones/menu.php");
                             <?php endforeach; ?>
                           </select>
                         </div>
-                       <div class="form-group col-sm-4">
+                       <div class="form-group col-sm-6">
                           <label for="clave">Contraseña:</label>
                           <input type="password"  data-minlength="6" class="form-control" id="clave" placeholder="Password" required>
                           <div class="help-block">Míninmo 6 Carácteres</div>
                           </div>
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-6">
                           <label for="rclave">Confirmar Contraseña:</label>
                           <input type="password" class="form-control" id="clave" data-match="#clave" data-match-error="las contraseñas no coinciden" placeholder="Confirm" required>
                         <div class="help-block with-errors"></div>

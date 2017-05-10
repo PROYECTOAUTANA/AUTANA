@@ -23,7 +23,7 @@ include("secciones/menu.php");
                 <div class="row">
                     <div class="contenido_1 col-sm-12">
                       <div class="col-sm-4 trabajos">
-                        <h3><span class="glyphicon glyphicon-th-large"></span>  <?php echo $titulo_de_la_vista; ?></h3>
+                        <h3><i class="fa fa-tasks" aria-hidden="true"></i>  <?php echo $titulo_de_la_vista; ?></h3>
                       </div>
                        <div class="col-sm-8 grupobotones">
                         <div class="col-sm-4">
@@ -43,7 +43,11 @@ include("secciones/menu.php");
                             <div class="panel-heading">Trabajos </div>
                             <!-- Table -->
                             <div class="table-responsive">
-                              <table class="table table-hover">
+                              <?php if (!$trabajos): ?>
+                                <p>No existen trabajos registrados en la base de datos <a href="#nuevo_trabajo" data-toggle="modal">  Registrar Nuevo</a></p>
+                              <?php endif ?>
+                              <?php if ($trabajos): ?>
+                                <table class="table table-hover">
                                       <thead>
                                       <tr>
                                         <th>Titulo</th>
@@ -53,11 +57,14 @@ include("secciones/menu.php");
                                       </tr>
                                     </thead>
                                     <tbody>
-                                    <?php foreach ($trabajos as $trabajo):
+                                    <?php 
+                                    $contador = 1;
+                                    foreach ($trabajos as $trabajo):
                                           
                                           $id_trabajo = $trabajo->id_trabajo;
                                     ?>
                                     <tr>
+                                      <td><?php echo $contador;?></td>
                                       <td><?php echo $trabajo->trabajo_titulo;?></td>
                                       <td><?php echo $trabajo->trabajo_fecha_presentacion;?></td>
                                       <td><?php echo $trabajo->trabajo_resumen;?></td>
@@ -74,9 +81,12 @@ include("secciones/menu.php");
                                         </a>
                                       </td>
                                     </tr>
-                                    <?php endforeach;?>
+                                    <?php 
+                                    $contador++;
+                                    endforeach;?>
                                   </tbody>
                                 </table>
+                              <?php endif ?>
                               </div>
                             </div>   
                       </div> 

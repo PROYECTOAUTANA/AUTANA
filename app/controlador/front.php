@@ -65,8 +65,8 @@ class Controlador_Front{
 	public function mis_trabajos(){
 
 		$titulo_de_la_vista = "Mis Trabajos";
-		//verificamos los trabajos q pueda tener este usuario
 		session_start();
+		//verificamos los trabajos q pueda tener este usuario
 		$this->obj_usuario_trabajo->set_fk_usuario($_SESSION['id']);
 		$trabajos_usuario = $this->obj_usuario_trabajo->consultar_usuario();
 		require_once "app/vista/mis_trabajos.php";
@@ -92,6 +92,8 @@ class Controlador_Front{
 	
 	public function reportes(){
 		$titulo_de_la_vista = "Gestionar Reportes";
+		$lineas = $this->obj_linea->listar();
+        $fases = $this->obj_fase->listar();
 		require_once "app/vista/reportes.php";
 	}
 	public function bitacora(){
@@ -147,7 +149,9 @@ class Controlador_Front{
 			$usuarios = $this->obj_usuario->listar();
 			$fases = $this->obj_fase->listar();
 			$lineas = $this->obj_linea->listar();
+
 			require_once "app/vista/detalles-trabajo.php";
+			
 		}else{
 
 			header("location: ?controller=front&action=trabajos");
@@ -278,7 +282,6 @@ class Controlador_Front{
 		}	
 	}
 
-
 	public function detalles_fase(){
 		
 		$titulo_de_la_vista = "Detalles de la Fase";
@@ -294,9 +297,6 @@ class Controlador_Front{
 			header("location: ?controller=front&action=fases");
 		}	
 	}
-
-	
-
 
 	public function notFound(){
 		$titulo_de_la_vista = "Error: 404";

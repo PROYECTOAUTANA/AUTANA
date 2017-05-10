@@ -68,7 +68,7 @@
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-lock"></i></span>
-                      <input type="password"  name="clave" class="form-control" data-error="Introduzca su contraseña." placeholder="Escriba su contraseña..." minlength="4" maxlength="10">
+                      <input type="password"  name="clave" class="form-control" data-error="Introduzca su contraseña." placeholder="Escriba su contraseña..." minlength="4" maxlength="10" required>
                     </div>
                      <div class="help-block with-errors"></div>
                   </div>

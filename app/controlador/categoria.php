@@ -56,11 +56,17 @@ class Controlador_Categoria{
 				echo '<script>alert("no puede borrar esta categoria porque hay usuarios aun vinculados a ella");</script>';
 				echo '<script>window.location.href = "?controller=front&action=categorias";</script>';
 			}else{
-				$this->obj_categoria->set_id($id_categoria);
-				$eliminar = $this->obj_categoria->eliminar();		
-				header("location: ?controller=front&action=categorias");
-			}
-				
+
+				if ($id_categoria == 1) {
+					echo '<script>alert("no puede borrar esta categoria!");</script>';
+					echo '<script>window.location.href = "?controller=front&action=categorias";</script>';
+				}else{
+
+					$this->obj_categoria->set_id($id_categoria);
+					$eliminar = $this->obj_categoria->eliminar();		
+					header("location: ?controller=front&action=categorias");
+				}
+			}		
 	}
 
 }

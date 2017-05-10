@@ -80,5 +80,18 @@ class Modelo_Usuario_Trabajo{
 				echo 'ERROR : '.$e->getMessage();
 		}	
 	}
+
+	public function consultar_trabajo_estatus(){
+   		
+		try
+			{	
+    			$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_trabajo, trabajo, usuario_departamento , departamento , categoria WHERE usuario_trabajo.fk_usuario = usuario.id_usuario AND usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario_departamento.fk_usuario = usuario.id_usuario AND usuario_departamento.fk_departamento = departamento.id_departamento AND usuario.fk_categoria = categoria.id_categoria AND trabajo.id_trabajo = '$this->fk_trabajo' ");
+    			$sql->execute();
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
 }
 ?>

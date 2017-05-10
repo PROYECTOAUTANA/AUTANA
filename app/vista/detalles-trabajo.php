@@ -23,7 +23,7 @@ include("secciones/menu.php");
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="col-sm-9 trabajos">
-                          <h3><span class="glyphicon glyphicon-th-large"></span>  <?php echo $titulo_de_la_vista; ?></h3>
+                          <h3><i class="fa fa-id-card-o" aria-hidden="true"></i>  <?php echo $titulo_de_la_vista; ?></h3>
                         </div>
                         <div class="col-sm-3 grupobotones">
                         </div>
@@ -82,50 +82,85 @@ include("secciones/menu.php");
 
 
                     <div class="col-sm-6">
-                          <h3><span class="glyphicon glyphicon-th-large"></span>  Fase</h3>
+                          <h3><span class="glyphicon glyphicon-stats"></span>  Fase</h3>
                         <hr>
 
                         <?php if (!$fase_del_trabajo): ?>
                           <p>actualmente no hay una fase asignada para este trabajo de ascenso  <a href="#asignar_fase" data-toggle="modal">Asignar</a></p>
                         <?php endif ?>
                         <?php if ($fase_del_trabajo): ?>
-                          <table>
-                            <tr>
-                              <td>
-                                <?php echo $fase_del_trabajo->fase_nombre; ?>
-                              </td>
-                              <td>
-                                <a href="#cambiar_fase" data-toggle="modal" class="btn btn-success">  Cambiar fase</a>
-                              </td>
-                            </tr>
-                          </table>
+                          
+                          <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">Fase actual del trabajo</div>
+
+                            <!-- Table -->
+                            <div class="table-responsive">
+                              <table border="0" class="table table-hover" align="center" >
+                                     <thead>
+                                    <tr style="text-align:center;">
+                                        <th >Nombre</th>
+                                        <th >Cambiar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php 
+                                  $id_fase = $fase_del_trabajo->id_fase;
+                                  $nombre = $fase_del_trabajo->fase_nombre;
+                                ?>
+                                  <tr>
+                                    <td ><a href="?controller=front&action=detalles_fase&id_fase=<?php echo $id_fase; ?>"><?php echo $nombre;?></a></td>
+                                    <td><a href="#cambiar_fase" data-toggle="modal" class="btn btn-success">  Cambiar fase</a></td>
+                                  </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                          </div>               
                         <?php endif ?>
                     </div>
 
                     <div class="col-sm-6">
-                          <h3><span class="glyphicon glyphicon-th-large"></span>  Linea de Investigacion</h3>
+                          <h3><i class="glyphicon glyphicon-pushpin"></i>  Linea de Investigacion</h3>
                         <hr>
 
                         <?php if (!$linea_del_trabajo): ?>
                           <p>actualmente no hay una linea asignada para este trabajo de ascenso  <a href="#asignar_linea" data-toggle="modal">Asignar</a></p>
                         <?php endif ?>
                         <?php if ($linea_del_trabajo): ?>
-                          <table>
-                            <tr>
-                              <td>
-                                <?php echo $linea_del_trabajo->linea_nombre; ?>
-                              </td>
-                              <td>
-                                <a href="#cambiar_linea" data-toggle="modal" class="btn btn-success">  Cambiar linea</a>
-                              </td>
-                            </tr>
-                          </table>
+
+
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">Linea de investigacion del trabajo</div>
+
+                            <!-- Table -->
+                            <div class="table-responsive">
+                              <table border="0" class="table table-hover" align="center" >
+                                     <thead>
+                                    <tr style="text-align:center;">
+                                        <th >Nombre</th>
+                                        <th >Cambiar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php 
+                                  $id_linea = $linea_del_trabajo->id_linea;
+                                  $nombre = $linea_del_trabajo->linea_nombre;
+                                ?>
+                                  <tr>
+                                    <td ><a href="?controller=front&action=detalles_linea&id_linea=<?php echo $id_linea; ?>"><?php echo $nombre;?></a></td>
+                                    <td><a href="#cambiar_linea" data-toggle="modal" class="btn btn-success">  Cambiar linea</a></td>
+                                  </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                          </div> 
                         <?php endif ?>
                     </div>
 
 
                     <div class="col-sm-12">
-                          <h3><span class="glyphicon glyphicon-th-large"></span>  Docentes del Trabajo</h3>
+                          <h3><i class="fa fa-users" aria-hidden="true"></i>  Docentes del Trabajo</h3>
                     </div>
                     <div class="col-sm-12">
                       <?php if (!$usuario_trabajo): ?>
@@ -142,6 +177,7 @@ include("secciones/menu.php");
                               <table border="0" class="table table-hover" align="center" >
                                      <thead>
                                     <tr style="text-align:center;">
+                                        <th >#</th>
                                         <th >usuario</th>
                                         <th >vinculo</th>
                                         <th >fecha de asignacion</th>
@@ -149,6 +185,7 @@ include("secciones/menu.php");
                                 </thead>
                                 <tbody>
                                 <?php 
+                                  $contador=1;
                                   foreach ($usuario_trabajo as $usuario):
                                   $id_usuario = $usuario->id_usuario;
                                   $nombre = $usuario->usuario_nombre;
@@ -156,12 +193,15 @@ include("secciones/menu.php");
                                   $fecha_de_asignacion = $usuario->usuario_trabajo_fecha_registro;
                                 ?>
                                   <tr>
+                                    <td><?php echo $contador; ?></td>
                                     <td ><a href="?controller=front&action=detalles_usuario&id_usuario=<?php echo $id_usuario; ?>"><?php echo $nombre;?></a></td>
                                     <td><?php echo $vinculo;?></td>
                                     <td ><?php echo $fecha_de_asignacion;?></td>
                                     <td><a href="?controller=trabajo&action=quitar_docente&id_usuario=<?php echo $id_usuario; ?>&vinculo=<?php echo $vinculo; ?>&id_trabajo=<?php echo $id_trabajo; ?>" class="btn btn-danger">  Quitar docente</a></td>
                                   </tr>
-                                <?php endforeach; ?>
+                                <?php 
+                                $contador++;
+                                endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -169,7 +209,7 @@ include("secciones/menu.php");
                           <?php endif ?>
                     </div>
                     <div class="col-sm-12">
-                      <a href="#asignar_usuario" data-toggle="modal" class="btn btn-info btn-block">  Asignar Usuario al Trabajo</a>
+                      <a href="#asignar_usuario" data-toggle="modal" class="btn btn-info btn-block"><i class="fa fa-user-plus" aria-hidden="true"></i>  Asignar Usuario al Trabajo</a>
                     </div>
               </div>
             </div>
