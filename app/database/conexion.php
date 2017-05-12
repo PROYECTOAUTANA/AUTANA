@@ -1,7 +1,7 @@
 <?php  
 Class Conexion extends PDO{
-	private $user = 'yordy';
-	private $pass = '1234';
+	private $user = 'postgres';
+	private $pass = '123456';
 	private $dbname = 'autana';
 	private $port = 5432;
 	private $host = 'localhost';

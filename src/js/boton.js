@@ -1,5 +1,5 @@
 $("#boton").click(function(e) {
-        e.preventDefault();
+    
         $("#principal").toggleClass("cambiado");
          	
         	if ($("span").hasClass('glyphicon-menu-hamburger')) {

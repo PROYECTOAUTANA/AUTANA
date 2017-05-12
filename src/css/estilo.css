@@ -182,6 +182,7 @@ html, body {
     margin: 0;
     padding: 0;
     list-style: none;
+
 }
 
 .menu li {
@@ -195,12 +196,14 @@ html, body {
     text-align: center;
 }
 .menu li a {
+
     display: block;
     text-decoration: none;
     color: #999999;
 }
 
 .menu li a:hover {
+
     text-decoration: none;
     color: #fff;
     background: rgba(255,255,255,0.2);
@@ -209,6 +212,7 @@ html, body {
 .menu li a:active,
 .menu li a:focus {
     text-decoration: none;
+    background: rgba(255,255,255,0.2);
 }
 li.boton_salir a{
 
@@ -222,10 +226,12 @@ li.boton_salir a{
     background: color: #999999;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
 }
 
 /* menus desplegables */
 .submenu a {
+
     background-color: #222;
     color: #fff;
     text-align: right;
@@ -234,9 +240,6 @@ li.boton_salir a{
     display: block;
 }
 .boton_desplegable:hover .submenu {display: block;}
-
-
-
 /* dashboard */
 
 /* login */
@@ -302,7 +305,7 @@ li.boton_salir a{
 }
  
 .banner nav a:hover {
-    background-color: rgba(19, 123, 212, 0.73);
+    background-color: rgba(19, 123, 212, 0.73);    
     border-radius:0px;
 }
 /*header home*/
@@ -455,3 +458,55 @@ footer {
 }
 
 }
+
+
+
+
+/* barra sociaal  */
+
+.social {
+    position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
+    left: 0px; /* Establecemos la barra en la izquierda */
+    top: 320px; /* Bajamos la barra 300px de arriba a abajo */
+    z-index: 2000; /* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
+
+}
+ 
+    .social ul {
+        list-style: none;
+    }
+ 
+    .social ul li a {
+        display: inline-block;
+        border-radius:0px;
+        color:#fff;
+        background: #222;
+        font-size: 22px;
+        padding: 10px 20px;
+        text-decoration: none;
+        box-shadow: 0px 0px 12px 0 rgba(14, 12, 12, 0.5);
+        -webkit-transition:all 500ms ease;
+        -o-transition:all 500ms ease;
+        transition:all 500ms ease; /* Establecemos una transición a todas las propiedades */
+
+    }
+  
+    .social ul li .facebook {background:#3b5998;} /* Establecemos los colores de cada red social, aprovechando su class */
+    .social ul li .twitter {background: #00abf0; border-radius: 0px 15px 0px 0px;}
+    .social ul li .github {background: #444; border-radius: 0px 0px 15px 0px;}
+    .social ul li .instagram {background: #983639;}
+    .social ul li .website {background:#137bd4;}
+ 
+    .social ul li a:hover {
+        padding: 10px 24px 10px 20px;
+        background-color: #222;
+
+    }
+ }
+
+
+
+
+
+ /************  estilo de los alert personalizados  ************/
+
