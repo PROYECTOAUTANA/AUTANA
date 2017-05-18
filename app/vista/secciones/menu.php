@@ -13,18 +13,18 @@
                         switch ($modulo->modulo_nombre) {
                     
                             case 'mis trabajos':
-                                echo '<li><a href="?controller=front&action=mis_trabajos"><i class="fa fa-id-card-o" aria-hidden="true"></i> '.$modulo->modulo_nombre.'</a></li>';
+                                echo '<li><a href="?controller=front&action=mis_trabajos"><i class="fa fa-id-card-o" aria-hidden="true"></i> '.ucwords($modulo->modulo_nombre).'</a></li>';
                                 break;
 
                             case 'gestionar trabajos':
-                                echo '<li><a href="?controller=front&action=trabajos"><i class="fa fa-tasks" aria-hidden="true"></i> '.$modulo->modulo_nombre.'</a></li>';
+                                echo '<li><a href="?controller=front&action=trabajos"><i class="fa fa-tasks" aria-hidden="true"></i> '.ucwords($modulo->modulo_nombre).'</a></li>';
                                 break;
                             case 'gestionar reportes':
-                                echo '<li><a href="?controller=front&action=reportes"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> '.$modulo->modulo_nombre.'</a></li>';
+                                echo '<li><a href="?controller=front&action=reportes"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> '.ucwords($modulo->modulo_nombre).'</a></li>';
                                 break;
                             case 'gestion basica':
                                  echo '<li class="boton_desplegable">
-                                        <a href="#"><i class="glyphicon glyphicon-cog"></i> '.$modulo->modulo_nombre.'</a>
+                                        <a href="#"><i class="glyphicon glyphicon-cog"></i> '.ucwords($modulo->modulo_nombre).'</a>
                                             <div class="submenu">
                                                 <a href="?controller=front&action=departamentos">  Departamentos  <i class="fa fa-address-card" aria-hidden="true"></i></a>
                                                 <a href="?controller=front&action=categorias">Categorias  <i class="glyphicon glyphicon-tasks"></i></a>

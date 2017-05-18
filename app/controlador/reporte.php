@@ -51,10 +51,6 @@ class Controlador_Reporte
 		$id_trabajo = $_GET['id_trabajo'];
 		$this->obj_trabajo->set_id($id_trabajo);
 		$trabajo_datos = $this->obj_trabajo->consultar($id_trabajo);
-		
-		if (!$trabajo_datos) {
-			$html = "No hay datos para mostrar sobre este usuario...";
-		}else{
 
 		$this->obj_trabajo_fase->set_fk_trabajo($id_trabajo);
 		$fase_datos = $this->obj_trabajo_fase->consultar_trabajo();
@@ -78,12 +74,8 @@ class Controlador_Reporte
 		ob_start();
 		require_once 'app/vista/reportes/estatus_trabajo.php';
 		$html = ob_get_clean();
-		}
-		
 		$this->obj_mpdf->WriteHTML($html);
-		$prefijo = rand();
-		$nombre = $prefijo."_estatus_autana.pdf";
-		$this->obj_mpdf->Output($nombre,'D');
+		$this->obj_mpdf->Output();
 		exit;
 	}
 
@@ -103,10 +95,8 @@ class Controlador_Reporte
 		ob_start();
 		require_once 'app/vista/reportes/reporte_trabajos.php';
 		$html = ob_get_clean();
-		$prefijo = rand();
-		$nombre = $prefijo."_reporte_trabajos.pdf";
 		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output($nombre,'D');
+		$this->obj_mpdf->Output();
 		exit;
 	}
 
@@ -126,10 +116,8 @@ class Controlador_Reporte
 		ob_start();
 		require_once 'app/vista/reportes/reporte_usuarios.php';
 		$html = ob_get_clean();
-		$prefijo = rand();
-		$nombre = $prefijo."_reporte_usuarios.pdf";
 		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output($nombre,'D');
+		$this->obj_mpdf->Output();
 		exit;
 	}
 
@@ -154,7 +142,7 @@ class Controlador_Reporte
 			$datos_trabajo = $this->obj_trabajo->reportar_trabajos_filtrados($id_fase,$id_linea,$desde,$hasta);
 		}elseif ($id_fase == 0 and $id_linea == 0) {
 			//codigo para filtrar ni por una linea ni por una fase
-			$datos_trabajo = $this->obj_trabajo->reportar_trabajos($desde,$hasta);
+			$datos_trabajo = $this->obj_trabajo->reportar_trabajos_fecha($desde,$hasta);
 		}
 		
 		/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
@@ -170,10 +158,8 @@ class Controlador_Reporte
 		ob_start();
 		require_once 'app/vista/reportes/reporte-trabajos-filtrado.php';
 		$html = ob_get_clean();
-		$prefijo = rand();
-		$nombre = $prefijo."_reporte_usuarios.pdf";
 		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output($nombre,'D');
+		$this->obj_mpdf->Output();
 		exit;
 	}
 
@@ -214,10 +200,8 @@ class Controlador_Reporte
 		ob_start();
 		require_once 'app/vista/reportes/reporte-usuarios-filtrado.php';
 		$html = ob_get_clean();
-		$prefijo = rand();
-		$nombre = $prefijo."_reporte_usuarios.pdf";
 		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output($nombre,'D');
+		$this->obj_mpdf->Output();
 		exit;
 	}
 
@@ -256,10 +240,8 @@ class Controlador_Reporte
 			ob_start();
 			require_once 'app/vista/reportes/constancia-usuario.php';
 			$html = ob_get_clean();
-			$prefijo = rand();
-			$nombre = $prefijo."_reporte_usuarios.pdf";
 			$this->obj_mpdf->WriteHTML($html);
-			$this->obj_mpdf->Output($nombre,'D');
+			$this->obj_mpdf->Output();
 		}
 	}
 }

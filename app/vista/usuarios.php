@@ -242,7 +242,7 @@ include("secciones/menu.php");
                         alert("seleccione una categoria valida");
                         return false;
                       }else{
-                        alert("registrado correctamente...");
+                        
                         return true;
                       }
 

@@ -215,7 +215,7 @@ include("secciones/menu.php");
                         alert("seleccione una fase valida");
                         return false;
                       }else{
-                        alert("registrado correctamente...");
+                       
                         return true;
                       }
 
@@ -250,7 +250,10 @@ include("secciones/menu.php");
 
 
 <!--******************************************************************-->
-
+<script type="text/javascript">
+  
+  var date = $("#fecha_pp").datepicker({ dateFormat: 'yy/mm/dd' }).val();
+</script>
 
 
 <!--******************************************************************-->

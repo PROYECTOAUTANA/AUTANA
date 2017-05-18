@@ -213,6 +213,10 @@ CREATE TABLE trabajo_linea
 );
 
 
+ alter table trabajo
+ add constraint validar_redundancia
+ unique (trabajo_titulo);
+
 INSERT INTO categoria(categoria_nombre, categoria_descripcion, categoria_fecha_registro)VALUES ('sin categoria', 'sin ninguna categoria el usuario no es docente',NOW());
 INSERT INTO usuario(usuario_cedula,usuario_nombre,usuario_apellido,usuario_sexo,usuario_telefono,usuario_correo,usuario_direccion,usuario_clave,usuario_fecha_registro,fk_categoria,usuario_estado) VALUES('123456','autana','autana',2,0416876564,'juaneliezer13@gmail.com','lara',md5('autana'),NOW(),1,1);
 INSERT INTO rol(rol_nombre, rol_descripcion, rol_fecha_registro)VALUES ('administrador', 'control total del sistema',NOW());

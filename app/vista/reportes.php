@@ -13,25 +13,20 @@
   
 
   $( function() {
-    $( "#fecha_inicial" ).datepicker({ format: 'yyyy-mm-dd' });
-    $( "#fecha_inicial" ).on("change", function () { var fromdate = $(this).val(); });
-  } );
+    $( "#fecha_inicial" ).datepicker({ dateFormat: 'yy/mm/dd' });
+  
+
+    $( "#fecha_final" ).datepicker({ dateFormat: 'yy/mm/dd' });
+  
 
 
-  $( function() {
-    $( "#fecha_final" ).datepicker({ format: 'yyyy-mm-dd' });
-    $( "#fecha_final" ).on("change", function () { var fromdate = $(this).val(); });
-  } );
-
-  $( function() {
-    $( "#fecha_inicial_usuario" ).datepicker({ format: 'yyyy-mm-dd' });
-    $( "#fecha_inicial_usuario" ).on("change", function () { var fromdate = $(this).val(); });
-  } );
+    $( "#fecha_inicial_usuario" ).datepicker({ dateFormat: 'yy/mm/dd' });
 
 
-  $( function() {
-    $( "#fecha_final_usuario" ).datepicker({ format: 'yyyy-mm-dd' });
-    $( "#fecha_final_usuario" ).on("change", function () { var fromdate = $(this).val(); });
+
+    $( "#fecha_final_usuario" ).datepicker({ dateFormat: 'yy/mm/dd' });
+      
+       
   } );
  
 </script>

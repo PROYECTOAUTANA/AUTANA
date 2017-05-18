@@ -47,12 +47,14 @@ class Controlador_Trabajo{
 			$this->obj_trabajo->set_categoria_ascenso($_POST['categoria_ascenso']);
 
 			$registro = $this->obj_trabajo->insertar();
-			$ultimo_trabajo = $this->obj_trabajo->obtener_ultimo_trabajo();
-			$id_trabajo = $ultimo_trabajo->ultimo;
+			
 
 			if (!$registro) {
 				echo "hubo un error!";
 			}else{
+
+				$ultimo_trabajo = $this->obj_trabajo->obtener_ultimo_trabajo();
+				$id_trabajo = $ultimo_trabajo->ultimo;
 
 				$this->obj_trabajo_fase->set_fk_fase($_POST['fase']);
 				$this->obj_trabajo_fase->set_fk_trabajo($id_trabajo);

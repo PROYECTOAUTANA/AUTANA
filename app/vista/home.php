@@ -17,13 +17,16 @@
 <script src="src/js/alert_personalizado.js"></script>
 </head>
 <body>
+
+
+
 <header class="banner">
     <div class="barra_2">
       <div class="logo">
         <a href="?controller=front&action=home"><img src="src/img/lautana1.jpg" alt="..."></a>
       </div>   
       <nav>
-        <a href="#">Ayuda</a>
+        <a href="libs/manual.pdf" target="_blank">Ayuda</a>
       </nav>
     </div>
 </header>
@@ -150,7 +153,5 @@
                   </div> <!--TERMINO EL DIV DEL MODAL validar correo-->
 
 <!--******************************************************************-->
-
-
 <!--******************************************************************-->
 
