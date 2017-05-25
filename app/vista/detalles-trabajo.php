@@ -34,47 +34,41 @@ include("secciones/menu.php");
                               <input type="hidden" name="id_trabajo" value="<?php echo $datos_trabajo->id_trabajo; ?>">
 
                               <div class="form-group col-sm-4">
-                                <label>Titulo</label>
+                                <label>Título</label>
                                 <input type="text" name="titulo" class="form-control" data-error="Por favor introduzca un título."   value="<?php echo $datos_trabajo->trabajo_titulo; ?>" required>   
                                   <div class="help-block with-errors"></div>
                             </div>
                               <div class="form-group col-sm-4">
-                                <label>Fecha de presentacion Publica</label>
+                                <label>Fecha de presentación Pública</label>
                                 <input type="text" readonly="readonly" name="fecha_pp" class="form-control" value="<?php echo $datos_trabajo->trabajo_fecha_presentacion; ?>">
                               </div>
                               <div class="form-group col-sm-4">
-                                <label>Mension</label>
-                                <input type="text" name="mension" class="form-control" value="<?php echo $datos_trabajo->trabajo_mension; ?>" data-error="Por favor introduzca un título." required >   
+                                <label>Mensión</label>
+                                <input type="text" name="mension" class="form-control" value="<?php echo $datos_trabajo->trabajo_mension; ?>" data-error="Por favor introduzca un valor." required >   
                                   <div class="help-block with-errors"></div>
                             </div>
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-6">
                                 <label>Proceso</label>
                                 <input type="text" name="proceso" data-error="Por favor introduzca un valor." class="form-control" required value="<?php echo $datos_trabajo->trabajo_proceso; ?>">   
                                   <div class="help-block with-errors"></div>
                             </div>
 
-                              <div class="form-group col-sm-4">
-                                <label>Categoria de Ascenso</label>
-                                <input type="text" name="categoria_ascenso" data-error="Por favor introduzca un título." class="form-control" required  value="<?php echo $datos_trabajo->trabajo_categoria_de_ascenso; ?>">   
-                                  <div class="help-block with-errors"></div>
-                            </div>
-
-                              <div class="form-group col-sm-4">
+                              <div class="form-group col-sm-6">
                                 <label>Fecha de registro</label>
                                 <input type="text" readonly="readonly" name="fecha_registro" required class="form-control" value="<?php echo $datos_trabajo->trabajo_fecha_registro; ?>">
                               </div>
 
                               <div class="form-group col-sm-12">
                                 <label>Resumen</label>
-                                <textarea name="resumen" data-error="Por favor introduzca un título." required class="form-control" rows="4">
+                                <textarea name="resumen" data-error="Por favor introduzca un valor." required class="form-control" rows="4">
                                   <?php echo $datos_trabajo->trabajo_resumen; ?>
                                 </textarea>   
                                   <div class="help-block with-errors"></div>
                             </div>
 
                               <div class="form-group col-sm-12">
-                                <input type="submit" name="editar" class="btn btn-default col-sm-3" value="Actualizar datos">
-                                <a href="?controller=front&action=detalles_trabajo&id_trabajo=<?php echo $datos_trabajo->id_trabajo; ?>" class="btn btn-info col-sm-3" > Deshacer</a>
+                                <input type="submit" name="editar" class="btn btn-info col-sm-3" value="Actualizar datos">
+                                <a href="?controller=front&action=detalles_trabajo&id_trabajo=<?php echo $datos_trabajo->id_trabajo; ?>" class="btn btn-default col-sm-3" > Deshacer</a>
                               </div>
 
                         </form>  
@@ -120,7 +114,7 @@ include("secciones/menu.php");
                     </div>
 
                     <div class="col-sm-6">
-                          <h3><i class="glyphicon glyphicon-pushpin"></i>  Linea de Investigacion</h3>
+                          <h3><i class="glyphicon glyphicon-pushpin"></i>  Línea de Investigacion</h3>
                         <hr>
 
                         <?php if (!$linea_del_trabajo): ?>
@@ -190,7 +184,7 @@ include("secciones/menu.php");
                                   $id_usuario = $usuario->id_usuario;
                                   $nombre = $usuario->usuario_nombre;
                                   $vinculo = $usuario->vinculo;
-                                  $fecha_de_asignacion = $usuario->usuario_trabajo_fecha_registro;
+                                  $fecha_de_asignacion = $usuario->fecha_de_asignacion;
                                 ?>
                                   <tr>
                                     <td><?php echo $contador; ?></td>
@@ -389,7 +383,7 @@ include("secciones/menu.php");
 
 
                    <div class="modal fade" id="asignar_usuario">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
@@ -397,21 +391,18 @@ include("secciones/menu.php");
                           <h4>Asignacion de usuarios</h4><hr>
                           <form class="form-group" action="?controller=trabajo&action=asignar_usuario" method="post">
                             <input type="hidden" name="id_trabajo" value="<?php echo $datos_trabajo->id_trabajo; ?>">
-                            <div class="col-sm-12 form-group">
-                              <label>SELECCIONE UN USUARIO</label>
-                              <select class="form-control" name="usuario">
-                                <option>seleccione un usuario</option>
-                                <?php foreach ($usuarios as $usuario): ?>
-                                  <option value="<?php echo $usuario->id_usuario; ?>"><?php echo $usuario->usuario_nombre; ?></option>
-                                <?php endforeach ?>
-                              </select>
+                            <div class="col-sm-6 form-group">
+                              <label>Escriba el nombre de un usuario:</label>
+                                  <input list="usuario" class="form-control" name="usuario">
+                                  <datalist id="usuario" >
+                                    <?php foreach ($usuarios as $usuario): ?>
+                                      <option value="<?php echo $usuario->id_usuario; ?>"><?php echo $usuario->usuario_nombre." - ".$usuario->usuario_apellido." - ".$usuario->departamento_nombre; ?></option>
+                                    <?php endforeach ?>
+                                  </datalist> 
                             </div>
-
-                            <div class="col-sm-12 form-group">
-                              <label>SELECCIONE UN VINCULO</label>
+                            <div class="col-sm-6 form-group">
+                              <label>Seleccione un vinculo</label>
                               <select class="form-control" name="vinculo">
-                                <option>seleccione un vinculo</option>
-                               
                                   <option value="autor">autor</option>
                                   <option value="tutor">tutor</option>
                                   <option value="jurado">jurado</option>

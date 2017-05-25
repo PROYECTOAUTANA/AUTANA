@@ -38,7 +38,7 @@ include("secciones/menu.php");
                                   <div class="help-block with-errors"></div>
                             </div>
                                 <div class="form-group col-sm-12">
-                                  <label >Descripcion del rol:</label>
+                                  <label >Descripción del rol:</label>
                                   <textarea rows="3" name="descripcion" required class="form-control"><?= $datos_rol->rol_descripcion; ?></textarea>
                                   <div class="help-block with-errors"></div>
                                 </div>

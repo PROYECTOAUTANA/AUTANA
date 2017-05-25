@@ -18,8 +18,6 @@
 </head>
 <body>
 
-
-
 <header class="banner">
     <div class="barra_2">
       <div class="logo">
@@ -64,7 +62,7 @@
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-user"></i></span>
-                      <input type="text" name="nombre" data-error="Introduzca su nombre de Usuario." class="form-control" placeholder="Escriba su usuario..." maxlength="25" required />   
+                      <input type="text" autocomplete="off" name="nombre" data-error="Introduzca su nombre de Usuario." class="form-control" placeholder="Escriba su usuario..." maxlength="25" required />   
                     </div> 
                     <div class="help-block with-errors"></div>
                   </div>
@@ -129,10 +127,10 @@
             </div>
             <h4 align="center" class="titulo"> Fase 1: Autenticacion</h4>
              
-          <form class="form-group col-sm-12" method="post" data-toggle="validator">
+          <form class="form-group col-sm-12" method="post" action="?controller=usuario&action=reestablecer_clave" data-toggle="validator">
               <div class="input-group col-sm-12">
                   <span class="input-group-addon" id="basic-addon1">@</span>
-                  <input type="email"  class="form-control" autofocus placeholder="Escriba su correo..." maxlength="25" required>
+                  <input type="email" autocomplete="off" class="form-control" autofocus placeholder="Escriba su correo..." maxlength="25" name="correo" required>
 
 
                 <div class="input-group-btn">

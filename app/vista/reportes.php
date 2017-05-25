@@ -121,7 +121,7 @@ include("secciones/menu.php");
                                             <h4><i class="glyphicon glyphicon-print"></i>  Trabajos de Ascenso</h4>
                                           </div>
                                           <div class="col-sm-12">
-                                            <form class="form-group" action="?controller=reporte&action=reporte_filtrado_trabajos" method="post"  data-toggle="validator">
+                                            <form class="form-group" action="?controller=reporte&action=reporte_filtrado_trabajos" method="post" target="_blank" data-toggle="validator">
 
                                               <div class="form-group col-sm-12">
                                                 <label>Seleccione una Linea de investigacion:</label>
@@ -170,7 +170,7 @@ include("secciones/menu.php");
                                              <h4><i class="fa fa-users" aria-hidden="true"></i>  Usuarios</h4>
                                           </div>
                                           <div class="col-sm-12">
-                                            <form class="form-group" action="?controller=reporte&action=reporte_filtrado_usuarios" method="post"  data-toggle="validator">
+                                            <form class="form-group" action="?controller=reporte&action=reporte_filtrado_usuarios" target="_blank" method="post"  data-toggle="validator">
                                              <div class="form-group col-sm-12">
                                                 <label>Seleccione un departamento:</label>
                                                 <select class="form-control" id="id_departamento" name="id_departamento">
@@ -209,7 +209,7 @@ include("secciones/menu.php");
                                         <h3><i class="fa fa-user" aria-hidden="true"></i>  Constancias</h3>
                                         <br>
                                        <div class="col-sm-12">
-                                          <form class="form-group" action="?controller=reporte&action=constancia_usuarios" method="post" data-toggle="validator" onsubmit='return validarConstancia(this)'>
+                                          <form class="form-group" action="?controller=reporte&action=constancia_usuarios" target="_blank" method="post" data-toggle="validator" onsubmit='return validarConstancia(this)'>
                                             <div class="form-group col-sm-12">
                                               <label>Escriba la C.I.:</label>
                                               <input type="text" class="form-control" id="cedula" type="tel" data-minlength="7" data-error="Debe ser mayor a 6 digitos." placeholder="Escriba..." onkeypress="return controltag(event)" required>

@@ -38,7 +38,7 @@ include("secciones/menu.php");
                                 <div class="help-block with-errors"></div>
                                   </div>
                                 <div class="form-group col-sm-12">
-                                  <label for="descripcionlinea">Descripcion:</label>
+                                  <label for="descripcionlinea">Descripción:</label>
                                   <textarea  id="descripcionlinea" name="descripcion" required class="form-control" rows="3" >
                                     <?php echo $datos_linea->linea_descripcion; ?>
                                   </textarea>

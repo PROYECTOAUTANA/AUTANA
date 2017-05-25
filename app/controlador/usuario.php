@@ -8,6 +8,7 @@ require_once "app/modelo/usuarioTrabajo.php";
 require_once "app/modelo/rolModulo.php";
 require_once "app/modelo/usuario.php";
 require_once "app/modelo/rol.php";
+require_once "app/modelo/trabajo.php";
 require_once "libs/phpmailer/class.phpmailer.php";
 require_once "libs/phpmailer/class.smtp.php";
 
@@ -20,6 +21,7 @@ class Controlador_Usuario{
 	private $obj_rol_modulo;
 	private $obj_mail;
 	private $obj_rol;
+	private $obj_trabajo;
 
 	public function __construct()
 	{
@@ -30,6 +32,7 @@ class Controlador_Usuario{
 		$this->obj_usuario_trabajo = new Modelo_Usuario_Trabajo();
 		$this->obj_rol = new Modelo_Rol();
 		$this->obj_mail = new PHPMailer();
+		$this->obj_trabajo = new Modelo_Trabajo();
 	}
 
 	public function registrar_usuario(){
@@ -63,8 +66,24 @@ class Controlador_Usuario{
 				$this->obj_usuario_departamento->set_fk_usuario($id_usuario);
 				$this->obj_usuario_departamento->asignar_departamento();
 
-				header("location: ?controller=front&action=usuarios");
+				header("location: ?controller=front&action=detalles_usuario&id_usuario=$id_usuario");
 			}
+	}
+
+	public function buscar_usuario(){
+
+			$filtro = $_POST['filtro'];
+
+			$resultado = $this->obj_usuario->buscar($filtro);
+			
+			if(!$resultado){
+				echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
+			}else{
+
+				$cantidad = count($resultado);
+				echo '<br>'.$cantidad.'  Sugerencia(s) encontrada(s) para: <b>'.$filtro.'</b><br />';
+				require_once "app/vista/resultado-busqueda-usuario.php";
+			} 
 	}
 
 	public function eliminar_usuario(){
@@ -160,13 +179,43 @@ class Controlador_Usuario{
 			$id_usuario = $_POST['id_usuario'];
 			$id_categoria = $_POST['categoria'];
 
-			$this->obj_usuario->set_id($id_usuario);
-			$this->obj_usuario->set_fk_categoria($id_categoria);
-			$actualizar = $this->obj_usuario->actualizar_categoria();
 
-			if ($actualizar) {
-				header("location: ?controller=front&action=detalles_usuario&id_usuario=$id_usuario");
-			}			
+			//consultar si este usuario es autor en algun trabajo y si ese trabajo esta en fase de aprobacion 
+			//de esta forma verificamnos si puede o no ascender 
+			$this->obj_usuario_trabajo->set_fk_usuario($id_usuario);
+			$resultado = $this->obj_usuario_trabajo->trabajos_aprobados_como_autor();
+
+			if (!$resultado) {
+				//EL USUARIO NO POSEE NINGUN TRABAJO EN APROBACION COMO AUTOR
+				echo "este usuario NO posee ningun trabajo EN APROBACION COMO AUTOR";
+			}else{
+				
+				$this->obj_usuario->set_id($id_usuario);
+				$this->obj_usuario->set_fk_categoria($id_categoria);
+				$this->obj_usuario->actualizar_categoria();
+					
+				$this->obj_usuario_trabajo->set_fk_usuario($id_usuario);
+				$this->obj_usuario_trabajo->set_fk_trabajo($resultado->id_trabajo);
+				$this->obj_usuario_trabajo->set_vinculo("autor ascendido");
+				$this->obj_usuario_trabajo->actualizar_vinculo();
+
+
+				$this->obj_usuario_trabajo->set_fk_trabajo($resultado->id_trabajo);
+				$resultado_autores = $this->obj_usuario_trabajo->consultar_trabajo();
+
+				foreach ($resultado_autores as $trabajo) {
+
+					if ($trabajo->vinculo == "autor") {
+						header("location: ?controller=front&action=detalles_usuario&id_usuario=$id_usuario");
+					}else{
+						//echo "este trabajo se cerrara porque todos los autores ya fueron ascendidos";
+						$this->obj_trabajo->set_id($resultado->id_trabajo);
+						$this->obj_trabajo->cerrar_trabajo();
+						header("location: ?controller=front&action=detalles_usuario&id_usuario=$id_usuario");
+					}
+				}
+
+			}
 	}
 
 	public function login(){
@@ -211,6 +260,11 @@ class Controlador_Usuario{
 					$_SESSION['id']     = $datos_usuario->id_usuario;
 					$_SESSION['nombre']   = $datos_usuario->usuario_nombre;
 					$_SESSION['apellido']   = $datos_usuario->usuario_apellido;
+					$_SESSION['cedula']   = $datos_usuario->usuario_cedula;
+					$_SESSION['direccion']   = $datos_usuario->usuario_direccion;
+					$_SESSION['sexo']   = $datos_usuario->usuario_sexo;
+					$_SESSION['telefono']   = $datos_usuario->usuario_telefono;
+					$_SESSION['correo']   = $datos_usuario->usuario_correo;
 					$_SESSION['modulos'] = $modulos;
 					$_SESSION['departamento'] = $usuario_departamento->departamento_nombre;
 					$_SESSION['rol']   = $rol->rol_nombre;
@@ -222,6 +276,95 @@ class Controlador_Usuario{
 			
 
 		}
+	}
+
+	public function correo($asunto = '',$cuerpo = '',$pie = '',$para = ''){
+
+		$asunto = $asunto;
+		$mensaje = $cuerpo.$pie;
+
+		//Este bloque es importante			
+		$this->obj_mail->IsSMTP();
+		$this->obj_mail->SMTPAuth = true;
+		$this->obj_mail->SMTPSecure = "ssl";
+		$this->obj_mail->Host = "smtp.gmail.com";
+		$this->obj_mail->Port =  465;
+		//Nuestra cuenta
+		$this->obj_mail->Username ='juaneliezer13@gmail.com';
+		$this->obj_mail->Password = '25627918';
+		//Agregar destinatario
+		$this->obj_mail->AddAddress($para);
+		$this->obj_mail->Subject = $asunto;
+		$this->obj_mail->Body = $mensaje;
+		//Para adjuntar archivo
+		$this->obj_mail->MsgHTML($mensaje);
+		if($this->obj_mail->Send()) $resultado = true;
+		else $resultado = false;
+
+		return $resultado;
+	}
+
+	public function reestablecer_clave(){
+
+		$email = $_POST['correo'];
+		$this->obj_usuario->set_correo($email);
+		$result = $this->obj_usuario->validar_correo();
+
+		if ($result) {
+			
+			$id_usuario = $result->id_usuario;
+			$nueva_clave = rand();
+			$nueva_clave_encriptada = md5($nueva_clave);
+
+			$asunto = 'Restablecer Clave de Acceso';
+			$cuerpo_mensaje='Su nueva clave es:  ' .$nueva_clave;
+			$pie_mensaje='<center><br><br><br><br><br><br><b>PERTINENCIA SOCIAL Y PARTICIPACIÓN POPULAR</b></center>';
+			$para = $result->usuario_correo;
+			$resultado_envio = Controlador_Usuario::correo($asunto,$cuerpo_mensaje,$pie_mensaje,$para);
+					
+				if($resultado_envio){
+					echo'<script>alert("correcto, le hemos enviado un correo con su nueva clave...")</script>';
+					//HACEMOS EL UPDATE
+					$this->obj_usuario->set_id($id_usuario);
+					$this->obj_usuario->set_clave($nueva_clave_encriptada);
+					$cambiar = $this->obj_usuario->cambiar_clave();
+
+					//echo '<script>window.location.href = "?controller=front&action=home";</script>';
+				}else{
+					echo'<script>alert("El servidor experimenta errores a la hora de enviar su correo por favor intente mas tarde o revise su conexion a Internet...")</script>';
+					echo '<script>window.location.href = "?controller=front&action=home";</script>';
+				}
+		}else{
+
+			//ESTE MENSAJE SERA EN DADO CASO QUE EL CORREO NO EXISTA
+			echo'<script>alert("Direccion de correo electronico no encontrada...")</script>';
+
+			echo '<script>window.location.href = "?controller=front&action=home";</script>';
+		}
+	}
+
+	public function cambio_de_clave(){
+
+		$id_usuario = $_POST['id_usuario'];
+		$clave_vieja = $_POST['clave_vieja'];
+		$clave_nueva = $_POST['clave_nueva'];
+
+		$this->obj_usuario->set_clave(md5($clave_vieja));
+		$resultado_clave = $this->obj_usuario->consultar_clave();
+
+		if ($resultado_clave) {
+			$nueva_clave_encriptada = md5($clave_nueva);
+			$this->obj_usuario->set_id($id_usuario);
+			$this->obj_usuario->set_clave($nueva_clave_encriptada);
+			$cambiar = $this->obj_usuario->cambiar_clave();
+
+			echo'<script>alert("Clave cambiada satisfactoriamente...")</script>';
+		}else{
+			echo'<script>alert("Clave la clave actual ingresada es incorrecta...")</script>';
+		}
+
+		
+
 	}
 
 	public function cerrar_sesion(){

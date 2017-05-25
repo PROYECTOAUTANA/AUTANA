@@ -17,7 +17,6 @@ class Modelo_Trabajo{
 	private $proceso;
 	private $mension;
 	private $resumen;
-	private $categoria_ascenso;
 
 	public function __construct(){
 		$this->pdo = new Conexion();
@@ -38,9 +37,6 @@ class Modelo_Trabajo{
 	public function set_mension($mension){$this->mension = $mension;}
 	public function get_mension(){return $this->mension;}
 
-	public function set_categoria_ascenso($categoria_ascenso){$this->categoria_ascenso = $categoria_ascenso;}
-	public function get_categoria_ascenso(){return $this->categoria_ascenso;}
-
 	public function set_resumen($resumen){$this->resumen = $resumen;}
 	public function get_resumen(){return $this->resumen;}
 
@@ -49,8 +45,19 @@ class Modelo_Trabajo{
 
 	try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO trabajo(trabajo_titulo, trabajo_mension, trabajo_fecha_presentacion, trabajo_proceso, trabajo_categoria_de_ascenso, trabajo_resumen,trabajo_fecha_registro)
-					VALUES('$this->titulo','$this->mension',' $this->fecha_presentacion','$this->proceso','$this->categoria_ascenso','$this->resumen',NOW())");
+				$consulta = "INSERT INTO trabajo(trabajo_titulo, 
+							trabajo_mension,trabajo_fecha_presentacion, 
+							trabajo_proceso,trabajo_resumen,
+							trabajo_fecha_registro)
+							VALUES
+								('$this->titulo',
+									'$this->mension',
+										' $this->fecha_presentacion',
+											'$this->proceso',
+													'$this->resumen',
+														NOW())";
+
+				$sql = $this->pdo->prepare($consulta);
         		
     			return $sql->execute();
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -64,7 +71,16 @@ class Modelo_Trabajo{
 
 		try
 			{	
-				$sql = $this->pdo->prepare("UPDATE trabajo SET trabajo_titulo = '$this->titulo', trabajo_mension = '$this->mension', trabajo_proceso = '$this->proceso', trabajo_categoria_de_ascenso = '$this->categoria_ascenso', trabajo_resumen = '$this->resumen' WHERE id_trabajo = '$this->id'");
+				$consulta = "UPDATE trabajo 
+								SET 
+								trabajo_titulo = '$this->titulo', 
+								trabajo_mension = '$this->mension', 
+								trabajo_proceso = '$this->proceso', 
+								trabajo_resumen = '$this->resumen' 
+								WHERE 
+								id_trabajo = '$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
 				return $sql->execute();
 		}catch(Exception $e){	
 				echo 'ERROR : '.$e->getMessage();
@@ -75,7 +91,9 @@ class Modelo_Trabajo{
 
 		try
 			{	
-				$sql = $this->pdo->prepare("DELETE FROM trabajo WHERE id_trabajo = '$this->id'");
+				$consulta = "DELETE FROM trabajo WHERE id_trabajo = '$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
 				return $sql->execute();
 		}catch(Exception $e){	
 				echo 'ERROR : '.$e->getMessage();
@@ -86,7 +104,15 @@ class Modelo_Trabajo{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo ORDER BY id_trabajo");
+				$consulta = "SELECT trabajo.*, linea.*,fase.* 
+							FROM trabajo
+							join trabajo_fase on trabajo.id_trabajo = trabajo_fase.fk_trabajo 
+							join fase on trabajo_fase.fk_fase = fase.id_fase
+							join trabajo_linea on trabajo.id_trabajo = trabajo_linea.fk_trabajo 
+							join linea on trabajo_linea.fk_linea = linea.id_linea 
+							ORDER BY id_trabajo";
+
+				$sql = $this->pdo->prepare($consulta);
 				$sql->execute();
 				return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -98,11 +124,20 @@ class Modelo_Trabajo{
 
 	
 	
-	public function reportar_trabajos_fechas($desde,$hasta){
+	public function reportar_trabajos_fecha($desde,$hasta){
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo,trabajo_fase,fase,trabajo_linea,linea where trabajo_fase.fk_fase = fase.id_fase and trabajo_fase.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = linea.id_linea and trabajo_linea.fk_trabajo = trabajo.id_trabajo and trabajo.trabajo_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+				$consulta = "SELECT trabajo.*,linea.*,fase.* 
+							FROM trabajo
+							join trabajo_fase on trabajo.id_trabajo = trabajo_fase.fk_trabajo 
+							join fase on trabajo_fase.fk_fase = fase.id_fase
+							join trabajo_linea on trabajo.id_trabajo = trabajo_linea.fk_trabajo 
+							join linea on trabajo_linea.fk_linea = linea.id_linea 
+							WHERE 
+							trabajo.trabajo_fecha_registro BETWEEN ('$desde') AND ('$hasta')";
+
+				$sql = $this->pdo->prepare($consulta);
 				$sql->execute();
 				return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -116,7 +151,41 @@ class Modelo_Trabajo{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo,trabajo_fase,fase,trabajo_linea,linea where trabajo_fase.fk_fase = fase.id_fase and trabajo_fase.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = linea.id_linea and trabajo_linea.fk_trabajo = trabajo.id_trabajo");
+				$consulta = "SELECT trabajo.*,linea.*,fase.* 
+							FROM trabajo
+							join trabajo_fase on trabajo.id_trabajo = trabajo_fase.fk_trabajo 
+							join fase on trabajo_fase.fk_fase = fase.id_fase
+							join trabajo_linea on trabajo.id_trabajo = trabajo_linea.fk_trabajo 
+							join linea on trabajo_linea.fk_linea = linea.id_linea";
+
+				$sql = $this->pdo->prepare($consulta);
+				$sql->execute();
+				return $sql->fetchAll(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}	
+	}
+
+	public function buscar($filtro){
+	
+		try
+			{	
+				$consulta = "SELECT trabajo.*,linea.*,fase.* FROM trabajo
+							join trabajo_fase on trabajo.id_trabajo = trabajo_fase.fk_trabajo 
+							join fase on trabajo_fase.fk_fase = fase.id_fase
+							join trabajo_linea on trabajo.id_trabajo = trabajo_linea.fk_trabajo 
+							join linea on trabajo_linea.fk_linea = linea.id_linea
+							join usuario_trabajo on trabajo.id_trabajo = usuario_trabajo.fk_trabajo 
+							join usuario on usuario_trabajo.fk_usuario = usuario.id_usuario
+							where 
+							trabajo.trabajo_titulo LIKE '$filtro%' 
+							OR fase.fase_nombre LIKE '$filtro%' 
+							OR linea.linea_nombre LIKE '$filtro%' 
+							OR usuario.usuario_nombre LIKE '$filtro%'";
+
+				$sql = $this->pdo->prepare($consulta);
 				$sql->execute();
 				return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -130,7 +199,9 @@ class Modelo_Trabajo{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM trabajo WHERE id_trabajo = '$this->id'");
+				$consulta = "SELECT * FROM trabajo WHERE id_trabajo = '$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute();
     			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -144,7 +215,9 @@ class Modelo_Trabajo{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT MAX(id_trabajo) as ultimo FROM trabajo");
+				$consulta = "SELECT MAX(id_trabajo) as ultimo FROM trabajo";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute();
     			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -158,7 +231,17 @@ class Modelo_Trabajo{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT trabajo.*,linea.*,fase.* FROM trabajo,trabajo_fase,fase,trabajo_linea,linea where trabajo_fase.fk_fase = fase.id_fase and trabajo_fase.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = linea.id_linea and trabajo_linea.fk_trabajo = trabajo.id_trabajo and trabajo_linea.fk_linea = '$id_linea' and trabajo_fase.fk_fase = '$id_fase' and trabajo.trabajo_fecha_registro BETWEEN ('$desde') AND ('$hasta')'");
+				$consulta = "SELECT trabajo.* , linea.*, fase.*
+							FROM trabajo
+							join trabajo_fase on trabajo.id_trabajo = trabajo_fase.fk_trabajo 
+							join fase on trabajo_fase.fk_fase = fase.id_fase
+							join trabajo_linea on trabajo.id_trabajo = trabajo_linea.fk_trabajo 
+							join linea on trabajo_linea.fk_linea = linea.id_linea 
+							where trabajo_linea.fk_linea = '$id_linea' 
+							and trabajo_fase.fk_fase = '$id_fase' 
+							and trabajo.trabajo_fecha_registro BETWEEN ('$desde') AND ('$hasta')'";
+
+				$sql = $this->pdo->prepare($consulta);
 				$sql->execute();
 				return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -166,6 +249,24 @@ class Modelo_Trabajo{
 		}catch(Exception $e){	
 				echo 'ERROR : '.$e->getMessage();
 		}	
+	}
+
+	public function cerrar_trabajo(){
+
+		try
+			{	
+				$consulta = "UPDATE trabajo 
+								SET 
+								trabajo_estado_actual = 'cerrado', 
+								trabajo_fecha_de_cierre = NOW() 
+								WHERE 
+								id_trabajo = '$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
+				return $sql->execute();
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
 	}
 }
 ?>

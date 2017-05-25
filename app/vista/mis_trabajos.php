@@ -20,11 +20,8 @@ include("secciones/menu.php");
             <div class="container-fluid">
                 <div class="row">
                     <div class="contenido_1 col-sm-12">
-                      <div class="col-sm-9 trabajos">
+                      <div class="col-sm-12 trabajos">
                         <h3><span class="glyphicon glyphicon-th-large"></span>  <?php echo $titulo_de_la_vista; ?></h3>
-                      </div>
-                       <div class="col-sm-3" style="margin-top:20px;">
-                          <a class="btn btn-danger" href="?controller=reporte&action=trabajos_del_docente&id_usuario=<?php echo $SESSION['id']; ?>"> <i class="glyphicon glyphicon-save"></i> Estatus general </a>
                       </div>
                     </div>
                       <div class="col-sm-12 tablas">

@@ -152,7 +152,11 @@ class Controlador_Front{
 			$fases = $this->obj_fase->listar();
 			$lineas = $this->obj_linea->listar();
 
-			require_once "app/vista/detalles-trabajo.php";
+			if ($datos_trabajo->trabajo_estado_actual == "cerrado") {
+				require_once "app/vista/detalles-trabajo-solo-lectura.php";
+			}else{
+				require_once "app/vista/detalles-trabajo.php";
+			}
 			
 		}else{
 
@@ -297,6 +301,23 @@ class Controlador_Front{
 		}else{
 
 			header("location: ?controller=front&action=fases");
+		}	
+	}
+
+	public function mi_perfil(){
+		
+		session_start();
+		$titulo_de_la_vista = "Mi perfil";
+		$id_usuario = $_SESSION['id'];
+		$this->obj_usuario->set_id($id_usuario);
+		$datos_usuario = $this->obj_usuario->consultar();
+
+		if ($datos_usuario) {
+            $departamentos = $this->obj_departamento->listar();
+			require_once "app/vista/mi_perfil.php";
+		}else{
+
+			header("location: ?controller=front&action=inicio");
 		}	
 	}
 

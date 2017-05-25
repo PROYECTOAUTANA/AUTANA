@@ -31,7 +31,7 @@ include("secciones/menu.php");
 
                                 <input type="hidden" name="id_usuario" value="<?php echo $datos_usuario->id_usuario; ?>">
                               <div class="form-group col-sm-4">
-                                <label>Cedula</label>
+                                <label>Cédula</label>
                                 <input type="text" readonly="readonly" name="cedula" class="form-control" value="<?php echo $datos_usuario->usuario_cedula; ?>">
                               </div>
                               <div class="form-group col-sm-4">
@@ -47,21 +47,21 @@ include("secciones/menu.php");
                               <div class="form-group col-sm-4">
                                 <label>sexo</label><br>
                                   <?php if ($datos_usuario->usuario_sexo == 1): ?>
-                                    femenino
+                                    Femenino
                                     <input type="radio" name="sexo" value="1" checked>
-                                    masculino
+                                    Masculino
                                     <input type="radio" name="sexo" value="2" >
                                   <?php endif ?>
 
                                   <?php if ($datos_usuario->usuario_sexo == 2): ?>
-                                    femenino
+                                    Femenino
                                     <input type="radio" name="sexo" value="1" >
-                                    masculino
+                                    Masculino
                                     <input type="radio" name="sexo" value="2" checked>
                                   <?php endif ?>
                               </div>
                               <div class="form-group col-sm-4">
-                                <label>Telefono</label>
+                                <label>Teléfono</label>
                                 <input type="tel" name="telefono" class="form-control" value="<?php echo $datos_usuario->usuario_telefono; ?>" onkeypress="return controltag(event)" required >    
                                   <div class="help-block with-errors"></div>
                               </div>
@@ -70,20 +70,16 @@ include("secciones/menu.php");
                                 <input type="email" name="correo" class="form-control" value="<?php echo $datos_usuario->usuario_correo; ?>" >
                     <div class="help-block with-errors"></div>
                         </div>
-                              <div class="form-group col-sm-12">
-                                <label>Direccion</label>
+                              <div class="form-group col-sm-4">
+                                <label>Dirección</label>
                                 <input type="text" name="direccion" class="form-control" value="<?php echo $datos_usuario->usuario_direccion; ?>" required >    
                                   <div class="help-block with-errors"></div>
                               </div>
-                              <div class="form-group col-sm-12">
-                              <label>Categoria Actual</label>
-                                  <input readonly="readonly" class="form-control " type="text" value="<?php echo $datos_usuario->categoria_nombre;?>">
-                              </div>
-                              <div class="form-group col-sm-12">
+                              <div class="form-group col-sm-4">
                               <label>Departamento Actual</label>
                                   <input readonly="readonly" class="form-control" type="text" value="<?php echo $usuario_departamento->departamento_nombre;?>">
                               </div>
-                              <div class="form-group col-sm-12">
+                              <div class="form-group col-sm-4">
                               <label>Rol Actual</label>
                                   <input  readonly="readonly" class="form-control " type="text" value="<?php echo $usuario_rol->rol_nombre;?>">
                               </div>
@@ -106,20 +102,17 @@ include("secciones/menu.php");
                                     <input type="submit"  name="editar" class="btn btn-info btn-block" value="Actualizar datos">
                               </div>
                           </form>
-                                  <div class="col-sm-3 form-group">
+                                  <div class="col-sm-4 form-group">
                                     <a class="btn btn-default btn-block" href="#cambiar_departamento" data-toggle="modal">  Cambiar departamento</a>
                                 </div>
-                                <div class="col-sm-3 form-group">
-                                  <a class="btn btn-default btn-block" href="#cambiar_categoria" data-toggle="modal">  Cambiar Categoria</a>
-                                </div>
-
-                                <div class="col-sm-3 form-group">
+                                <div class="col-sm-4 form-group">
                                   <a class="btn btn-default btn-block" href="#cambiar_rol" data-toggle="modal">  Cambiar rol de usuario</a>
                                 </div>
 
-                                <div class="col-sm-3 form-group">
+                                <div class="col-sm-4 form-group">
                                   <?php if ($datos_usuario->usuario_estado == 1): ?>
-                                      <a class="btn btn-danger btn-block" href="?controller=usuario&action=cambiar_estado&id_usuario=<?=$datos_usuario->id_usuario ?>"><i class="fa fa-lock"></i> bloquear</a>
+                                      <a class="btn btn-danger btn-block" href="?controller=usuario
+                                      &action=cambiar_estado&id_usuario=<?=$datos_usuario->id_usuario ?>"><i class="fa fa-lock"></i> bloquear</a>
                                     <?php endif ?>
                                     <?php if ($datos_usuario->usuario_estado == 0): ?>
                                       <a class="btn btn-success btn-block" href="?controller=usuario&action=cambiar_estado&id_usuario=<?=$datos_usuario->id_usuario ?>"><i class="fa fa-unlock"></i> desbloquear</a>
@@ -128,15 +121,58 @@ include("secciones/menu.php");
                         </form>  
                           </div>
                        
-                    <div class="col-sm-12">
-                      <h3><span class="glyphicon glyphicon-th-large"></span>  Trabajos del usuario</h3>
+                    <div class="col-sm-6">
+                      <div class="col-sm-12">
+                          <h3><i class="fa fa-id-card-o" aria-hidden="true"></i>  Categoria Actual</h3>
+                        </div>
+                     <div class="col-sm-12">
+                        
+                          <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">Categoria actual</div>
+
+                            <!-- Table -->
+                            <div class="table-responsive">
+                              <table border="0" class="table table-hover" align="center" >
+                                <thead>
+                                    <tr style="text-align:center;">
+                                        <th  >nombre</th>
+                                        <th  >fecha del ascenso</th>
+                                        <th >Tiempo transcurrido</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td ><a href="?controller=front&action=detalles_categoria&id_categoria=<?php echo $datos_usuario->id_categoria; ?>"><?php echo $datos_usuario->categoria_nombre;?></a></td>
+                                    <td ><?php echo $datos_usuario->fecha_asignacion_de_categoria;?></td>
+                                        <?php
+                                        $hoy = date('Y-m-d');
+                                        $datetime1 = date_create($datos_usuario->fecha_asignacion_de_categoria);
+                                        $datetime2 = date_create($hoy);
+                                        $intervalo = date_diff($datetime1, $datetime2);
+                                        $tiempo_transcurrido = $intervalo->format('%a día(s)');
+                                        ?>
+                                    <td><?php echo $tiempo_transcurrido; ?></td>
+                                  </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                          </div>  
+                          <div class="form-group">
+                            <a class="btn btn-success btn-block" href="#cambiar_categoria" data-toggle="modal"> Ascender</a>
+                          </div>        
+                    </div> 
                     </div>
-                    <div class="col-sm-12">
+
+                    <div class="col-sm-6">
+                      <div class="col-sm-12">
+                          <h3><i class="fa fa-id-card-o" aria-hidden="true"></i> Trabajos del usuario</h3>
+                      </div>
+                      <div class="col-sm-12">
                       <?php if (!$trabajos_usuario): ?>
                             <?php echo "No se encontraron registros..."; ?>
                           <?php endif ?>
                           <?php if ($trabajos_usuario): ?>
-                          <br><br>
                           <div class="panel panel-default">
                             <!-- Default panel contents -->
                             <div class="panel-heading">Trabajos del usuario</div>
@@ -146,9 +182,9 @@ include("secciones/menu.php");
                               <table border="0" class="table table-hover" align="center" >
                                 <thead>
                                     <tr style="text-align:center;">
-                                        <th align="center" >titulo</th>
-                                        <th align="center" >vinculo</th>
-                                        <th colspan="2">Operaciones</th>
+                                        <th>titulo</th>
+                                        <th>vinculo</th>
+                                        <th>fecha de asignacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -158,13 +194,12 @@ include("secciones/menu.php");
                                   $titulo = $trabajo->trabajo_titulo;
                                   $vinculo = $trabajo->vinculo;
                                   $id_trabajo = $trabajo->id_trabajo;
+                                  $fecha_de_asignacion = $trabajo->fecha_de_asignacion;
                                 ?>
                                   <tr>
-                                    <td align="center"><?php echo $titulo;?></td>
-                                    <td align="center"><?php echo $vinculo;?></td>
-                                    <td>
-                                      <a class="btn btn-info" href="?controller=front&action=detalles_trabajo&id_trabajo=<?= $id_trabajo ?>"> <i class="glyphicon glyphicon-pencil"></i>  Detalles</a>
-                                    </td>
+                                    <td><a href="?controller=front&action=detalles_trabajo&id_trabajo=<?= $id_trabajo ?>"><?php echo $titulo;?></a></td>
+                                    <td><?php echo $vinculo;?></td>
+                                    <td><?php echo $fecha_de_asignacion;?></td>
                                   </tr>
                                 <?php endforeach; ?>
                                     </tbody>
@@ -173,6 +208,7 @@ include("secciones/menu.php");
                           </div>                  
                           <?php endif ?>
                     </div> 
+                    </div>
                   </div>
               </div>
             </div>
@@ -210,7 +246,7 @@ include("secciones/menu.php");
                           <input type="hidden" name="id_usuario" value="<?php echo $datos_usuario->id_usuario; ?>">
                             <div class="col-sm-12 form-group">
                               <select class="form-control" name="departamento">
-                                <option>seleccione un departamento</option>
+                                <option>Seleccione un departamento</option>
                                 <?php foreach ($departamentos as $departamento): ?>
                                   <option value="<?php echo $departamento->id_departamento; ?>"><?php echo $departamento->departamento_nombre; ?></option>
                                 <?php endforeach ?>
@@ -242,12 +278,12 @@ include("secciones/menu.php");
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4>Cambio de categoria</h4>
+                          <h4>Cambio de categoría</h4>
                           <form class="form-group" action="?controller=usuario&action=cambio_de_categoria" method="post">
                           <input type="hidden" name="id_usuario" value="<?php echo $datos_usuario->id_usuario; ?>">
                             <div class="col-sm-12 form-group">
                               <select class="form-control" name="categoria">
-                                <option>seleccione un categoria</option>
+                                <option>Seleccione un categoría</option>
                                 <?php foreach ($categorias as $categoria): ?>
                                   <option value="<?php echo $categoria->id_categoria; ?>"><?php echo $categoria->categoria_nombre; ?></option>
                                 <?php endforeach ?>

@@ -63,8 +63,20 @@ class Modelo_Usuario{
 
 		try
 			{	
-				$sql = $this->pdo->prepare("INSERT INTO usuario(usuario_cedula, usuario_nombre, usuario_apellido, 
-            usuario_sexo, usuario_telefono, usuario_correo, usuario_direccion, usuario_clave, usuario_fecha_registro, fk_categoria,usuario_estado) VALUES ('$this->cedula','$this->nombre','$this->apellido','$this->sexo','$this->telefono','$this->correo','$this->direccion','$this->clave',NOW(),'$this->fk_categoria','$this->estado')");
+				$consulta = "INSERT INTO usuario(usuario_cedula, usuario_nombre, 
+												usuario_apellido,usuario_sexo, 
+												usuario_telefono, usuario_correo, 
+												usuario_direccion, usuario_clave,
+												usuario_fecha_registro,fk_categoria,fecha_asignacion_de_categoria,
+												usuario_estado) 
+							VALUES ('$this->cedula','$this->nombre',
+									'$this->apellido','$this->sexo',
+									'$this->telefono','$this->correo',
+									'$this->direccion','$this->clave',
+									NOW(),'$this->fk_categoria',NOW(),
+									'$this->estado')";
+
+				$sql = $this->pdo->prepare($consulta);
 				$result = $sql->execute();
 				return $result;
 			
@@ -73,11 +85,22 @@ class Modelo_Usuario{
 		}		
 	}
 
+	
 	public function actualizar(){
 
 		try
 			{	
-				$sql = $this->pdo->prepare("UPDATE usuario SET usuario_nombre = '$this->nombre', usuario_apellido = '$this->apellido', usuario_sexo = '$this->sexo', usuario_telefono = '$this->telefono', usuario_correo = '$this->correo', usuario_direccion = '$this->direccion' WHERE id_usuario = '$this->id'");
+				$consulta = "UPDATE usuario 
+							SET usuario_nombre = '$this->nombre',
+								 usuario_apellido = '$this->apellido',
+								  usuario_sexo = '$this->sexo', 
+								  	usuario_telefono = '$this->telefono',
+								  	 usuario_correo = '$this->correo',
+								  	  usuario_direccion = '$this->direccion'
+							WHERE 
+								id_usuario = '$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
 				return $sql->execute();
 		}catch(Exception $e){	
 				echo 'ERROR : '.$e->getMessage();
@@ -88,7 +111,9 @@ class Modelo_Usuario{
 
 		try
 			{	
-				$sql = $this->pdo->prepare("DELETE FROM usuario WHERE id_usuario = '$this->id'");
+				$consulta = "DELETE FROM usuario WHERE id_usuario = '$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
 				return $sql->execute();
 		}catch(Exception $e){	
 				echo 'ERROR : '.$e->getMessage();
@@ -99,7 +124,16 @@ class Modelo_Usuario{
 	
 		try
 			{	
-				$query = $this->pdo->prepare("SELECT * FROM usuario , categoria where usuario.fk_categoria = categoria.id_categoria order by usuario.id_usuario");
+				$consulta = "SELECT usuario.*,rol.*,departamento.*,categoria.* 
+							FROM usuario
+								join categoria on usuario.fk_categoria = categoria.id_categoria
+								join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+								join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+								join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+								join rol on usuario_rol.fk_rol = rol.id_rol 
+							ORDER BY usuario.id_usuario";
+
+				$query = $this->pdo->prepare($consulta);
 				$query->execute();
 				return $query->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -112,7 +146,41 @@ class Modelo_Usuario{
 	public function consultar(){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , categoria WHERE usuario.fk_categoria = categoria.id_categoria and usuario.id_usuario = '$this->id'");
+				$consulta = "SELECT usuario.*,rol.*,departamento.*,categoria.* 
+							FROM usuario
+								join categoria on usuario.fk_categoria = categoria.id_categoria
+								join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+								join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+								join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+								join rol on usuario_rol.fk_rol = rol.id_rol 
+							WHERE 
+								usuario.id_usuario = '$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
+        		$sql->execute(); 
+    			return $sql->fetch(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
+
+	public function consultar_clave(){
+		try
+			{	
+				$consulta = "SELECT 
+								usuario.* 
+							FROM usuario
+								join categoria on usuario.fk_categoria = categoria.id_categoria
+								join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+								join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+								join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+								join rol on usuario_rol.fk_rol = rol.id_rol 
+							WHERE 
+								usuario.usuario_clave = '$this->clave'";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute(); 
     			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -125,7 +193,17 @@ class Modelo_Usuario{
 	public function consultar_cedula(){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario , categoria WHERE usuario.fk_categoria = categoria.id_categoria and usuario.usuario_cedula = '$this->cedula'");
+				$consulta = "SELECT usuario.*,rol.*,departamento.*,categoria.* 
+							FROM usuario
+								join categoria on usuario.fk_categoria = categoria.id_categoria
+								join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+								join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+								join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+								join rol on usuario_rol.fk_rol = rol.id_rol 
+							WHERE 
+								usuario.usuario_cedula = '$this->cedula'";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute(); 
     			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -135,11 +213,50 @@ class Modelo_Usuario{
 		}			
 	}
 
+	public function buscar($filtro){
+	
+		try
+			{	
+				$consulta = "SELECT usuario.*,rol.*,departamento.*,categoria.* FROM usuario
+						join categoria on usuario.fk_categoria = categoria.id_categoria
+						join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+						join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+						join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+						join rol on usuario_rol.fk_rol = rol.id_rol
+
+						WHERE 
+							usuario.usuario_nombre LIKE '$filtro%' 
+								OR departamento.departamento_nombre LIKE '$filtro%' 
+									OR rol.rol_nombre LIKE '$filtro%' 
+										OR categoria.categoria_nombre LIKE '$filtro%'";
+
+				$sql = $this->pdo->prepare($consulta);
+				$sql->execute();
+				return $sql->fetchAll(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}	
+	}
+
 	public function validar_usuario(){
    		
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario WHERE usuario_nombre = '$this->nombre' AND usuario_clave = '$this->clave'");
+				$consulta = "SELECT usuario.*,rol.*,departamento.*,categoria.* 
+							FROM usuario
+								join categoria on usuario.fk_categoria = categoria.id_categoria
+								join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+								join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+								join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+								join rol on usuario_rol.fk_rol = rol.id_rol 
+							WHERE 
+								usuario_nombre = '$this->nombre' 
+							AND 
+								usuario_clave = '$this->clave'";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute(); 
     			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -152,7 +269,9 @@ class Modelo_Usuario{
 	public function validar_correo(){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario WHERE usuario_correo = '$this->correo'");
+				$consulta = "SELECT * FROM usuario WHERE usuario_correo = '$this->correo'";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute(); 
     			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -165,9 +284,16 @@ class Modelo_Usuario{
 	public function cambiar_estado(){
 		try
 			{	
-				$sql = $this->pdo->prepare("UPDATE usuario SET usuario_estado = '$this->estado' WHERE id_usuario='$this->id'");
-        		$sql->execute(); 
-    			return $sql->fetchAll(PDO::FETCH_OBJ);
+				$consulta = "UPDATE 
+								usuario 
+							SET 
+								usuario_estado = '$this->estado' 
+							WHERE 
+								id_usuario='$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
+        		 
+    			return $sql->execute();
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -178,9 +304,15 @@ class Modelo_Usuario{
 	public function cambiar_clave(){
 		try
 			{	
-				$sql = $this->pdo->prepare("UPDATE usuario SET clave = '$this->clave' WHERE id_usuario='$this->id'");
-        		$sql->execute(); 
-    			return $sql->fetchAll(PDO::FETCH_OBJ);
+				$consulta = "UPDATE 
+								usuario 
+							SET 
+								usuario_clave = '$this->clave' 
+							WHERE 
+								id_usuario='$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
+    			return $sql->execute();
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
 			
 		}catch(Exception $e){	
@@ -192,7 +324,9 @@ class Modelo_Usuario{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT MAX(id_usuario) as ultimo FROM usuario");
+				$consulta = "SELECT MAX(id_usuario) as ultimo FROM usuario";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute();
     			return $sql->fetch(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -205,7 +339,15 @@ class Modelo_Usuario{
 	public function actualizar_categoria(){
 		try
 			{	
-				$sql = $this->pdo->prepare("UPDATE usuario SET fk_categoria = '$this->fk_categoria' WHERE id_usuario = '$this->id'");
+				$consulta = "UPDATE 
+								usuario 
+							SET 
+								fk_categoria = '$this->fk_categoria',
+								fecha_asignacion_de_categoria = NOW()
+							WHERE 
+								id_usuario = '$this->id'";
+
+				$sql = $this->pdo->prepare($consulta);
         		
     			return $sql->execute(); 
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -219,7 +361,17 @@ class Modelo_Usuario{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario,categoria,usuario_rol,rol,usuario_departamento,departamento where usuario.fk_categoria = categoria.id_categoria and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_departamento.fk_departamento = departamento.id_departamento and usuario_rol.fk_usuario = usuario.id_usuario and usuario_rol.fk_rol = rol.id_rol");
+				$consulta = "SELECT 
+								usuario.*,rol.*,departamento.*,categoria.* 
+							FROM 
+								usuario
+							join categoria on usuario.fk_categoria = categoria.id_categoria
+							join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+							join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+							join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+							join rol on usuario_rol.fk_rol = rol.id_rol";
+
+				$sql = $this->pdo->prepare($consulta);
 				$sql->execute();
 				return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -233,7 +385,20 @@ class Modelo_Usuario{
 	
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT * FROM usuario,categoria,usuario_rol,rol,usuario_departamento,departamento where usuario.fk_categoria = categoria.id_categoria and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_departamento.fk_departamento = departamento.id_departamento and usuario_rol.fk_usuario = usuario.id_usuario and usuario_rol.fk_rol = rol.id_rol and usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+				$consulta = "SELECT 
+								usuario.*,rol.*,departamento.*,categoria.* 
+							FROM 
+								usuario
+							join categoria on usuario.fk_categoria = categoria.id_categoria
+							join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+							join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+							join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+							join rol on usuario_rol.fk_rol = rol.id_rol
+
+							WHERE 
+								usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')";
+
+				$sql = $this->pdo->prepare($consulta);
 				$sql->execute();
 				return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -246,7 +411,22 @@ class Modelo_Usuario{
 	public function reportar_usuario_categoria($desde,$hasta){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT usuario.*,rol.*,departamento.*,categoria.* FROM usuario,usuario_departamento,departamento,categoria,usuario_rol,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_rol.fk_rol = rol.id_rol and usuario_rol.fk_usuario = usuario.id_usuario and usuario.fk_categoria = categoria.id_categoria and categoria.id_categoria = '$this->fk_categoria' and usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+				$consulta = "SELECT 
+								usuario.*,rol.*,departamento.*,categoria.* 
+							FROM 
+								usuario
+							join categoria on usuario.fk_categoria = categoria.id_categoria
+							join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+							join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+							join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+							join rol on usuario_rol.fk_rol = rol.id_rol 
+							
+							WHERE 
+								categoria.id_categoria = '$this->fk_categoria'
+							AND 
+								usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute(); 
     			return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
@@ -259,7 +439,24 @@ class Modelo_Usuario{
 	public function reportar_usuarios_filtrados($id_departamento,$id_categoria,$desde,$hasta){
 		try
 			{	
-				$sql = $this->pdo->prepare("SELECT usuario.*,rol.*,departamento.*,categoria.* FROM usuario,usuario_departamento,departamento,categoria,usuario_rol,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_rol.fk_rol = rol.id_rol and usuario_rol.fk_usuario = usuario.id_usuario and usuario.fk_categoria = categoria.id_categoria and departamento.id_departamento = '$id_departamento' and categoria.id_categoria = '$id_categoria' and usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+				$consulta = "SELECT 
+								usuario.*,rol.*,departamento.*,categoria.* 
+							FROM 
+								usuario
+							join categoria on usuario.fk_categoria = categoria.id_categoria
+							join usuario_departamento on usuario.id_usuario = usuario_departamento.fk_usuario 
+							join departamento on usuario_departamento.fk_departamento = departamento.id_departamento
+							join usuario_rol on usuario.id_usuario = usuario_rol.fk_usuario 
+							join rol on usuario_rol.fk_rol = rol.id_rol 
+
+							WHERE 
+								departamento.id_departamento = '$id_departamento' 
+							AND 
+								categoria.id_categoria = '$id_categoria' 
+							AND 
+								usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')";
+
+				$sql = $this->pdo->prepare($consulta);
         		$sql->execute(); 
     			return $sql->fetchAll(PDO::FETCH_OBJ);
 				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);

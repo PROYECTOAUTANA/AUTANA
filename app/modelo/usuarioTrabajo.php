@@ -35,7 +35,7 @@ class Modelo_Usuario_Trabajo{
    		
 		try
 			{	
-    			$sql = $this->pdo->prepare("INSERT INTO usuario_trabajo (fk_usuario, fk_trabajo, vinculo, usuario_trabajo_fecha_registro) VALUES ('$this->fk_usuario', '$this->fk_trabajo', '$this->vinculo',NOW())");
+    			$sql = $this->pdo->prepare("INSERT INTO usuario_trabajo (fk_usuario, fk_trabajo, vinculo, fecha_de_asignacion) VALUES ('$this->fk_usuario', '$this->fk_trabajo', '$this->vinculo',NOW())");
     			return $sql->execute();
 			
 		}catch(Exception $e){	
@@ -56,8 +56,75 @@ class Modelo_Usuario_Trabajo{
 		}		
 	}
 
-	public function consultar_trabajo(){
+	public function consultar_usuario_vinculo(){
    		
+		try
+			{	
+    			$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_trabajo, trabajo WHERE usuario_trabajo.fk_usuario = usuario.id_usuario AND usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND usuario.id_usuario = '$this->fk_usuario' AND usuario_trabajo.vinculo = '$this->vinculo'");
+    			$sql->execute();
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
+
+	public function actualizar_vinculo(){
+		try
+			{	
+				$consulta = "UPDATE 
+								usuario_trabajo
+							SET 
+								vinculo = '$this->vinculo',
+								fecha_de_asignacion = NOW()
+							WHERE 
+								fk_usuario = '$this->fk_usuario'
+							AND 
+								fk_trabajo = '$this->fk_trabajo'";
+
+				$sql = $this->pdo->prepare($consulta);
+        		
+    			return $sql->execute(); 
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
+
+	public function trabajos_aprobados_como_autor(){
+   		
+		try
+			{	
+				$consulta = "SELECT 
+								trabajo.* 
+							FROM 
+								trabajo
+							join 
+								trabajo_fase on trabajo.id_trabajo = trabajo_fase.fk_trabajo 
+							join 
+								fase on trabajo_fase.fk_fase = fase.id_fase
+							join 
+								usuario_trabajo on trabajo.id_trabajo = usuario_trabajo.fk_trabajo 
+							join 
+								usuario on usuario_trabajo.fk_usuario = usuario.id_usuario
+							WHERE 
+								usuario_trabajo.vinculo = 'autor' 
+							AND 
+								fase.fase_nombre = 'aprobacion' 
+							AND 
+								usuario.id_usuario = 1";
+
+    			$sql = $this->pdo->prepare($consulta);
+    			$sql->execute();
+    			return $sql->fetch(PDO::FETCH_OBJ);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
+
+	public function consultar_trabajo(){
 		try
 			{	
     			$sql = $this->pdo->prepare("SELECT * FROM usuario , usuario_trabajo, trabajo WHERE usuario_trabajo.fk_usuario = usuario.id_usuario AND usuario_trabajo.fk_trabajo = trabajo.id_trabajo AND trabajo.id_trabajo = '$this->fk_trabajo' ");

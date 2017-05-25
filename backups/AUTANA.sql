@@ -6,6 +6,7 @@ CREATE TABLE categoria
   categoria_nombre varchar(30),
   categoria_descripcion varchar(300),
   categoria_fecha_registro date,
+  unique (categoria_nombre),
   CONSTRAINT categoria_pkey PRIMARY KEY (id_categoria)
 );
 
@@ -24,7 +25,10 @@ CREATE TABLE usuario
   usuario_clave varchar(80),
   usuario_fecha_registro date,
   fk_categoria int,
+  fecha_asignacion_de_categoria date,
   usuario_estado int,
+  unique (usuario_correo),
+  unique (usuario_clave),
   CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario),
   CONSTRAINT fk_categoria FOREIGN KEY (fk_categoria)
       REFERENCES categoria (id_categoria) MATCH SIMPLE
@@ -40,6 +44,7 @@ CREATE TABLE departamento
   departamento_nombre character varying(120),
   departamento_descripcion character varying(120),
   departamento_fecha_registro date,
+  unique (departamento_nombre),
   CONSTRAINT pnf_pkey PRIMARY KEY (id_departamento)
 );
 
@@ -68,6 +73,7 @@ CREATE TABLE rol
   rol_nombre varchar(30),
   rol_descripcion varchar(30),
   rol_fecha_registro date,
+  unique (rol_nombre),
   CONSTRAINT rol_pkey PRIMARY KEY (id_rol)
 );
 
@@ -127,9 +133,11 @@ CREATE TABLE trabajo
   trabajo_mension varchar(30),
   trabajo_fecha_presentacion date,
   trabajo_proceso varchar(50),
-  trabajo_categoria_de_ascenso varchar(40),
   trabajo_resumen varchar(300),
   trabajo_fecha_registro date,
+  trabajo_estado_actual varchar(120),
+  trabajo_fecha_de_cierre date,
+  unique (trabajo_titulo),
   CONSTRAINT trabajo_pkey PRIMARY KEY (id_trabajo)
 );
 
@@ -142,7 +150,7 @@ CREATE TABLE usuario_trabajo
   fk_usuario int,
   fk_trabajo int,
   vinculo varchar(60),
-  usuario_trabajo_fecha_registro date,
+  fecha_de_asignacion date,
   CONSTRAINT usuario_trabajo_pkey PRIMARY KEY (id_usuario_trabajo),
   CONSTRAINT usuario_trabajo_fk_trabajo_fkey FOREIGN KEY (fk_trabajo)
       REFERENCES trabajo (id_trabajo) MATCH SIMPLE
@@ -161,6 +169,7 @@ CREATE TABLE fase
   fase_nombre varchar(30),
   fase_descripcion varchar(130),
   fase_fecha_registro date,
+  unique (fase_nombre),
   CONSTRAINT fase_pkey PRIMARY KEY (id_fase)
 );
 
@@ -190,6 +199,7 @@ CREATE TABLE linea
   linea_nombre varchar(60),
   linea_descripcion varchar(300),
   linea_fecha_registro date,
+  unique (linea_nombre),
   CONSTRAINT linea_pkey PRIMARY KEY (id_linea)
 );
 
@@ -212,13 +222,9 @@ CREATE TABLE trabajo_linea
       ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
- alter table trabajo
- add constraint validar_redundancia
- unique (trabajo_titulo);
-
 INSERT INTO categoria(categoria_nombre, categoria_descripcion, categoria_fecha_registro)VALUES ('sin categoria', 'sin ninguna categoria el usuario no es docente',NOW());
-INSERT INTO usuario(usuario_cedula,usuario_nombre,usuario_apellido,usuario_sexo,usuario_telefono,usuario_correo,usuario_direccion,usuario_clave,usuario_fecha_registro,fk_categoria,usuario_estado) VALUES('123456','autana','autana',2,0416876564,'juaneliezer13@gmail.com','lara',md5('autana'),NOW(),1,1);
+
+INSERT INTO usuario(usuario_cedula,usuario_nombre,usuario_apellido,usuario_sexo,usuario_telefono,usuario_correo,usuario_direccion,usuario_clave,usuario_fecha_registro,fk_categoria,fecha_asignacion_de_categoria,usuario_estado) VALUES('123456','autana','autana',2,0416876564,'juaneliezer13@gmail.com','lara',md5('autana'),NOW(),1,NOW(),1);
 INSERT INTO rol(rol_nombre, rol_descripcion, rol_fecha_registro)VALUES ('administrador', 'control total del sistema',NOW());
 INSERT INTO fase(fase_nombre, fase_descripcion,fase_fecha_registro)VALUES ('sin fase','sin asignar',NOW());
 INSERT INTO linea(linea_nombre, linea_descripcion, linea_fecha_registro)VALUES ('sin linea','sin linea',NOW());
@@ -236,7 +242,6 @@ INSERT INTO modulo(modulo_nombre,modulo_fecha_registro)VALUES ('eliminar datos',
 INSERT INTO modulo(modulo_nombre,modulo_fecha_registro)VALUES ('ver detalles',NOW());
 
 
-
 INSERT INTO usuario_rol(fk_usuario, fk_rol, usuario_rol_fecha_registro)VALUES (1, 1, NOW());
 INSERT INTO usuario_departamento(fk_usuario, fk_departamento)VALUES (1, 1);
 INSERT INTO rol_modulo(fk_rol, fk_modulo, rol_modulo_fecha_registro) VALUES (1, 1, NOW());
@@ -252,11 +257,18 @@ INSERT INTO rol_modulo(fk_rol, fk_modulo, rol_modulo_fecha_registro) VALUES (1, 
 INSERT INTO rol_modulo(fk_rol, fk_modulo, rol_modulo_fecha_registro) VALUES (1, 11, NOW());
 
 
-
 --select column_name
 --from information_schema.columns
 --where table_name = 'trabajo';
 
+
+
+--ejemplo de buscador multi-tabla 
+--SELECT usuario.usuario_nombre FROM usuario,usuario_departamento,departamento where usuario.usuario_nombre LIKE 'gdfgfd%' OR departamento.departamento_nombre LIKE 's%' and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_departamento.fk_departamento = departamento.id_departamento
+
+--ejemplo de select con join muchos a muchos
+
+--select * from trabajo join trabajo_fase on trabajo.id_trabajo = trabajo_fase.fk_trabajo join fase on trabajo_fase.fk_fase = fase.id_fase where trabajo.trabajo_titulo = 'trabajito'
 
 
 

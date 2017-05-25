@@ -16,7 +16,19 @@
 include("secciones/navbar.php"); 
 include("secciones/menu.php"); 
 ?>
+<style type="text/css">
+  #scroll {
+   overflow-y: scroll;
+  height:600px;
+  width:100%;
 
+}
+
+#scroll table {
+  width:100%;
+}
+
+</style>
         <!-- contenido -->
         <div id="contenido">
             <div class="container-fluid">
@@ -37,23 +49,31 @@ include("secciones/menu.php");
                         </div>
                       </div>
                     </div>
-                      <div class="col-sm-12 tablas">
+                    <div class="col-sm-12">
+                    <br>
+                      <form class="form-group" method="post">
+                          <label for="filtro">Escribe una palabra clave:</label>
+                          <input type="text" id="filtro" onkeyup='buscarTrabajo()' class="form-control" placeholder="Palabra clave...">
+                      </form>
+                    </div>
+                      <div class="col-sm-12 tabla_trabajos">
                         <div class="panel panel-default">
                             <!-- Default panel contents -->
                             <div class="panel-heading">Trabajos </div>
                             <!-- Table -->
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="scroll">
                               <?php if (!$trabajos): ?>
                                 <p>No existen trabajos registrados en la base de datos <a href="#nuevo_trabajo" data-toggle="modal">  Registrar Nuevo</a></p>
                               <?php endif ?>
                               <?php if ($trabajos): ?>
-                                <table class="table table-hover">
+                                <table class="tabla_inicial table table-hover">
                                       <thead>
                                       <tr>
                                         <th >#</th>
-                                        <th>Titulo</th>
-                                        <th>Fecha de presentacion</th>
-                                        <th>Resumen</th>
+                                        <th>Título</th>
+                                        <th>Fecha de presentación</th>
+                                        <th>Fase Actual</th>
+                                        <th>Linea de investigacion</th>
                                         <th colspan="3">Operaciones</th>
                                       </tr>
                                     </thead>
@@ -68,9 +88,10 @@ include("secciones/menu.php");
                                       <td><?php echo $contador;?></td>
                                       <td><?php echo $trabajo->trabajo_titulo;?></td>
                                       <td><?php echo $trabajo->trabajo_fecha_presentacion;?></td>
-                                      <td><?php echo $trabajo->trabajo_resumen;?></td>
+                                      <td><?php echo $trabajo->fase_nombre;?></td>
+                                      <td><?php echo $trabajo->linea_nombre;?></td>
                                       <td>
-                                          <a class="btn btn-info" href="?controller=front&action=detalles_trabajo&id_trabajo=<?php echo $trabajo->id_trabajo; ?>"> <i class="glyphicon glyphicon-pencil"></i>  Detalles
+                                        <a class="btn btn-info" href="?controller=front&action=detalles_trabajo&id_trabajo=<?php echo $id_trabajo; ?>"> <i class="glyphicon glyphicon-pencil"></i>  Detalles
                                           </a>
                                       </td>
                                       <td>
@@ -78,7 +99,7 @@ include("secciones/menu.php");
                                         </a>
                                       </td>
                                       <td>
-                                        <a class="btn btn-default" href="?controller=reporte&action=ver_estatus_trabajo&id_trabajo=<?php echo $trabajo->id_trabajo; ?>" target="_blank"> <i class="glyphicon glyphicon-stats"></i>  Estatus
+                                        <a class="btn btn-default" href="?controller=reporte&action=ver_estatus_trabajo&id_trabajo=<?php echo $id_trabajo; ?>" target="_blank"> <i class="glyphicon glyphicon-stats"></i>  Estatus
                                         </a>
                                       </td>
                                     </tr>
@@ -131,8 +152,8 @@ include("secciones/menu.php");
                       <div class="modal-body col-sm-12">
                         <form method="post" action="?controller=trabajo&action=registrar_trabajo" class="form-group" data-toggle="validator" onsubmit="return validarSelect(this)">
 
-                             <div class="form-group col-sm-4">
-                              <label for="titulo">Titulo:</label>
+                             <div class="form-group col-sm-12">
+                              <label for="titulo">Título:</label>
                               <input class="form-control" data-error="Por favor introduzca un título." id="titulo" name="titulo" placeholder="Escriba..." type="text"   required />    
                                   <div class="help-block with-errors"></div>
                             </div>
@@ -144,16 +165,22 @@ include("secciones/menu.php");
                                 <option value="extraordinario">Extraordinario</option>
                               </select>
                             </div>
+
                             <div class="form-group col-sm-4">
-                              <label>Fecha de Presentacion Publica:</label>
+                              <label for="mension">Mensión:</label>
+                              <input class="form-control" data-error="Por favor introduzca un valor valido" id="mension" name="mension" placeholder="Escriba..." type="text"   required />    
+                                  <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                              <label>Fecha de Presentación Pública:</label>
                               <input type="text" name="fecha_pp" id="fecha_pp" class="form-control" data-error="Por favor introduzca una fecha." placeholder="YY/MM/DD" required /> 
                                   <div class="help-block with-errors"></div>
                             </div>
 
                              <div class="form-group col-sm-6">
-                              <label for="">Linea de investigacion:</label>
+                              <label for="">Línea de investigación:</label>
                           <select name="linea" id="linea" class="form-control" class="form-control">
-                            <option value="0">seleccione</option>
+                            <option value="0">Seleccione</option>
                                 <?php foreach ($lineas as $linea): ?>
                                   <option value="<?= $linea->id_linea; ?>"><?= $linea->linea_nombre; ?></option>
                                 <?php endforeach; ?>
@@ -162,21 +189,11 @@ include("secciones/menu.php");
                             <div class="form-group col-sm-6">
                               <label for="">Fase:</label>
                               <select name="fase" id="fase" class="form-control" class="form-control">
-                               <option value="0">seleccione</option>
+                               <option value="0">Seleccione</option>
                                 <?php foreach ($fases as $fase): ?>
                                   <option value="<?= $fase->id_fase; ?>"><?= $fase->fase_nombre; ?></option>
                                 <?php endforeach; ?>
                               </select>
-                            </div>
-                             <div class="form-group col-sm-6">
-                              <label for="categoria_ascenso">categoria de ascenso:</label>
-                              <input class="form-control" data-error="Por favor introduzca un valor valido." id="categoria_ascenso" name="categoria_ascenso" placeholder="Escriba..." type="text"   required />    
-                                  <div class="help-block with-errors"></div>
-                            </div>
-                             <div class="form-group col-sm-6">
-                              <label for="mension">mension:</label>
-                              <input class="form-control" data-error="Por favor introduzca un valor valido" id="mension" name="mension" placeholder="Escriba..." type="text"   required />    
-                                  <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group col-sm-12">
                               <label for="">Resumen:</label>
@@ -208,7 +225,7 @@ include("secciones/menu.php");
                         return false;
                       }else if (linea == 0) {
 
-                        alert("seleccione un linea valido");
+                        alert("seleccione una linea valida");
                         return false;
                       }else if (fase == 0) {
 
@@ -234,7 +251,7 @@ include("secciones/menu.php");
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4><i>¿Seguro que desea Eliminar esta trabajo?</i></h4>
+                          <h4><i>¿Seguro que desea Eliminar este trabajo?</i></h4>
                         </div><!--TERMINA EL BODY DE LA VENTANA-->
                         <div class="modal-footer"><!--FOOTER DE LA VENTANA-->
                             <div class="btn-group" role="group" aria-label="...">
@@ -255,5 +272,25 @@ include("secciones/menu.php");
   var date = $("#fecha_pp").datepicker({ dateFormat: 'yy/mm/dd' }).val();
 </script>
 
+
+<script type="text/javascript">
+  
+  function buscarTrabajo(){
+    var filtro = $("#filtro").val();
+    var url = "?controller=trabajo&action=buscar_trabajo";
+    
+    $.ajax({
+
+      type: "post",
+      url: url,
+      data:{filtro:filtro},
+      success:function(resultado){
+        $(".tabla_inicial").hide();
+        $("#scroll").html(resultado);
+      }
+    
+    })
+  }
+</script>
 
 <!--******************************************************************-->

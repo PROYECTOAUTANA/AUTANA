@@ -27,7 +27,7 @@ include("secciones/menu.php");
                       </div>
                       <div class="col-sm-6 col-xs-12 grupobotones">
                         <div class="col-sm-6">
-                            <a href="#nueva_fase" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i>  Nueva fase</a>
+                            <a href="#nueva_fase" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i>  Nueva Fase</a>
                         </div>
                         <div class="col-sm-6">
                             <a href="?controlador=front&action=fases" class="btn btn-info btn-block"><i class="glyphicon glyphicon-refresh"></i>  Refrescar</a>
@@ -51,8 +51,8 @@ include("secciones/menu.php");
                                 <thead>
                                 <tr style="text-align:center;">
                                     <th>#</th>
-                                    <th >fase</th>
-                                    <th >Descripcion</th>
+                                    <th >Fase</th>
+                                    <th >Descripción</th>
                                     <th colspan="2">Operaciones</th>
                                 </tr>
                             </thead>
@@ -109,7 +109,7 @@ include("secciones/menu.php");
                          <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
                         <div class="modal-header">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3 align="center" class="titulo"> nueva fase</h3> 
+                          <h3 align="center" class="titulo"> Nueva Fase</h3> 
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
@@ -121,7 +121,7 @@ include("secciones/menu.php");
                                   <div class="help-block with-errors"></div>
                                   </div> 
                                 <div class="form-group col-sm-12">
-                                  <label for="descripcioncategoria">Descripcion:</label>
+                                  <label for="descripcioncategoria">Descripción:</label>
                                   <textarea  id="descripcioncategoria" name="descripcion" data-error="Requerido." class="form-control" rows="3" required></textarea>
                                  <div class="help-block with-errors"></div>
                                   </div> 

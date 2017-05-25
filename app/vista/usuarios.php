@@ -18,7 +18,19 @@ include("secciones/navbar.php");
 //llamamos al menu navegacional del usuario
 include("secciones/menu.php"); 
 ?>
+<style type="text/css">
+  #scroll {
+   overflow-y: scroll;
+  height:600px;
+  width:100%;
 
+}
+
+#scroll table {
+  width:100%;
+}
+
+</style>
     <!-- contenido -->
         <div id="contenido">
             <div class="container-fluid">
@@ -29,7 +41,7 @@ include("secciones/menu.php");
                       </div>
                        <div class="col-sm-8 grupobotones">
                         <div class="col-sm-4">
-                            <a href="#nuevo_usuario" data-toggle="modal" class="btn btn-default btn-block"><i class="fa fa-user-plus" aria-hidden="true"></i>  Nuevo usuario</a>
+                            <a href="#nuevo_usuario" data-toggle="modal" class="btn btn-default btn-block"><i class="fa fa-user-plus" aria-hidden="true"></i>  Nuevo Usuario</a>
                         </div>
                         <div class="col-sm-4">
                             <a href="?controller=front&action=usuarios" class="btn btn-info btn-block"><i class="glyphicon glyphicon-refresh"></i>  Refrescar</a>
@@ -39,24 +51,32 @@ include("secciones/menu.php");
                         </div>
                       </div>
                     </div>
-                      <div class="col-sm-12 tablas">
+                    <div class="col-sm-12">
+                         <form class="form-group" method="post">
+                          <label for="filtro">Escribe una palabra clave:</label>
+                          <input type="text" id="filtro" onkeyup='buscarUsuario()' class="form-control" placeholder="Palabra clave...">
+                        </form>
+                      </div>
+                      <div class="col-sm-12 tabla_usuarios">
                         <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading">Usuarios</div>
 
                         <!-- Table -->
-                        <div class="table-responsive">
-                           <table class="table table-hover">
+                        <div class="table-responsive " id="scroll">
+                           <table class="tabla_inicial table table-hover ">
                               <thead>
                                   <tr style="text-align:center;">
                                       <th >#</th>
-                                      <th>Cedula</th>
+                                      <th>Cédula</th>
                                       <th>Nombre</th>
                                       <th>Apellido</th>
+                                      <th>Departamento</th>
+                                      <th>Categoria</th>
                                       <th colspan="2">Operaciones</th>
                                   </tr>
                               </thead>
-                              <tbody>
+                               <tbody>
                                <?php 
                                   $contador=1;
                                   foreach ($usuarios as $dato):
@@ -64,6 +84,8 @@ include("secciones/menu.php");
                                     $cedula = $dato->usuario_cedula;
                                     $nombre = $dato->usuario_nombre;
                                     $apellido = $dato->usuario_apellido;
+                                    $departamento = $dato->departamento_nombre;
+                                    $categoria = $dato->categoria_nombre;
                                     $id_usuario = $dato->id_usuario;
                                 ?>
                                   <tr>
@@ -71,6 +93,8 @@ include("secciones/menu.php");
                                     <td><?php echo $cedula;?></td>
                                     <td><?php echo $nombre;?></td>
                                     <td><?php echo $apellido;?></td>
+                                    <td><?php echo $departamento;?></td>
+                                    <td><?php echo $categoria;?></td>
                                     <td>
                                       <a class="btn btn-default" href="?controller=front&action=detalles_usuario&id_usuario=<?php echo $id_usuario; ?>"><i class="glyphicon glyphicon-pencil"></i>  Detalles</a>
                                     </td>
@@ -122,7 +146,7 @@ include("secciones/menu.php");
                         <div class="modal-body col-sm-12">
                             <form method="post" action="?controller=usuario&action=registrar_usuario" class="form-group" data-toggle="validator" onsubmit="return validarSelect(this)">
                         <div class="form-group col-sm-4">
-                          <label for="cedula">Cedula:</label>
+                          <label for="cedula">Cédula:</label>
                           <input  name="cedula" class="form-control" type="tel" data-minlength="7" data-error="Debe ser mayor a 6 digitos." placeholder="Escriba..." onkeypress="return controltag(event)" required>
                           <div class="help-block with-errors"></div>
                         </div>
@@ -145,7 +169,7 @@ include("secciones/menu.php");
                           </select>
                         </div>
                         <div class="form-group col-sm-4">
-                          <label for="telefono">Telefono:</label>
+                          <label for="telefono">Teléfono:</label>
                           <input  name="telefono" onkeypress="return controltag(event)"  class="form-control" type="tel" data-minlength="11" data-error="El número debe ser mayor a 10 digitos" placeholder="Escriba...">
                         <div class="help-block with-errors"></div>
                         </div>
@@ -155,7 +179,7 @@ include("secciones/menu.php");
                     <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-12">
-                          <label for="direccion">Direccion:</label>
+                          <label for="direccion">Dirección:</label>
                           <textarea  name="direccion" class="form-control" rows="3" required /></textarea>
                           <div class="help-block with-errors"></div>
                         </div>
@@ -163,7 +187,7 @@ include("secciones/menu.php");
                           <label for="rol">Rol de Usuario:</label>
                           <select name="rol" id="rol" class="form-control">
 
-                              <option value='0'>selecciona</option>
+                              <option value='0'>Seleccione</option>
                               <?php foreach ($roles as $rol): ?>
                                 <option value="<?php echo $rol->id_rol; ?>"><?php echo $rol->rol_nombre; ?></option>
                               <?php endforeach ?>
@@ -183,7 +207,7 @@ include("secciones/menu.php");
                           </select>
                         </div>
                         <div class="form-group col-sm-4">
-                          <label for="categoria_actual">Categoria Actual:</label>
+                          <label for="categoria_actual">Categoría Actual:</label>
                           <select name="categoria_actual" id="categoria_actual" class="form-control">
                             <option value='0'>selecciona</option>
                             <?php foreach ($categorias as $categoria):?>  
@@ -193,21 +217,21 @@ include("secciones/menu.php");
                         </div>
                        <div class="form-group col-sm-6">
                           <label for="clave">Contraseña:</label>
-                          <input type="password"  data-minlength="6" class="form-control" name="clave" placeholder="Password" required>
+                          <input type="password"  data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
                           <div class="help-block">Míninmo 6 Carácteres</div>
                           </div>
                         <div class="form-group col-sm-6">
                           <label for="rclave">Confirmar Contraseña:</label>
-                          <input type="password" class="form-control" id="clave" data-match="#clave" data-match-error="las contraseñas no coinciden" placeholder="Confirm" required>
+                          <input type="password" class="form-control" id="clave" data-match="#inputPassword" data-match-error="las contraseñas no coinciden" placeholder="Confirm" required>
                         <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-12">
-                          <label for="observacion">Observacion:</label>
+                          <label for="observacion">Observación:</label>
                           <textarea id="observacion" class="form-control" data-error="Requerido." rows="3" required></textarea>
                           <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group col-sm-12">
-                          <button type="submit" class="btn btn-info btn-block" ><i class="glyphicon glyphicon-ok" ></i>  Enviar</button>
+                          <button type="submit" class="btn btn-info btn-block" ><i class="glyphicon glyphicon-ok" ></i>  Envíar</button>
                         </div>
                       </form>
                         </div>
@@ -281,3 +305,24 @@ include("secciones/menu.php");
 
 
 <!--******************************************************************-->
+
+
+<script type="text/javascript">
+  
+  function buscarUsuario(){
+    var filtro = $("#filtro").val();
+    var url = "?controller=usuario&action=buscar_usuario";
+    
+    $.ajax({
+
+      type: "post",
+      url: url,
+      data:{filtro:filtro},
+      success:function(resultado){
+        $("#tabla_inicial").hide();
+        $("#scroll").html(resultado);
+      }
+    
+    })
+  }
+</script>

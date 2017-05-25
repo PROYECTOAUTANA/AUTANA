@@ -8,6 +8,9 @@
                         <li>
                             <a href="?controller=front&action=inicio"><span class="glyphicon glyphicon-home"></span> Inicio</a></a>
                         </li>
+                        <li>
+                            <a href="?controller=front&action=mi_perfil"><i class="fa fa-user" aria-hidden="true"></i> Mi perfil</a>
+                        </li>
                 <?php foreach ($_SESSION['modulos'] as $modulo): 
 
                         switch ($modulo->modulo_nombre) {
@@ -37,10 +40,9 @@
                                 echo '<li class="boton_desplegable">
                                         <a href="#"><i class="glyphicon glyphicon-cog"></i> '.$modulo->modulo_nombre.'</a>
                                         <div class="submenu">
-                                            <a href="?controller=front&action=bitacora">Bitacora  <i class="fa fa-history" aria-hidden="true"></i></a>
+                                            <a href="#">Bitacora  <i class="fa fa-history" aria-hidden="true"></i></a>
                                             <a href="?controller=front&action=usuarios">Usuarios  <i class="fa fa-users" aria-hidden="true"></i></a>
                                             <a href="?controller=front&action=roles">Roles  <i class="fa fa-user" aria-hidden="true"></i></a>
-                                            <a href="?controller=front&action=mantenimiento">Mantenimiento  <i class="glyphicon glyphicon-wrench"></i></a>
                                         </div>
                                         </li>';
                                 break;    

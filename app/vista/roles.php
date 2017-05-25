@@ -27,7 +27,7 @@ include("secciones/menu.php");
                       </div>
                       <div class="col-sm-6 col-xs-12 grupobotones">
                         <div class="col-sm-6">
-                            <a href="#nuevo_rol" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i>  Nuevo rol</a>
+                            <a href="#nuevo_rol" data-toggle="modal" class="btn btn-default btn-block"><i class="glyphicon glyphicon-plus"></i>  Nuevo Rol</a>
                         </div>
                         <div class="col-sm-6">
                             <a href="?controller=front&action=roles" class="btn btn-info btn-block"><i class="glyphicon glyphicon-refresh"></i>  Refrescar</a>
@@ -51,7 +51,7 @@ include("secciones/menu.php");
                                                             <tr style="text-align:center;">
                                                                 <th >#</th>
                                                                 <th >Rol</th>
-                                                                <th >Descripcion</th>
+                                                                <th >Descripción</th>
                                                                 <th colspan="2">Operaciones</th>
                                                             </tr>
                                                         </thead>

@@ -44,13 +44,13 @@ class Controlador_Trabajo{
 			$this->obj_trabajo->set_fecha_presentacion($_POST['fecha_pp']);
 			$this->obj_trabajo->set_mension($_POST['mension']);
 			$this->obj_trabajo->set_resumen($_POST['resumen']);
-			$this->obj_trabajo->set_categoria_ascenso($_POST['categoria_ascenso']);
 
 			$registro = $this->obj_trabajo->insertar();
 			
 
 			if (!$registro) {
-				echo "hubo un error!";
+				echo '<script>alert("Ya existe un trabajo con ese titulo en la base de datos")</script>';
+				echo '<script>window.location.href = "?controller=front&action=trabajos";</script>';
 			}else{
 
 				$ultimo_trabajo = $this->obj_trabajo->obtener_ultimo_trabajo();
@@ -64,7 +64,9 @@ class Controlador_Trabajo{
 				$this->obj_trabajo_linea->set_fk_trabajo($id_trabajo);
 				$this->obj_trabajo_linea->relacionar_linea();
 
-				header("location: ?controller=front&action=trabajos");
+				echo '<script>alert("registrado con exito");</script>';
+				echo '<script>window.location.href = "?controller=front&action=detalles_trabajo&id_trabajo='.$id_trabajo.'";</script>';
+
 			}
 	}
 
@@ -76,14 +78,12 @@ class Controlador_Trabajo{
 			$fecha_pp = $_POST['fecha_pp'];
 			$mension = $_POST['mension'];
 			$resumen = $_POST['resumen'];
-			$categoria_ascenso = $_POST['categoria_ascenso'];
 
 			$this->obj_trabajo->set_id($id_trabajo);
 			$this->obj_trabajo->set_titulo($titulo);
 			$this->obj_trabajo->set_proceso($proceso);
 			$this->obj_trabajo->set_mension($mension);
 			$this->obj_trabajo->set_resumen($resumen);
-			$this->obj_trabajo->set_categoria_ascenso($categoria_ascenso);
 
 			$actualizar = $this->obj_trabajo->actualizar();
 
@@ -92,6 +92,22 @@ class Controlador_Trabajo{
 			}else{
 				header("location: ?controller=front&action=detalles_trabajo&id_trabajo=$id_trabajo");
 			}
+	}
+
+	public function buscar_trabajo(){
+
+			$filtro = $_POST['filtro'];
+
+			$resultado = $this->obj_trabajo->buscar($filtro);
+			
+			if(!$resultado){
+				echo 'No hay sugerencias para: <b>'.$filtro."</b>...";
+			}else{
+
+				$cantidad = count($resultado);
+				echo '<br>'.$cantidad.'  Sugerencia(s) encontrada(s) para: <b>'.$filtro.'</b><br />';
+				require_once "app/vista/resultado-busqueda-trabajo.php";
+			} 
 	}
 
 	public function eliminar_trabajo(){
@@ -180,14 +196,38 @@ class Controlador_Trabajo{
 			$id_usuario = $_POST['usuario'];
 			$vinculo = $_POST['vinculo'];
 
-			$this->obj_usuario_trabajo->set_fk_trabajo($id_trabajo);
-			$this->obj_usuario_trabajo->set_fk_usuario($id_usuario);
-			$this->obj_usuario_trabajo->set_vinculo($vinculo);
-			$asignar_usuario = $this->obj_usuario_trabajo->relacionar_usuario();	
+			//si el vinculo del usuario que se desea asignar es igual a autor
+			if ($vinculo == "autor") {
+				//consultar si este usuario es autor en algun otro trabajo  
+				//de esta forma evitamos que espere ascender en varios trabajos
+				$this->obj_usuario_trabajo->set_fk_usuario($id_usuario);
+				$this->obj_usuario_trabajo->set_vinculo("autor");
+				$resultado = $this->obj_usuario_trabajo->consultar_usuario_vinculo();
+				//si el usuario no es autor en otos trabajos lo vinculamos con este trabajo
+				if (!$resultado) {
+					
+					$this->obj_usuario_trabajo->set_fk_trabajo($id_trabajo);
+					$this->obj_usuario_trabajo->set_fk_usuario($id_usuario);
+					$this->obj_usuario_trabajo->set_vinculo($vinculo);
+					$this->obj_usuario_trabajo->relacionar_usuario();	
 
-			if ($asignar_usuario) {
+					header("location: ?controller=front&action=detalles_trabajo&id_trabajo=$id_trabajo");
+
+				}else{
+					//si el autor si es autor en otros trabajos y esta esperando ascender 
+					//no le permitimos vincularlo con este trabajo
+					echo "este usuario posee almenos un trabajo sin aprobar aun";
+				}
+			//si el vinculo que se desea para este autor es de un tutor o un jurado hara esto
+			}else{
+
+				$this->obj_usuario_trabajo->set_fk_trabajo($id_trabajo);
+				$this->obj_usuario_trabajo->set_fk_usuario($id_usuario);
+				$this->obj_usuario_trabajo->set_vinculo($vinculo);
+				$this->obj_usuario_trabajo->relacionar_usuario();	
+
 				header("location: ?controller=front&action=detalles_trabajo&id_trabajo=$id_trabajo");
-			}					
+			}
 	}
 }
 ?>

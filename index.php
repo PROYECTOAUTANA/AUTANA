@@ -7,7 +7,6 @@
       AlejandroGimenez
 **
 */
-
 //En caso de que venga no venga ningun valor por request
 //cargamos el controlador front lo instanciamos y ejecutamos la accion home
 if(empty($_REQUEST)) {

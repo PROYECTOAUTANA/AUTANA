@@ -24,7 +24,7 @@
 <header class="banner">
     <div class="barra_2">
       <div class="logo">
-        <a href="?controlador=front&action=home"><img src="src/img/lautana1.jpg" alt="..."></a>
+        <a href="?controller=front&action=home"><img src="src/img/lautana1.jpg" alt="..."></a>
       </div>   
       <nav>
         <a href="#">Acerca de</a>
@@ -37,7 +37,7 @@
     <h3 style="font-size:50px;"><strong>404 Error: </strong></h3><br>
     <h4 style="font-size:30px;"><strong>Pagina no disponible</strong></h4><br>
     <p>Lo sentimos, la pagina solicitada no existe o no se encuentra disponible</p>
-    <a class="btn btn-primary" href="?controlador=front&action=home">Pagina de Inicio</a>
+    <a class="btn btn-primary" href="?controller=front&action=home">Pagina de Inicio</a>
 	</div>
 </div>
 

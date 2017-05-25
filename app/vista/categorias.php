@@ -50,8 +50,8 @@ include("secciones/menu.php");
                             <thead>
                                 <tr style="text-align:center;">
                                     <th>#</th>
-                                    <th>categoria</th>
-                                    <th>Descripcion</th>
+                                    <th>Categoria</th>
+                                    <th>Descripción</th>
                                     <th colspan="2">Operaciones</th>
                                 </tr>
                             </thead>
@@ -108,7 +108,7 @@ include("secciones/menu.php");
                          <!--HEADER DE LA VENTANA CON EL SIMBOLO DE CERRAR-->
                         <div class="modal-header">
                           <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h3 align="center" class="titulo"> nueva categoria</h3> 
+                          <h3 align="center" class="titulo"> Nueva Categoria</h3> 
                         </div>
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
@@ -120,7 +120,7 @@ include("secciones/menu.php");
                                   <div class="help-block with-errors"></div>
                                   </div> 
                                 <div class="form-group col-sm-12">
-                                  <label for="descripcioncategoria">Descripcion:</label>
+                                  <label for="descripcioncategoria">Descripción:</label>
                                   <textarea  id="descripcioncategoria" name="descripcion" data-error="Requerido." class="form-control" rows="3" required></textarea>
                                  <div class="help-block with-errors"></div>
                                   </div> 

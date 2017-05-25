@@ -46,6 +46,23 @@ class Controlador_Reporte
 		$this->obj_trabajo_linea = new Modelo_Trabajo_Linea();		
 	}
 
+	public function reportar($contenido,$nombre){
+
+		/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
+		$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
+		$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
+		$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
+		$footer = file_get_contents('app/vista/reportes/sections/footer.php');
+		$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
+		$this->obj_mpdf->SetHTMLHeader($header);
+		$this->obj_mpdf->SetHTMLHeader($headerE,'E');
+		$this->obj_mpdf->SetHTMLFooter($footer);
+		$this->obj_mpdf->SetHTMLFooter($footerE,'E');
+		$this->obj_mpdf->WriteHTML($contenido);
+		$this->obj_mpdf->Output($nombre,'I');
+		exit;
+	}
+
 	public function ver_estatus_trabajo(){
 		/*CONSULTAMOS A LA BASE DE DATOS*/
 		$id_trabajo = $_GET['id_trabajo'];
@@ -61,64 +78,31 @@ class Controlador_Reporte
 		$this->obj_usuario_trabajo->set_fk_trabajo($id_trabajo);
 		$usuarios = $this->obj_usuario_trabajo->consultar_trabajo_estatus();
 
-		/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
-		$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
-		$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$footer = file_get_contents('app/vista/reportes/sections/footer.php');
-		$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
-		$this->obj_mpdf->SetHTMLHeader($header);
-		$this->obj_mpdf->SetHTMLHeader($headerE,'E');
-		$this->obj_mpdf->SetHTMLFooter($footer);
-		$this->obj_mpdf->SetHTMLFooter($footerE,'E');
 		ob_start();
 		require_once 'app/vista/reportes/estatus_trabajo.php';
-		$html = ob_get_clean();
-		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output();
-		exit;
+		$contenido = ob_get_clean();
+		$nombre = "estatus_trabajo.pdf";
+		Controlador_Reporte::reportar($contenido,$nombre);
 	}
 
 	public function reporte_de_trabajos_pdf(){
 		/*CONSULTAMOS A LA BASE DE DATOS*/
 		$datos_trabajo = $this->obj_trabajo->reportar_trabajos();
-		/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
-		$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
-		$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$footer = file_get_contents('app/vista/reportes/sections/footer.php');
-		$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
-		$this->obj_mpdf->SetHTMLHeader($header);
-		$this->obj_mpdf->SetHTMLHeader($headerE,'E');
-		$this->obj_mpdf->SetHTMLFooter($footer);
-		$this->obj_mpdf->SetHTMLFooter($footerE,'E');
 		ob_start();
 		require_once 'app/vista/reportes/reporte_trabajos.php';
-		$html = ob_get_clean();
-		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output();
-		exit;
+		$contenido = ob_get_clean();
+		$nombre = "reporte_trabajos.pdf";
+		Controlador_Reporte::reportar($contenido,$nombre);
 	}
 
 	public function reporte_de_usuarios_pdf(){
 		/*CONSULTAMOS A LA BASE DE DATOS*/
 		$datos_usuario = $this->obj_usuario->reportar_usuarios();
-		/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
-		$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
-		$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$footer = file_get_contents('app/vista/reportes/sections/footer.php');
-		$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
-		$this->obj_mpdf->SetHTMLHeader($header);
-		$this->obj_mpdf->SetHTMLHeader($headerE,'E');
-		$this->obj_mpdf->SetHTMLFooter($footer);
-		$this->obj_mpdf->SetHTMLFooter($footerE,'E');
 		ob_start();
 		require_once 'app/vista/reportes/reporte_usuarios.php';
-		$html = ob_get_clean();
-		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output();
-		exit;
+		$contenido = ob_get_clean();
+		$nombre = "reporte_usuarios.pdf";
+		Controlador_Reporte::reportar($contenido,$nombre);
 	}
 
 	public function reporte_filtrado_trabajos(){
@@ -144,23 +128,12 @@ class Controlador_Reporte
 			//codigo para filtrar ni por una linea ni por una fase
 			$datos_trabajo = $this->obj_trabajo->reportar_trabajos_fecha($desde,$hasta);
 		}
-		
-		/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
-		$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
-		$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$footer = file_get_contents('app/vista/reportes/sections/footer.php');
-		$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
-		$this->obj_mpdf->SetHTMLHeader($header);
-		$this->obj_mpdf->SetHTMLHeader($headerE,'E');
-		$this->obj_mpdf->SetHTMLFooter($footer);
-		$this->obj_mpdf->SetHTMLFooter($footerE,'E');
+
 		ob_start();
 		require_once 'app/vista/reportes/reporte-trabajos-filtrado.php';
-		$html = ob_get_clean();
-		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output();
-		exit;
+		$contenido = ob_get_clean();
+		$nombre = "filtrar_trabajos.pdf";
+		Controlador_Reporte::reportar($contenido,$nombre);
 	}
 
 	public function reporte_filtrado_usuarios(){
@@ -186,23 +159,12 @@ class Controlador_Reporte
 			//codigo para filtrar ni por una categoria ni por un departamento
 			$datos_usuario = $this->obj_usuario->reportar_usuarios_fecha($desde,$hasta);
 		}
-		
-		/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
-		$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
-		$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
-		$footer = file_get_contents('app/vista/reportes/sections/footer.php');
-		$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
-		$this->obj_mpdf->SetHTMLHeader($header);
-		$this->obj_mpdf->SetHTMLHeader($headerE,'E');
-		$this->obj_mpdf->SetHTMLFooter($footer);
-		$this->obj_mpdf->SetHTMLFooter($footerE,'E');
+
 		ob_start();
 		require_once 'app/vista/reportes/reporte-usuarios-filtrado.php';
-		$html = ob_get_clean();
-		$this->obj_mpdf->WriteHTML($html);
-		$this->obj_mpdf->Output();
-		exit;
+		$contenido = ob_get_clean();
+		$nombre = "filtrar_usuarios.pdf";
+		Controlador_Reporte::reportar($contenido,$nombre);
 	}
 
 	public function constancia_usuarios(){
@@ -226,22 +188,12 @@ class Controlador_Reporte
 			}elseif ($tipo == "autor") {
 				$vinculo = "AUTOR";
 			}
-			
-			/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
-			$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
-			$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
-			$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
-			$footer = file_get_contents('app/vista/reportes/sections/footer.php');
-			$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
-			$this->obj_mpdf->SetHTMLHeader($header);
-			$this->obj_mpdf->SetHTMLHeader($headerE,'E');
-			$this->obj_mpdf->SetHTMLFooter($footer);
-			$this->obj_mpdf->SetHTMLFooter($footerE,'E');
+
 			ob_start();
 			require_once 'app/vista/reportes/constancia-usuario.php';
-			$html = ob_get_clean();
-			$this->obj_mpdf->WriteHTML($html);
-			$this->obj_mpdf->Output();
+			$contenido = ob_get_clean();
+			$nombre = "constancia.pdf";
+			Controlador_Reporte::reportar($contenido,$nombre);
 		}
 	}
 }
