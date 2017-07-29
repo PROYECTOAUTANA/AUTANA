@@ -49,6 +49,7 @@ include("secciones/menu.php");
                               <table border="0" class="table table-hover" align="center" >
                                                         <thead>
                                                             <tr style="text-align:center;">
+                                                                <th >#</th>
                                                                 <th >Rol</th>
                                                                 <th >Descripcion</th>
                                                                 <th colspan="2">Operaciones</th>

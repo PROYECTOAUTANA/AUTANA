@@ -42,9 +42,9 @@ class Controlador_Trabajo{
 			$this->obj_trabajo->set_titulo($_POST['titulo']);
 			$this->obj_trabajo->set_proceso($_POST['proceso']);
 			$this->obj_trabajo->set_fecha_presentacion($_POST['fecha_pp']);
-			$this->obj_trabajo->set_mension("fds");
-			$this->obj_trabajo->set_resumen("fsdfsd");
-			$this->obj_trabajo->set_categoria_ascenso("fsd");
+			$this->obj_trabajo->set_mension($_POST['mension']);
+			$this->obj_trabajo->set_resumen($_POST['resumen']);
+			$this->obj_trabajo->set_categoria_ascenso($_POST['categoria_ascenso']);
 
 			$registro = $this->obj_trabajo->insertar();
 			$ultimo_trabajo = $this->obj_trabajo->obtener_ultimo_trabajo();

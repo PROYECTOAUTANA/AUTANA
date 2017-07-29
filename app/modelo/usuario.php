@@ -122,6 +122,19 @@ class Modelo_Usuario{
 		}			
 	}
 
+	public function consultar_cedula(){
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM usuario , categoria WHERE usuario.fk_categoria = categoria.id_categoria and usuario.usuario_cedula = '$this->cedula'");
+        		$sql->execute(); 
+    			return $sql->fetch(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
+
 	public function validar_usuario(){
    		
 		try
@@ -214,6 +227,46 @@ class Modelo_Usuario{
 		}catch(Exception $e){	
 				echo 'ERROR : '.$e->getMessage();
 		}	
+	}
+
+	public function reportar_usuarios_fecha($desde,$hasta){
+	
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT * FROM usuario,categoria,usuario_rol,rol,usuario_departamento,departamento where usuario.fk_categoria = categoria.id_categoria and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_departamento.fk_departamento = departamento.id_departamento and usuario_rol.fk_usuario = usuario.id_usuario and usuario_rol.fk_rol = rol.id_rol and usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+				$sql->execute();
+				return $sql->fetchAll(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}	
+	}
+
+	public function reportar_usuario_categoria($desde,$hasta){
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT usuario.*,rol.*,departamento.*,categoria.* FROM usuario,usuario_departamento,departamento,categoria,usuario_rol,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_rol.fk_rol = rol.id_rol and usuario_rol.fk_usuario = usuario.id_usuario and usuario.fk_categoria = categoria.id_categoria and categoria.id_categoria = '$this->fk_categoria' and usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+        		$sql->execute(); 
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
+
+	public function reportar_usuarios_filtrados($id_departamento,$id_categoria,$desde,$hasta){
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT usuario.*,rol.*,departamento.*,categoria.* FROM usuario,usuario_departamento,departamento,categoria,usuario_rol,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_rol.fk_rol = rol.id_rol and usuario_rol.fk_usuario = usuario.id_usuario and usuario.fk_categoria = categoria.id_categoria and departamento.id_departamento = '$id_departamento' and categoria.id_categoria = '$id_categoria' and usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+        		$sql->execute(); 
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
 	}
 }
 ?>

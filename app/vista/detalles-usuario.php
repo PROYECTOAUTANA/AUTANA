@@ -47,16 +47,16 @@ include("secciones/menu.php");
                               <div class="form-group col-sm-4">
                                 <label>sexo</label><br>
                                   <?php if ($datos_usuario->usuario_sexo == 1): ?>
-                                    masculino
-                                    <input type="radio" name="sexo" value="1" checked>
                                     femenino
+                                    <input type="radio" name="sexo" value="1" checked>
+                                    masculino
                                     <input type="radio" name="sexo" value="2" >
                                   <?php endif ?>
 
                                   <?php if ($datos_usuario->usuario_sexo == 2): ?>
-                                    masculino
-                                    <input type="radio" name="sexo" value="1" >
                                     femenino
+                                    <input type="radio" name="sexo" value="1" >
+                                    masculino
                                     <input type="radio" name="sexo" value="2" checked>
                                   <?php endif ?>
                               </div>

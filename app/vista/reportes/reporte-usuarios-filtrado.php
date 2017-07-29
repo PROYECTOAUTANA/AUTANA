@@ -34,38 +34,41 @@
           <!-- Default panel contents -->
           <div class="panel-heading">Trabajos</div>
           <!-- Table -->
-            <table class="table">
+           <table class="table">
               <thead>
-                <tr class="info">
-                  <th class="2">#</th>
-                  <th class="2">titulo</th>
-                  <th class="2">fecha de presentacion publica</th>
-                  <th class="2">proceso</th>
-                  <th class="2">fase actual</th>
-                  <th class="2">linea</th>
+                <tr>
+                  <th class="col-sm-2">#</th>
+                  <th class="col-sm-2">Cedula</th>
+                  <th class="col-sm-2">Nombre</th>
+                  <th class="col-sm-2">Apellido</th>
+                  <th class="col-sm-2">Categoria</th>
+                  <th class="col-sm-2">Departamento</th>
+                  <th class="col-sm-2">Rol</th>
                 </tr>
               </thead>
               <tbody>
                 <?php 
                   $numero = 1;
-                  foreach ($datos_trabajo as $trabajo):
-                  
-                  $titulo = $trabajo->trabajo_titulo; 
-                  $fecha_pp = $trabajo->trabajo_fecha_presentacion;
-                  $proceso = $trabajo->trabajo_proceso;
-                  $fase = $trabajo->fase_nombre; 
-                  $linea = $trabajo->linea_nombre;
+                  foreach ($datos_usuario as $usuario):
+                  //obtenemos usuarios para mostrar
+                  $cedula = $usuario->usuario_cedula;
+                  $nombre = $usuario->usuario_nombre;
+                  $apellido = $usuario->usuario_apellido;
+                  $categoria = $usuario->categoria_nombre;
+                  $departamento = $usuario->departamento_nombre;
+                  $rol = $usuario->rol_nombre;
                 ?>
                 <tr>
-                  <td class="col-sm-2" ><?php echo $numero; ?></td>
-                  <td class="col-sm-2"><p><?php echo $titulo;?></p></td>
-                  <td class="col-sm-2"><p><?php echo $fecha_pp;?></p></td>
-                  <td class="col-sm-2"><p><?php echo $proceso;?></p></td>
-                  <td class="col-sm-2"><p><?php echo $fase;?></p></td>
-                  <td class="col-sm-2"><p><?php echo $linea;?></p></td>                      
+                  <td class="col-sm-2"><?php echo $numero;?></td>
+                  <td class="col-sm-2"><?php echo $cedula;?></td>
+                  <td class="col-sm-2"><?php echo $nombre;?></td>
+                  <td class="col-sm-2"><?php echo $apellido;?></td>
+                  <td class="col-sm-2"><?php echo $categoria;?></td>
+                  <td class="col-sm-2"><?php echo $departamento;?></td>
+                  <td class="col-sm-2"><?php echo $rol;?></td>    
                 </tr>
                 <?php 
-                  $numero = $numero+1;
+                  $numero = $numero + 1;
                   endforeach;
                 ?>
               </tbody>

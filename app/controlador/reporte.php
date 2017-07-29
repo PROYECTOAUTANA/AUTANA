@@ -5,6 +5,8 @@
 require_once "app/modelo/trabajo.php";
 require_once "app/modelo/usuario.php";
 require_once "app/modelo/usuarioTrabajo.php";
+require_once "app/modelo/usuarioDepartamento.php";
+require_once "app/modelo/categoria.php";
 require_once "app/modelo/trabajoLinea.php";
 require_once "app/modelo/trabajoFase.php";
 require_once 'libs/mpdf/mpdf.php';
@@ -14,6 +16,8 @@ class Controlador_Reporte
 	private $obj_usuario;
 	private $obj_mpdf;
 	private $obj_usuario_trabajo;
+	private $obj_usuario_departamento;
+	private $obj_categoria;
 	private $obj_trabajo_fase;
 	private $obj_trabajo_linea;
 
@@ -34,7 +38,9 @@ class Controlador_Reporte
 		*/
 		$this->obj_mpdf=new mPDF('c','A4','','',10,10,32,32,10,10); 
 		$this->obj_trabajo = new Modelo_Trabajo();
-		$this->obj_usuario = new Modelo_Usuario();	
+		$this->obj_usuario = new Modelo_Usuario();
+		$this->obj_usuario_departamento = new Modelo_Usuario_Departamento();
+		$this->obj_categoria = new Modelo_Categoria();	
 		$this->obj_usuario_trabajo = new Modelo_Usuario_Trabajo();
 		$this->obj_trabajo_fase = new Modelo_Trabajo_Fase();
 		$this->obj_trabajo_linea = new Modelo_Trabajo_Linea();		
@@ -169,6 +175,92 @@ class Controlador_Reporte
 		$this->obj_mpdf->WriteHTML($html);
 		$this->obj_mpdf->Output($nombre,'D');
 		exit;
+	}
+
+	public function reporte_filtrado_usuarios(){
+
+
+		$id_categoria = $_POST['id_categoria'];
+		$id_departamento = $_POST['id_departamento'];
+		$desde = $_POST['desde_usuario'];
+		$hasta = $_POST['hasta_usuario'];
+
+		if ($id_categoria == 0 and $id_departamento != 0) {
+			//codigo para filtrar solo por departamento
+			$this->obj_usuario_departamento->set_fk_departamento($id_departamento);
+			$datos_usuario = $this->obj_usuario_departamento->reportar_usuarios($desde,$hasta);
+		}elseif ($id_departamento == 0 and $id_categoria != 0) {
+			//codigo para filtrar solo por categoria
+			$this->obj_usuario->set_fk_categoria($id_categoria);
+			$datos_usuario = $this->obj_usuario->reportar_usuario_categoria($desde,$hasta);
+		}elseif ($id_departamento != 0 and $id_categoria != 0) {
+			//codigo para filtrar por una categoria y por una departamento
+			$datos_usuario = $this->obj_usuario->reportar_usuarios_filtrados($id_departamento,$id_categoria,$desde,$hasta);
+		}elseif ($id_departamento == 0 and $id_categoria == 0) {
+			//codigo para filtrar ni por una categoria ni por un departamento
+			$datos_usuario = $this->obj_usuario->reportar_usuarios_fecha($desde,$hasta);
+		}
+		
+		/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
+		$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
+		$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
+		$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
+		$footer = file_get_contents('app/vista/reportes/sections/footer.php');
+		$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
+		$this->obj_mpdf->SetHTMLHeader($header);
+		$this->obj_mpdf->SetHTMLHeader($headerE,'E');
+		$this->obj_mpdf->SetHTMLFooter($footer);
+		$this->obj_mpdf->SetHTMLFooter($footerE,'E');
+		ob_start();
+		require_once 'app/vista/reportes/reporte-usuarios-filtrado.php';
+		$html = ob_get_clean();
+		$prefijo = rand();
+		$nombre = $prefijo."_reporte_usuarios.pdf";
+		$this->obj_mpdf->WriteHTML($html);
+		$this->obj_mpdf->Output($nombre,'D');
+		exit;
+	}
+
+	public function constancia_usuarios(){
+
+
+		$cedula = $_POST['cedula'];
+		$tipo = $_POST['tipo'];
+
+		$this->obj_usuario->set_cedula($cedula);
+		$consulta = $this->obj_usuario->consultar_cedula();
+
+		if (!$consulta) {
+			echo '<script> alert("este usuario no existe")</script>';
+			echo '<script>window.location.href = "?controller=front&action=reportes";</script>';
+		}else{
+
+			if ($tipo == "tutor") {
+			$vinculo = "TUTOR";
+			}elseif ($tipo == "jurado") {
+				$vinculo = "JURADO";
+			}elseif ($tipo == "autor") {
+				$vinculo = "AUTOR";
+			}
+			
+			/* CON ob_start() OBTENEMOS LO QUE ESTA EN EL ARCHIVO reporte_trabajos.php */
+			$this->obj_mpdf->mirrorMargins = 1;	// Use different Odd/Even headers and footers and mirror margins
+			$header = file_get_contents('app/vista/reportes/sections/cabecera.php');
+			$headerE = file_get_contents('app/vista/reportes/sections/cabecera.php');
+			$footer = file_get_contents('app/vista/reportes/sections/footer.php');
+			$footerE = file_get_contents('app/vista/reportes/sections/footer.php');
+			$this->obj_mpdf->SetHTMLHeader($header);
+			$this->obj_mpdf->SetHTMLHeader($headerE,'E');
+			$this->obj_mpdf->SetHTMLFooter($footer);
+			$this->obj_mpdf->SetHTMLFooter($footerE,'E');
+			ob_start();
+			require_once 'app/vista/reportes/constancia-usuario.php';
+			$html = ob_get_clean();
+			$prefijo = rand();
+			$nombre = $prefijo."_reporte_usuarios.pdf";
+			$this->obj_mpdf->WriteHTML($html);
+			$this->obj_mpdf->Output($nombre,'D');
+		}
 	}
 }
  ?>

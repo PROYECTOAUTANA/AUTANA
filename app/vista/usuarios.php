@@ -49,6 +49,7 @@ include("secciones/menu.php");
                            <table class="table table-hover">
                               <thead>
                                   <tr style="text-align:center;">
+                                      <th >#</th>
                                       <th>Cedula</th>
                                       <th>Nombre</th>
                                       <th>Apellido</th>
@@ -119,7 +120,7 @@ include("secciones/menu.php");
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                         <div class="modal-body col-sm-12">
-                            <form method="post" action="?controller=usuario&action=registrar_usuario" class="form-group" data-toggle="validator">
+                            <form method="post" action="?controller=usuario&action=registrar_usuario" class="form-group" data-toggle="validator" onsubmit="return validarSelect(this)">
                         <div class="form-group col-sm-4">
                           <label for="cedula">Cedula:</label>
                           <input  name="cedula" class="form-control" type="tel" data-minlength="7" data-error="Debe ser mayor a 6 digitos." placeholder="Escriba..." onkeypress="return controltag(event)" required>
@@ -137,7 +138,7 @@ include("secciones/menu.php");
                         </div>
                          <div class="form-group col-sm-4">
                           <label for="sexo">Sexo:</label>
-                          <select class="form-control" size="1" name="sexo" >
+                          <select class="form-control" size="1" name="sexo" id="sexo">
                           <option value='0'>selecciona</option>
                             <option value="1">F</option>
                             <option value="2">M</option>
@@ -160,7 +161,7 @@ include("secciones/menu.php");
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="rol">Rol de Usuario:</label>
-                          <select name="rol" class="form-control">
+                          <select name="rol" id="rol" class="form-control">
 
                               <option value='0'>selecciona</option>
                               <?php foreach ($roles as $rol): ?>
@@ -172,7 +173,7 @@ include("secciones/menu.php");
                         <div class="form-group col-sm-4">
                           <label for="departamento">Departamento:</label>
 
-                          <select name="departamento" class="form-control">
+                          <select name="departamento" id="departamento" class="form-control">
                           
                                 <option value='0'>selecciona</option>
                             <?php foreach ($departamentos as $departamento) :?>
@@ -183,7 +184,7 @@ include("secciones/menu.php");
                         </div>
                         <div class="form-group col-sm-4">
                           <label for="categoria_actual">Categoria Actual:</label>
-                          <select name="categoria_actual" class="form-control">
+                          <select name="categoria_actual" id="categoria_actual" class="form-control">
                             <option value='0'>selecciona</option>
                             <?php foreach ($categorias as $categoria):?>  
                             <option value="<?php echo $categoria->id_categoria; ?>"><?php echo $categoria->categoria_nombre; ?></option>
@@ -192,7 +193,7 @@ include("secciones/menu.php");
                         </div>
                        <div class="form-group col-sm-6">
                           <label for="clave">Contraseña:</label>
-                          <input type="password"  data-minlength="6" class="form-control" id="clave" placeholder="Password" required>
+                          <input type="password"  data-minlength="6" class="form-control" name="clave" placeholder="Password" required>
                           <div class="help-block">Míninmo 6 Carácteres</div>
                           </div>
                         <div class="form-group col-sm-6">
@@ -217,7 +218,36 @@ include("secciones/menu.php");
                       </div>
                     </div>
                   </div> <!--TERMINO EL DIV DEL MODAL nuevo usuario-->
-                  
+                  <script type="text/javascript">
+                    function validarSelect(f){
+                      var sexo = f.elements["sexo"].value;
+                      var rol = f.elements["rol"].value;
+                      var departamento = f.elements["departamento"].value;
+                      var categoria_actual = f.elements["categoria_actual"].value;
+
+                      if (sexo == 0) {
+
+                        alert("seleccione un sexo valido");
+                        return false;
+                      }else if (rol == 0) {
+
+                        alert("seleccione un rol valido");
+                        return false;
+                      }else if (departamento == 0) {
+
+                        alert("seleccione un departamento valido");
+                        return false;
+                      }else if (categoria_actual == 0) {
+
+                        alert("seleccione una categoria valida");
+                        return false;
+                      }else{
+                        alert("registrado correctamente...");
+                        return true;
+                      }
+
+                    }
+                  </script>
 <!--******************************************************************-->
 
 

@@ -203,13 +203,14 @@ class Controlador_Usuario{
 
 					$this->obj_rol_modulo->set_fk_rol($usuario_rol->fk_rol);
 					$modulos = $this->obj_rol_modulo->consultar_rol();
-
+					
 					$this->obj_usuario_departamento->set_fk_usuario($datos_usuario->id_usuario);
 					$usuario_departamento = $this->obj_usuario_departamento->consultar_usuario();
 
 					session_start();
 					$_SESSION['id']     = $datos_usuario->id_usuario;
 					$_SESSION['nombre']   = $datos_usuario->usuario_nombre;
+					$_SESSION['apellido']   = $datos_usuario->usuario_apellido;
 					$_SESSION['modulos'] = $modulos;
 					$_SESSION['departamento'] = $usuario_departamento->departamento_nombre;
 					$_SESSION['rol']   = $rol->rol_nombre;

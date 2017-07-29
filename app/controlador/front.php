@@ -94,6 +94,8 @@ class Controlador_Front{
 		$titulo_de_la_vista = "Gestionar Reportes";
 		$lineas = $this->obj_linea->listar();
         $fases = $this->obj_fase->listar();
+        $departamentos = $this->obj_departamento->listar();
+		$categorias = $this->obj_categoria->listar();
 		require_once "app/vista/reportes.php";
 	}
 	public function bitacora(){

@@ -11,15 +11,27 @@
 <?php require_once "secciones/scripts.php"; ?>
 <script type="text/javascript">
   
+
   $( function() {
-    $( "#fecha_inicial" ).datepicker();
-    $( "#fecha_inicial" ).datepicker('option', { dateFormat: 'yy/mm/dd' })
+    $( "#fecha_inicial" ).datepicker({ format: 'yyyy-mm-dd' });
+    $( "#fecha_inicial" ).on("change", function () { var fromdate = $(this).val(); });
   } );
 
 
   $( function() {
-    $( "#fecha_final" ).datepicker();
-    $( "#fecha_final" ).datepicker('option', { dateFormat: 'yy/mm/dd' })
+    $( "#fecha_final" ).datepicker({ format: 'yyyy-mm-dd' });
+    $( "#fecha_final" ).on("change", function () { var fromdate = $(this).val(); });
+  } );
+
+  $( function() {
+    $( "#fecha_inicial_usuario" ).datepicker({ format: 'yyyy-mm-dd' });
+    $( "#fecha_inicial_usuario" ).on("change", function () { var fromdate = $(this).val(); });
+  } );
+
+
+  $( function() {
+    $( "#fecha_final_usuario" ).datepicker({ format: 'yyyy-mm-dd' });
+    $( "#fecha_final_usuario" ).on("change", function () { var fromdate = $(this).val(); });
   } );
  
 </script>
@@ -104,7 +116,7 @@ include("secciones/menu.php");
                                 <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal">
                                   <li class="active"><a href="#htab1" data-toggle="tab"><i class="glyphicon glyphicon-print"></i>  Trabajos</a></li>
                                   <li><a href="#htab2" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i>   Usuarios</a></li>
-                                  <li><a href="#htab3" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i>   Constancias</a></li>
+                                  <li><a href="#htab3" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i>   Constancias</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active" id="htab1">
@@ -114,43 +126,41 @@ include("secciones/menu.php");
                                             <h4><i class="glyphicon glyphicon-print"></i>  Trabajos de Ascenso</h4>
                                           </div>
                                           <div class="col-sm-12">
-                                            <form class="form-group" action="?controller=reporte&action=reporte_filtrado_trabajos" method="post">
+                                            <form class="form-group" action="?controller=reporte&action=reporte_filtrado_trabajos" method="post"  data-toggle="validator">
 
                                               <div class="form-group col-sm-12">
                                                 <label>Seleccione una Linea de investigacion:</label>
-                                                <select class="form-control" name="id_linea">
-                                                  <option>Seleccione</option>
+                                                <select class="form-control" id="id_linea" name="id_linea">
+                                                  <option value="0">todas las lineas</option>
                                                   <?php foreach ($lineas as $linea): ?>
                                                     <option value="<?php echo $linea->id_linea; ?>"><?php echo $linea->linea_nombre; ?></option>
                                                   <?php endforeach ?>
-                                                  <option value="0">todas las lineas</option>
+                                                  
                                                 </select>
                                               </div>
 
                                                <div class="form-group col-sm-12">
                                                 <label>Seleccione una fase:</label>
-                                                <select class="form-control" name="id_fase">
-                                                  <option>Seleccione</option>
+                                                <select class="form-control" id="id_fase" name="id_fase">
+                                                  <option value="0">todas las fases</option>
                                                   <?php foreach ($fases as $fase): ?>
                                                     <option value="<?php echo $fase->id_fase; ?>"><?php echo $fase->fase_nombre; ?></option>
                                                   <?php endforeach ?>
-                                                  <option value="0">todas las fases</option>
+                                                  
                                                 </select>
                                               </div> 
                                                
-                                                
-                                              <div class="form-group col-sm-12">
-                                                <div class="col-sm-6">
+                                             
+                                                <div class="col-sm-6 form-group">
                                                   <label>Desde:</label>
                                                   <input type="text" id="fecha_inicial" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required name="desde">
                                                    <div class="help-block with-errors"></div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-6 form-group">
                                                   <label>Hasta:</label>
                                                   <input type="text" id="fecha_final" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required name="hasta">
                                                    <div class="help-block with-errors"></div>
                                                 </div>
-                                              </div>
 
                                               <div class="col-sm-12 form-group">
                                                   <input type="submit" name="" class="btn btn-info btn-block">
@@ -165,44 +175,35 @@ include("secciones/menu.php");
                                              <h4><i class="fa fa-users" aria-hidden="true"></i>  Usuarios</h4>
                                           </div>
                                           <div class="col-sm-12">
-                                            <form class="form-group">
-                                              <div class="form-group col-sm-12">
-                                                <label>Seleccione el Rol:</label>
-                                                <select class="form-control">
-                                                  <option>Seleccione</option>
-                                                  <option value="rol1">Rol1</option>
-                                                  <option value="rol2">Rol2</option>
-                                                  <option value="rol3">Rol3</option>
-                                                </select>
-                                              </div>  
-                                              <div class="form-group col-sm-12">
-                                                <label>Seleccione el Departamento:</label>
-                                                <select class="form-control">
-                                                  <option>Seleccione</option>
-                                                  <option value="dpto1">dpto1</option>
-                                                  <option value="dpto2">dpto2</option>
-                                                  <option value="dpto3">dpto3</option>
+                                            <form class="form-group" action="?controller=reporte&action=reporte_filtrado_usuarios" method="post"  data-toggle="validator">
+                                             <div class="form-group col-sm-12">
+                                                <label>Seleccione un departamento:</label>
+                                                <select class="form-control" id="id_departamento" name="id_departamento">
+                                                  <option value="0">todos los departamentos</option>
+                                                  <?php foreach ($departamentos as $departamento): ?>
+                                                    <option value="<?php echo $departamento->id_departamento; ?>"><?php echo $departamento->departamento_nombre; ?></option>
+                                                  <?php endforeach ?>
                                                 </select>
                                               </div> 
                                               <div class="form-group col-sm-12">
-                                                <label>Seleccione la categoria:</label>
-                                                <select class="form-control">
-                                                  <option>Seleccione</option>
-                                                  <option value="categoria1">categoria1</option>
-                                                  <option value="categoria2">categoria2</option>
-                                                  <option value="categoria3">categoria3</option>
+                                                <label>Seleccione una categoria:</label>
+                                                <select class="form-control" id="id_categoria" name="id_categoria">
+                                                  <option value="0">todas las categorias</option>
+                                                  <?php foreach ($categorias as $categoria): ?>
+                                                    <option value="<?php echo $categoria->id_categoria; ?>"><?php echo $categoria->categoria_nombre; ?></option>
+                                                  <?php endforeach ?>
                                                 </select>
-                                              </div>  
-                                              <div class="form-group col-sm-12">
-                                                <div class="col-sm-6">
+                                              </div> 
+                                               <div class="col-sm-6 form-group">
                                                   <label>Desde:</label>
-                                                  <input type="text" placeholder="dd/mm/aaaa" class="form-control" id="desde1">
+                                                  <input type="text" id="fecha_inicial_usuario" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required name="desde_usuario">
+                                                   <div class="help-block with-errors"></div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-6 form-group">
                                                   <label>Hasta:</label>
-                                                  <input type="text" placeholder="dd/mm/aaaa"  class="form-control" id="hasta1">
+                                                  <input type="text" id="fecha_final_usuario" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required name="hasta_usuario">
+                                                   <div class="help-block with-errors"></div>
                                                 </div>
-                                              </div>
                                               <div class="col-sm-12 form-group">
                                                   <input type="submit" name="" class="btn btn-info btn-block">
                                               </div>
@@ -210,21 +211,22 @@ include("secciones/menu.php");
                                           </div>
                                       </div>
                                     <div role="tabpanel" class="tab-pane fade in" id="htab3">
-                                        <h3><i class="fa fa-users" aria-hidden="true"></i>  Constancias</h3>
+                                        <h3><i class="fa fa-user" aria-hidden="true"></i>  Constancias</h3>
                                         <br>
                                        <div class="col-sm-12">
-                                          <form class="form-group">
+                                          <form class="form-group" action="?controller=reporte&action=constancia_usuarios" method="post" data-toggle="validator" onsubmit='return validarConstancia(this)'>
                                             <div class="form-group col-sm-12">
                                               <label>Escriba la C.I.:</label>
-                                              <input type="text" class="form-control" id="cedula">
+                                              <input type="text" class="form-control" id="cedula" type="tel" data-minlength="7" data-error="Debe ser mayor a 6 digitos." placeholder="Escriba..." onkeypress="return controltag(event)" required>
+                                              <div class="help-block with-errors"></div>
                                             </div>
                                              <div class="form-group col-sm-12">
                                                 <label>Seleccione el Tipo de constancia:</label>
-                                                <select class="form-control">
-                                                  <option>Seleccione</option>
-                                                  <option value="tipo">tipo1</option>
-                                                  <option value="tipo">tipo1</option>
-                                                  <option value="tipo">tipo1</option>
+                                                <select class="form-control" name="tipoConstancia" name="tipoConstancia">
+                                                  <option value="0">Seleccione</option>
+                                                  <option value="tipo1">tipo1</option>
+                                                  <option value="tipo2">tipo1</option>
+                                                  <option value="tipo3">tipo1</option>
                                                 </select>
                                               </div>  
                                             <div class="col-sm-12 form-group"> 
@@ -233,6 +235,22 @@ include("secciones/menu.php");
                                           </form>
                                         </div>
                                     </div>
+
+                                    <script type="text/javascript">
+                    function validarConstancia(f){
+                      var tipo = f.elements["tipoConstancia"].value;
+
+                      if (tipo == 0) {
+
+                        alert("seleccione un tipo de constancia valido");
+                        return false;
+                      }else{
+                        return true;
+                      }
+
+                    }
+                  </script>
+
                       </div>
             </div>
         </div>
@@ -246,6 +264,9 @@ include("secciones/menu.php");
 <script src="src/js/boton.js"></script>
 </body>
 </html>
+
+
+
 
 
 <!--********************* VENTANAS MODALES ...  ******************-->

@@ -78,5 +78,18 @@ class Modelo_Usuario_Departamento{
 				echo 'ERROR : '.$e->getMessage();
 		}			
 	}
+
+	public function reportar_usuarios($desde,$hasta){
+		try
+			{	
+				$sql = $this->pdo->prepare("SELECT usuario.*,rol.*,departamento.*,categoria.* FROM usuario,usuario_departamento,departamento,categoria,usuario_rol,rol WHERE usuario_departamento.fk_departamento = departamento.id_departamento and usuario_departamento.fk_usuario = usuario.id_usuario and usuario_rol.fk_rol = rol.id_rol and usuario_rol.fk_usuario = usuario.id_usuario and usuario.fk_categoria = categoria.id_categoria and departamento.id_departamento = '$this->fk_departamento' and usuario.usuario_fecha_registro BETWEEN ('$desde') AND ('$hasta')");
+        		$sql->execute(); 
+    			return $sql->fetchAll(PDO::FETCH_OBJ);
+				parent::setAttribute(PDO::ATTR_ERRMODE,-PDO::ERRMODE_EXCEPTION);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}			
+	}
 }
 ?>

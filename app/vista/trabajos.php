@@ -50,6 +50,7 @@ include("secciones/menu.php");
                                 <table class="table table-hover">
                                       <thead>
                                       <tr>
+                                        <th >#</th>
                                         <th>Titulo</th>
                                         <th>Fecha de presentacion</th>
                                         <th>Resumen</th>
@@ -115,6 +116,8 @@ include("secciones/menu.php");
 
 
 
+  
+
 <div class="modal fade" id="nuevo_trabajo">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
@@ -126,7 +129,7 @@ include("secciones/menu.php");
                       <!--TERMINA EL HEADER-->
                       <!--CUERPO O BODY DE LA VENTANA-->
                       <div class="modal-body col-sm-12">
-                        <form method="post" action="?controller=trabajo&action=registrar_trabajo" class="form-group" data-toggle="validator">
+                        <form method="post" action="?controller=trabajo&action=registrar_trabajo" class="form-group" data-toggle="validator" onsubmit="return validarSelect(this)">
 
                              <div class="form-group col-sm-4">
                               <label for="titulo">Titulo:</label>
@@ -135,35 +138,45 @@ include("secciones/menu.php");
                             </div>
                             <div class="form-group col-sm-4">
                               <label for="proceso">Proceso:</label>
-                              <select id="proceso" name="proceso" size="1" class="form-control" >
-                                <option>Seleccione</option>
+                              <select id="proceso" name="proceso" id="proceso" size="1" class="form-control" >
+                                <option value="0">Seleccione</option>
                                 <option value="regular">Regular</option>
                                 <option value="extraordinario">Extraordinario</option>
                               </select>
                             </div>
                             <div class="form-group col-sm-4">
                               <label>Fecha de Presentacion Publica:</label>
-                              <input type="text" name="fecha_pp" id="fecha_pp" class="form-control" data-error="Por favor introduzca una fecha." placeholder="DD/MM/AAAA" required /> 
+                              <input type="text" name="fecha_pp" id="fecha_pp" class="form-control" data-error="Por favor introduzca una fecha." placeholder="YY/MM/DD" required /> 
                                   <div class="help-block with-errors"></div>
                             </div>
 
-                             <div class="form-group col-sm-12">
+                             <div class="form-group col-sm-6">
                               <label for="">Linea de investigacion:</label>
-                          <select name="linea" class="form-control" class="form-control">
-                            <option>seleccione</option>
+                          <select name="linea" id="linea" class="form-control" class="form-control">
+                            <option value="0">seleccione</option>
                                 <?php foreach ($lineas as $linea): ?>
                                   <option value="<?= $linea->id_linea; ?>"><?= $linea->linea_nombre; ?></option>
                                 <?php endforeach; ?>
                           </select>
                             </div>
-                            <div class="form-group col-sm-12">
+                            <div class="form-group col-sm-6">
                               <label for="">Fase:</label>
-                              <select name="fase" class="form-control" class="form-control">
-                               <option>seleccione</option>
+                              <select name="fase" id="fase" class="form-control" class="form-control">
+                               <option value="0">seleccione</option>
                                 <?php foreach ($fases as $fase): ?>
                                   <option value="<?= $fase->id_fase; ?>"><?= $fase->fase_nombre; ?></option>
                                 <?php endforeach; ?>
                               </select>
+                            </div>
+                             <div class="form-group col-sm-6">
+                              <label for="categoria_ascenso">categoria de ascenso:</label>
+                              <input class="form-control" data-error="Por favor introduzca un valor valido." id="categoria_ascenso" name="categoria_ascenso" placeholder="Escriba..." type="text"   required />    
+                                  <div class="help-block with-errors"></div>
+                            </div>
+                             <div class="form-group col-sm-6">
+                              <label for="mension">mension:</label>
+                              <input class="form-control" data-error="Por favor introduzca un valor valido" id="mension" name="mension" placeholder="Escriba..." type="text"   required />    
+                                  <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group col-sm-12">
                               <label for="">Resumen:</label>
@@ -182,6 +195,32 @@ include("secciones/menu.php");
                       </div>
                     </div>
                   </div> <!--TERMINO EL DIV DEL MODAL nuevo trabajo-->
+
+                  <script type="text/javascript">
+                    function validarSelect(f){
+                      var proceso = f.elements["proceso"].value;
+                      var linea = f.elements["linea"].value;
+                      var fase = f.elements["fase"].value;
+
+                      if (proceso == 0) {
+
+                        alert("seleccione un proceso valido");
+                        return false;
+                      }else if (linea == 0) {
+
+                        alert("seleccione un linea valido");
+                        return false;
+                      }else if (fase == 0) {
+
+                        alert("seleccione una fase valida");
+                        return false;
+                      }else{
+                        alert("registrado correctamente...");
+                        return true;
+                      }
+
+                    }
+                  </script>
 
 <!--******************************************************************-->
 
