@@ -211,8 +211,6 @@ class Modelo_Trabajo{
 							OR 
 								trabajo.trabajo_mension LIKE '$filtro%'
 							OR 
-								trabajo.trabajo_fecha_presentacion LIKE '$filtro%'
-							OR 
 								trabajo.trabajo_proceso LIKE '$filtro%'";
 
 				$sql = $this->pdo->prepare($consulta);

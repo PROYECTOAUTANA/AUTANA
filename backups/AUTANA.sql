@@ -246,3 +246,69 @@ INSERT INTO rol_modulo(fk_rol, fk_modulo, rol_modulo_fecha_registro) VALUES (1, 
 INSERT INTO rol_modulo(fk_rol, fk_modulo, rol_modulo_fecha_registro) VALUES (1, 8, NOW());
 INSERT INTO rol_modulo(fk_rol, fk_modulo, rol_modulo_fecha_registro) VALUES (1, 9, NOW());
 INSERT INTO rol_modulo(fk_rol, fk_modulo, rol_modulo_fecha_registro) VALUES (1, 10, NOW());
+
+
+
+
+
+
+CREATE TABLE bitacora
+(
+  id serial,
+  tabla varchar(300),
+  accion varchar(300),
+  viejo varchar(300),
+  nuevo varchar(300),
+  fecha date,
+  hora time,
+  observacion varchar(300),
+  PRIMARY KEY (id)
+);
+
+CREATE OR REPLACE FUNCTION auditar() RETURNS TRIGGER AS $$
+  BEGIN
+      IF (TG_OP = 'INSERT') THEN
+          INSERT INTO bitacora(tabla,accion,nuevo,fecha,hora,observacion) values(TG_TABLE_NAME,'INSERTAR',NEW,NOW(),NOW(),'Se inserto un registro en la tabla exitosamente') ;
+          RETURN NEW;
+      ELSIF (TG_OP = 'UPDATE') THEN
+          INSERT INTO bitacora(tabla,accion,viejo,nuevo,fecha,hora,observacion) values(TG_TABLE_NAME,'MODIFICAR',OLD,NEW,NOW(),NOW(),'Se modifico un registro en la tabla exitosamente') ;
+          RETURN NEW;
+      ELSIF (TG_OP = 'DELETE') THEN
+          INSERT INTO bitacora(tabla,accion,viejo,fecha,hora,observacion) values(TG_TABLE_NAME,'ELIMINAR',OLD,NOW(),NOW(),'Se elimino un registro de la tabla exitosamente') ;
+          RETURN OLD;
+      END IF;
+      RETURN NULL;
+  END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE TRIGGER auditar_insersion_trabajo
+AFTER UPDATE OR DELETE OR INSERT ON trabajo
+  FOR EACH ROW EXECUTE PROCEDURE auditar();
+
+CREATE TRIGGER auditar_insersion_usuario
+AFTER UPDATE OR DELETE OR INSERT ON usuario
+  FOR EACH ROW EXECUTE PROCEDURE auditar();
+
+CREATE TRIGGER auditar_insersion_fase
+AFTER UPDATE OR DELETE OR INSERT ON fase
+  FOR EACH ROW EXECUTE PROCEDURE auditar();
+
+CREATE TRIGGER auditar_insersion_linea
+AFTER UPDATE OR DELETE OR INSERT ON linea
+  FOR EACH ROW EXECUTE PROCEDURE auditar();
+
+
+CREATE TRIGGER auditar_insersion_departamento
+AFTER UPDATE OR DELETE OR INSERT ON departamento
+  FOR EACH ROW EXECUTE PROCEDURE auditar();
+
+CREATE TRIGGER auditar_insersion_categoria
+AFTER UPDATE OR DELETE OR INSERT ON categoria
+  FOR EACH ROW EXECUTE PROCEDURE auditar();
+
+CREATE TRIGGER auditar_insersion_rol
+AFTER UPDATE OR DELETE OR INSERT ON rol
+  FOR EACH ROW EXECUTE PROCEDURE auditar();
+

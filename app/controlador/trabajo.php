@@ -120,7 +120,7 @@ class Controlador_Trabajo{
 				echo '<script>alert("error en la operacion ... no se pudo eliminar este trabajo");</script>';
 				echo '<script>window.location.href = "?controller=front&action=trabajos";</script>';
 			}else{
-				header("location: ?controller=front&action=detalles_trabajo&id_trabajo=$id_trabajo");
+				header("location: ?controller=front&action=trabajos");
 			}		
 		}else{
 				echo '<script>alert("no posee permisos para realizar esta operacion!");</script>';
@@ -236,9 +236,6 @@ class Controlador_Trabajo{
 						echo '<script>alert("usuario asignado con exito al trabajo");</script>';
 						echo '<script>window.location.href = "?controller=front&action=detalles_trabajo&id_trabajo='.$id_trabajo.'";</script>';
 					}
-
-					
-					
 				}
 	}
 }

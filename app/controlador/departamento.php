@@ -30,7 +30,7 @@ class Controlador_Departamento{
 			$this->obj_departamento->set_descripcion($_POST['descripcion']);
 			$resultados = $this->obj_departamento->insertar();
 				
-			if (!$resultados) {
+			if ($resultados) {
 				echo '<script>alert("operacion exitosa...");</script>';
 				echo '<script>window.location.href = "?controller=front&action=departamentos";</script>';
 			}else{

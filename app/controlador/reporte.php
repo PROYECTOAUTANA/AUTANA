@@ -167,6 +167,41 @@ class Controlador_Reporte
 		Controlador_Reporte::reportar($contenido,$nombre);
 	}
 
+	public function constancia(){
+
+
+		$id = $_GET['id'];
+
+		$this->obj_usuario_trabajo->set_fk_usuario($id);
+		$consulta = $this->obj_usuario_trabajo->consultar_docente();
+
+
+			switch ($consulta->vinculo) {
+				case "autor":
+					ob_start();
+					require_once 'app/vista/reportes/constancia_autor.php';
+					$contenido = ob_get_clean();
+					$nombre = "constancia.pdf";
+					Controlador_Reporte::reportar($contenido,$nombre);
+					break;
+				
+				case "tutor":
+					ob_start();
+					require_once 'app/vista/reportes/constancia_tutor.php';
+					$contenido = ob_get_clean();
+					$nombre = "constancia.pdf";
+					Controlador_Reporte::reportar($contenido,$nombre);
+					break;
+				case "jurado":
+					ob_start();
+					require_once 'app/vista/reportes/constancia_jurado.php';
+					$contenido = ob_get_clean();
+					$nombre = "constancia.pdf";
+					Controlador_Reporte::reportar($contenido,$nombre);
+					break;
+			}
+	}
+
 	public function constancia_usuarios(){
 
 

@@ -80,6 +80,31 @@ class Modelo_Usuario_Trabajo{
 		}		
 	}
 
+	public function consultar_docente(){
+   		
+		try
+			{	
+				$consulta = "SELECT 
+							* 
+							FROM 
+								usuario , usuario_trabajo, trabajo 
+							WHERE 
+								usuario_trabajo.fk_usuario = usuario.id_usuario 
+							AND 
+								usuario_trabajo.fk_trabajo = trabajo.id_trabajo 
+							AND 
+								usuario.id_usuario = '$this->fk_usuario' ";
+
+    			$sql = $this->pdo->prepare($consulta);
+    			$sql->execute();
+    			return $sql->fetch(PDO::FETCH_OBJ);
+			
+		}catch(Exception $e){	
+				echo 'ERROR : '.$e->getMessage();
+		}		
+	}
+
+
 	public function consultar_usuario_vinculo(){
    		
 		try

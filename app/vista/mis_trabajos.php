@@ -60,7 +60,7 @@ include("secciones/menu.php");
                                         </a>
                                       </td>
                                       <td>
-                                          <a class="btn btn-danger" href="?controller=reporte&action=constancia_pdf&id_trabajo=<?php echo $trabajo->id_trabajo; ?>"> <i class="glyphicon glyphicon-save"></i> Constancia 
+                                          <a class="btn btn-danger" href="?controller=reporte&action=constancia&id=<?php echo $trabajo->id_usuario; ?>" target="_blank"> <i class="glyphicon glyphicon-save"></i> Constancia 
                                           </a>
                                       </td>
                                     </tr>

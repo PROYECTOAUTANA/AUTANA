@@ -41,7 +41,7 @@
                                 echo '<li class="boton_desplegable">
                                         <a href="#"><i class="glyphicon glyphicon-cog"></i> '.$modulo->modulo_nombre.'</a>
                                         <div class="submenu">
-                                            <a href="#">Bitacora  <i class="fa fa-history" aria-hidden="true"></i></a>
+                                            <a href="?controller=front&action=bitacora">Bitacora  <i class="fa fa-history" aria-hidden="true"></i></a>
                                             <a href="?controller=front&action=usuarios">Usuarios  <i class="fa fa-users" aria-hidden="true"></i></a>
                                             <a href="?controller=front&action=roles">Roles  <i class="fa fa-user" aria-hidden="true"></i></a>
                                         </div>

@@ -16,6 +16,7 @@ require_once "app/modelo/modulo.php";
 require_once "app/modelo/usuarioDepartamento.php";
 require_once "app/modelo/trabajoLinea.php";
 require_once "app/modelo/trabajoFase.php";
+require_once "app/modelo/bitacora.php";
 
 class Controlador_Front{
 
@@ -33,6 +34,7 @@ class Controlador_Front{
 	private $obj_usuario_departamento;
 	private $obj_trabajo_linea;
 	private $obj_trabajo_fase;
+	private $obj_bitacora;
 
 	public function __construct(){
 
@@ -51,6 +53,7 @@ class Controlador_Front{
 		$this->obj_modulo = new Modelo_Modulo();
 		$this->obj_trabajo_fase = new Modelo_Trabajo_Fase();
 		$this->obj_trabajo_linea = new Modelo_Trabajo_Linea();
+		$this->obj_bitacora = new Modelo_Bitacora();
 	}
 	
 	public function home(){
@@ -102,11 +105,6 @@ class Controlador_Front{
 		$categorias = $this->obj_categoria->listar();
 		require_once "app/vista/reportes.php";
 	}
-	public function bitacora(){
-		session_start();
-		$titulo_de_la_vista = "Bitacora del Sistema";
-		require_once "app/vista/bitacora.php";
-	}
 	public function categorias(){
 		session_start();
 		$titulo_de_la_vista = "Gestionar Categorias de Docentes";
@@ -119,6 +117,12 @@ class Controlador_Front{
 		$titulo_de_la_vista = "Gestionar Roles";
 		$roles = $this->obj_rol->listar();
 		require_once "app/vista/roles.php";
+	}
+	public function bitacora(){
+		session_start();
+		$titulo_de_la_vista = "Gestionar Bitacora";
+		$transacciones = $this->obj_bitacora->listar();
+		require_once "app/vista/bitacora.php";
 	}
 	public function departamentos(){
 		session_start();
@@ -321,6 +325,21 @@ class Controlador_Front{
 			echo '<script>alert("usted no posee permisos para realizar esta accion");</script>';
 			echo '<script>window.location.href = "?controller=front&action=fases";</script>';
 		}	
+	}
+
+	public function transaccion(){
+		
+		session_start();
+		$titulo_de_la_vista = "Detalles de la transaccion";
+		$id = $_GET['id'];
+		$this->obj_bitacora->set_id($id);
+		$datos_transaccion = $this->obj_bitacora->consultar();
+
+		if ($datos_transaccion) {
+			require_once "app/vista/transaccion.php";
+		}else{
+			echo '<script>window.location.href = "?controller=front&action=bitacora";</script>';
+		}
 	}
 
 	public function mi_perfil(){

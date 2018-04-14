@@ -17,7 +17,7 @@
         <a href="?controller=front&action=home"><img src="src/img/lautana1.jpg" alt="..."></a>
       </div>   
       <nav>
-        <a href="../../autana/libs/manual.pdf" target="_blank">Ayuda</a>
+        <a href="libs/manual.pdf" target="_blank">  Ayuda  <i class="glyphicon glyphicon-question-sign"></i></a>
       </nav>
     </div>
 </header>
@@ -50,7 +50,7 @@
             <div class="imagen">
                 <img src="src/img/u.png" alt="...">
             </div>
-            <h4 class="titulo" align="center">INICIAR SESION</h4> 
+            <h4 class="titulo" align="center">INICIAR SESIÓN</h4> 
             <form class="form-group" action="?controller=usuario&action=login" method="post" data-toggle="validator">
                   <div class="form-group">
                     <div class="input-group">
@@ -67,10 +67,10 @@
                      <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
-                    <a href="#validar" data-toggle="modal">¿Olvido su Contraseña?</a>
+                    <a href="#validar" data-toggle="modal">¿Olvidó su Contraseña?</a>
                   </div>
                   <div class="form-group">
-                    <input type="submit" class="btn btn-info btn-block" value="Entrar" name="botonloguear" autofocus>
+                    <button type="submit" class="btn btn-info btn-block" name="botonloguear"><i class="glyphicon glyphicon-ok"></i> Entrar</button>
                   </div>  
             </form>
           </div>

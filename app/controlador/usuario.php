@@ -72,7 +72,7 @@ class Controlador_Usuario{
 				$this->obj_usuario_departamento->asignar_departamento();
 
 				echo'<script>alert("correcto, registrado con exito...")</script>';
-			echo '<script>window.location.href = "?controller=front&action=usuarios";</script>';
+			echo '<script>window.location.href = "?controller=front&action=detalles_usuario&id_usuario='.$id_usuario.'";</script>';
 			}
 		}else{
 				echo '<script>alert("no posee permisos para realizar esta operacion!");</script>';
