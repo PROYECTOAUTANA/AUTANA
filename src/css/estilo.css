@@ -1,0 +1,506 @@
+/*generales*/
+* {
+        margin: 0;
+        padding: 0;
+  }
+a h1 h2 h3 h4 h5 h6 p{
+
+    font-family: arial,sans-serif;
+    font-size: small;
+    font-weight: italic;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;   
+}
+
+.form-control{
+
+    border-radius: 2px;
+}
+
+
+.btn {
+    border-radius: 0.4px;
+    border: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.02), 0 6px 6px 0 rgba(0, 0, 0, 0);
+}
+
+.btn-default {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #ccc;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+
+.btn-danger:hover {
+    color: #FFF;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+
+.btn-danger.active, .btn-danger:active, .open > .dropdown-toggle.btn-danger {
+    color: #FFF;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+.btn-danger.focus, .btn-danger:focus {
+    color: #FFF;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+
+.btn-danger.active.focus, .btn-danger.active:focus, .btn-danger.active:hover, .btn-danger.focus:active, .btn-danger:active:focus, .btn-danger:active:hover, .open > .dropdown-toggle.btn-danger.focus, .open > .dropdown-toggle.btn-danger:focus, .open > .dropdown-toggle.btn-danger:hover {
+   color: #FFF;
+    background-color: #d13a35;
+    border-color: #d13a35;
+}
+
+
+
+.btn-info {
+    color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
+}
+
+.btn-info:hover {
+    color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
+}
+
+.btn-info.active, .btn-info:active, .open > .dropdown-toggle.btn-info {
+    color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
+}
+.btn-info.focus, .btn-info:focus {
+    color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
+}
+
+.btn-info.active.focus, .btn-info.active:focus, .btn-info.active:hover, .btn-info.focus:active, .btn-info:active:focus, .btn-info:active:hover, .open > .dropdown-toggle.btn-info.focus, .open > .dropdown-toggle.btn-info:focus, .open > .dropdown-toggle.btn-info:hover {
+   color: #FFF;
+    background-color: #1e85dc;
+    border-color: #1e85dc;
+}
+
+
+.navbar-inverse {
+    background-color: #222;
+    border-color: #222;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #222;
+}
+
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #222;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: #222;
+}
+/*generales*/
+/* dashboard */
+#principal {
+    margin-top: 48px;
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+#principal.cambiado {
+    padding-left: 250px;
+}
+#barra {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #222;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+#principal.cambiado #barra {
+    width: 250px;
+}
+#contenido {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+#principal.cambiado #contenido {
+    position: absolute;
+    margin-right: 250px;
+}
+
+/*ESTILOS DE BOTONES DINAMICOS*/
+.contenido_2{width: 50%;
+    position: fixed;
+    bottom: 15px;/*MARGEN HACA ABAJO*/
+    z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
+    left: 10px; /* Depende el Ancho de donde se va a colocar */
+}
+#minimenu{
+    width: 50%;
+    list-style: none;
+}
+#minimenu li {
+
+    margin-bottom: 20px;
+}
+#minimenu a {
+    border-radius: 100%;
+    padding: 18px 22px 18px 22px;
+    box-shadow: 0px 0px 30px 0 rgba(14, 12, 12, 0.91);
+    font-size: 15px;
+    background-color: RGB(1, 97, 246);
+    color: #FFF;
+}
+
+/**/
+/* Sidebar Styles */
+.menu {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+.menu li {
+    text-indent: 6px;
+    line-height: 50px;
+}
+.logotipo img{
+    width:95px;
+    margin-left: 58px;
+    padding-top: 20px;
+    text-align: center;
+}
+.menu li a {
+
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.menu li a:hover {
+
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.menu li a:active,
+.menu li a:focus {
+    text-decoration: none;
+    background: rgba(255,255,255,0.2);
+}
+li.boton_salir a{
+
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
+/* menu desplegable*/
+.submenu {
+    display:none;
+    position: relative;
+    background: color: #999999;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+}
+
+/* menus desplegables */
+.submenu a {
+
+    background-color: #222;
+    color: #fff;
+    text-align: right;
+    padding: 0px 15px 0px;
+    text-decoration: none;
+    display: block;
+}
+.boton_desplegable:hover .submenu {display: block;}
+/* dashboard */
+
+/* login */
+.home{ margin-top: 8%; }
+.login{background-color: #fff;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+.imagen img{
+    width: 60px;
+}
+.imagen {
+    background: #137bd4;
+    width: 100px;
+    height: 100px;
+    padding: 15px 20px;
+    margin: 0 auto;
+    border-radius: 100%;
+    box-sizing: border-box;
+}
+/* login */
+
+/*header home*/
+.banner {
+    width:100%; /* Establecemos que el header abarque el 100% del documento */
+    padding: 17px 0px 5px 0px;
+    overflow:hidden; /* Eliminamos errores de float */
+    background:#222;
+    margin-bottom:0px;
+    box-shadow:0px 0px 30px 0 rgb(14, 12, 12);
+}
+.barra_2 {
+
+    width:60%; /* Establecemos que el ancho sera del 90% */
+    max-width:1000px; /* Aqui le decimos que el ancho máximo sera de 1000px */
+    margin:auto; /* Centramos los elementos */
+    overflow:hidden; /* Eliminamos errores de float */
+}
+ 
+.banner .logo {
+    line-height:0px;
+    float:left;
+    -webkit-transition:all 500ms ease;
+    -o-transition:all 500ms ease;
+    transition:all 500ms ease;
+}
+.banner .logo img{
+    width: 160px;
+}
+.banner nav {
+    float:right;
+    line-height:130px;
+}
+.banner nav a {
+    display:inline-block;
+    background-color: #137bd4;
+    border-radius:4px;
+    color: #fff;
+    text-decoration:none;
+    padding:10px 20px;
+    line-height:normal;
+    font-size:15px;
+    -webkit-transition:all 500ms ease;
+    -o-transition:all 500ms ease;
+    transition:all 500ms ease;
+}
+ 
+.banner nav a:hover {
+    background-color: rgba(19, 123, 212, 0.73);    
+    border-radius:0px;
+}
+/*header home*/
+footer {
+        padding:10px 0px;
+        box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
+        position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
+        width: 100%;
+        bottom: 0;/*MARGEN HACA ABAJO*/
+        z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
+        left: 0; /* Depende el Ancho de donde se va a colocar */ 
+        background-color:#222;
+        color:#fff;      
+}
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: #222;
+}
+
+.navbar .navbar-inverse{
+
+ border-color: #222;
+}
+
+#cargando {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff url(../img/cargando.gif) no-repeat center;
+}
+.oculto{
+    display: none;
+}
+
+
+.grupobotones {
+    margin-top: 28px;
+}
+
+.contenido_1{
+
+margin-bottom: 15px;
+}
+
+.contenido_5{
+
+top: 20px;
+}
+.tablas{
+
+top: 20px;
+}
+.contenido{
+
+    bottom: 900px;
+}
+
+#boton2{
+    display: none;
+}
+#guardarysalir{
+
+    display: none;
+}
+    
+    .footer2 {
+        display: none;
+        box-shadow: 0px 0px 30px 0 rgb(14, 12, 12);
+        position: fixed;/*PARA DEJAR EL FOOTER FIJO A LA PANTALLA*/
+        width: 100%;
+        bottom: 0;/*MARGEN HACA ABAJO*/
+        z-index: 1000;/* Depende el valor segun las capas flotantes que tengas */
+        left: 0; /* Depende el Ancho de donde se va a colocar */ 
+        background-color:#222;
+        color:#fff;      
+}
+.footer2 .item {
+
+    text-align: center;
+}
+.footer2 .item a{
+
+    margin: 0px;
+    padding: 19px 0px;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+/**media queries**/
+@media(max-width:1024px){
+.banner nav {
+    width: 100%;
+    text-align: center;
+}
+.banner .logo {
+    width: 100%;
+    text-align: center;
+}
+.banner .logo img{
+    width: 160px;
+}
+h1{
+        font-size: 20px;
+    }
+#item_nav{
+    display: none;
+}
+#minimenu{
+    display: none;
+}
+}
+
+@media(min-width:1280px) {
+    #principal {
+        padding-left: 250px;
+    }
+
+    #principal.cambiado {
+        padding-left: 0;
+    }
+
+    #barra {
+        width: 250px;
+    }
+
+    #principal.cambiado #barra {
+        width: 0;
+    }
+
+    #contenido {
+        padding: 20px;
+        position: relative;
+    }
+    #principal.cambiado #contenido {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+@media(max-height:650px) {
+footer {
+    display: none;
+}
+}
+
+@media(max-width:1024px){
+
+.footer2{
+    display: block;
+}
+
+}
+
+
+
+
+/* barra sociaal  */
+
+.social {
+    position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
+    left: 0px; /* Establecemos la barra en la izquierda */
+    top: 320px; /* Bajamos la barra 300px de arriba a abajo */
+    z-index: 2000; /* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
+
+}
+ 
+    .social ul {
+        list-style: none;
+    }
+ 
+    .social ul li a {
+        display: inline-block;
+        border-radius:0px;
+        color:#fff;
+        background: #222;
+        font-size: 22px;
+        padding: 10px 20px;
+        text-decoration: none;
+        box-shadow: 0px 0px 12px 0 rgba(14, 12, 12, 0.5);
+        -webkit-transition:all 500ms ease;
+        -o-transition:all 500ms ease;
+        transition:all 500ms ease; /* Establecemos una transición a todas las propiedades */
+
+    }
+  
+    .social ul li .facebook {background:#3b5998;} /* Establecemos los colores de cada red social, aprovechando su class */
+    .social ul li .twitter {background: #00abf0; border-radius: 0px 15px 0px 0px;}
+    .social ul li .github {background: #444; border-radius: 0px 0px 15px 0px;}
+    .social ul li .instagram {background: #983639;}
+    .social ul li .website {background:#137bd4;}
+ 
+    .social ul li a:hover {
+        padding: 10px 24px 10px 20px;
+        background-color: #222;
+
+    }
+ }
+
